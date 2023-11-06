@@ -10,5 +10,7 @@ int main()
 
     int d = 32;
     
+    int g = 22;
+
     return 0;
 }
