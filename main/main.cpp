@@ -9,6 +9,8 @@ int main()
     cout << "Hello World!\n";
 
     int d = 32;
+    int a = 21;
+
     
     cout << "OK" << endl;
     //
