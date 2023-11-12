@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Character.h"
 #include "EditTxt.h"
-#include <iostream>
 
 // обробка подій
 void event_processing(sf::RenderWindow& window, Character& character);
@@ -29,7 +28,6 @@ int main()
         window.display();
     }
 
-    std::cout << "OK" << std::endl;
 
     return 0;
 }
