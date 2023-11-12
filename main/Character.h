@@ -11,9 +11,10 @@ private:
 	float speed; // швидкість
 
 	void move_left(); // рух вліво
-	void move_right(); // рух в право
+	void move_right(); // рух вправо
 	void move_up(); // рух вгору
 	void move_down(); // рух вниз
+
 
 public:
 	Character(); // конструктор за завмовчуванням, створює звичайний квадрат

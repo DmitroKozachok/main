@@ -96,19 +96,30 @@ float Character::get_damage() const { return damage; }
 
 void Character::move(sf::Event event) {
 	// перевірка чи нажата клавіша
-	if (event.type == sf::Event::KeyPressed)
-	{
-		// зміна руху в залежності від натиснутої кнопки
-		switch (event.key.code)
+	if (event.type == sf::Event::KeyPressed) {
+		// отримання стану натиснутих клавіш для руху по діагоналі
+		bool is_key_pressed_a = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+		bool is_key_pressed_d = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+		bool is_key_pressed_w = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+		bool is_key_pressed_s = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+
+		if (is_key_pressed_a)
 		{
-		case sf::Keyboard::A: {move_left(); break;} // рух вліво
-		case sf::Keyboard::D: {move_right(); break; } // рух вправо
-		case sf::Keyboard::W: {move_up(); break; } // рух вгору
-		case sf::Keyboard::S: {move_down(); break; } // рух вниз
+			move_left();
 		}
-
+		if (is_key_pressed_d)
+		{
+			move_right();
+		}
+		if (is_key_pressed_w)
+		{
+			move_up();
+		}
+		if (is_key_pressed_s)
+		{
+			move_down();
+		}
 	}
-
 }
 
 void Character::death()
