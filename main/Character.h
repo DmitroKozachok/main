@@ -1,3 +1,5 @@
+/*клас для створення шаблоного персонажа*/
+
 #pragma once
 #include <SFML/Graphics.hpp>
 

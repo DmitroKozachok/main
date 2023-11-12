@@ -103,21 +103,23 @@ void Character::move(sf::Event event) {
 		bool is_key_pressed_w = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
 		bool is_key_pressed_s = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 
+		// рух
+
 		if (is_key_pressed_a)
 		{
-			move_left();
+			move_left(); // рух вліво
 		}
 		if (is_key_pressed_d)
 		{
-			move_right();
+			move_right(); // рух вправо
 		}
 		if (is_key_pressed_w)
 		{
-			move_up();
+			move_up(); // рух вверх
 		}
 		if (is_key_pressed_s)
 		{
-			move_down();
+			move_down(); // рух вних
 		}
 	}
 }

@@ -1,11 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include "Character.h"
+#include "EditTxt.h"
 
 // обробка подій
 void event_processing(sf::RenderWindow& window, Character& character);
 
 int main()
 {
+    EditTxt tmp_text("Hello");
     Character character;
     // створення вікна на весь екран
     sf::RenderWindow window(sf::VideoMode::getFullscreenModes()[0], "SFML works!");
@@ -21,6 +23,7 @@ int main()
         window.clear();
 
         character.show(window);
+        tmp_text.show(window);
 
         window.display();
     }
