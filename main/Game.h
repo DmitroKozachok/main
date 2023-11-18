@@ -10,6 +10,6 @@ private:
 	void event_processing(sf::RenderWindow& window, Character& character); // обробка подій
 
 public:
-	void play_game();
+	void play_game(); // зауск гри
 };
 
