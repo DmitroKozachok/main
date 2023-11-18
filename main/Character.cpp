@@ -14,29 +14,6 @@ Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 10
 	character_sprite.setPosition(sf::Vector2f(1000, 200));
 }
 
-Character::Character(std::string tileset_way, float health, float damage, bool status, float speed)
-{
-	set_health(health);
-	set_damage(damage);
-	set_live_status(status);
-	set_speed(speed);
-
-	// Завантаження текстури з файлу
-	sf::Texture character_texture;
-	character_texture.loadFromFile(tileset_way);
-
-	// Створення спрайту з завантаженою текстурою
-	sf::Sprite new_sprite(character_texture);
-
-	// Початкові налаштування спрайту (зелений квадрат)
-	new_sprite.setColor(sf::Color::Green);
-
-	// Перенесення тимчасового спрайту на постійний
-	character_sprite = new_sprite;
-	character_sprite.setPosition(sf::Vector2f(1000, 200));
-
-}
-
 void Character::set_sprite(sf::Sprite& new_sprite) {
 	// зміна спрайту
 	character_sprite = new_sprite;
@@ -111,14 +88,6 @@ void Character::set_live_status(bool status) {
 	is_alive = status;
 }
 
-void Character::set_speed(float new_speed)
-{
-	if (new_speed > 0)
-	{
-		speed = new_speed;
-	}
-}
-
 sf::Sprite Character::get_sprite() const { return character_sprite; }
 
 float Character::get_health() const { return health; }
@@ -161,11 +130,6 @@ void Character::death()
 }
 
 bool Character::get_live_status() const { return is_alive; }
-
-float Character::get_speed() const
-{
-	return speed;
-}
 
 void Character::show(sf::RenderWindow& window) {
 	// вивід спрайту на екран

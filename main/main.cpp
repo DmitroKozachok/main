@@ -1,10 +1,10 @@
 #include "Game.h"
 
-Game game; // створення гри
+Game game;
 
 int main()
 {
-    game.play_game(); // зауск гри
+    game.play_game();
 
     return 0;
 }
