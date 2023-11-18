@@ -5,7 +5,7 @@
 
 class Character
 {
-private:
+protected:
 	sf::Sprite character_sprite; // спрайт персонажа
 	float health; // здоров'я
 	float damage; // урон
