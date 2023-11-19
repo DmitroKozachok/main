@@ -1,6 +1,6 @@
 #include "Character.h"
 
-Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 10 } {
+Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 2 } {
 	// створення текстури зеленого квадрату
 	sf::Texture character_texture;
 	character_texture.create(100, 100);
@@ -19,42 +19,28 @@ void Character::set_sprite(sf::Sprite& new_sprite) {
 	character_sprite = new_sprite;
 }
 
-void Character::move_left()
+void Character::move_left(float delta_time)
 {
-	float now_x = character_sprite.getPosition().x; // початкове значення x
-	float now_y = character_sprite.getPosition().y; // початкове значення y
-
 	// зміна позиції
-	character_sprite.setPosition(sf::Vector2f((now_x - speed), now_y));
+	character_sprite.move(-speed * delta_time, 0);
 }
 
-void Character::move_right()
+void Character::move_right(float delta_time)
 {
-	float now_x = character_sprite.getPosition().x; // початкове значення x
-	float now_y = character_sprite.getPosition().y; // початкове значення y
-
 	// зміна позиції
-	character_sprite.setPosition(sf::Vector2f((now_x + speed), now_y));
-
+	character_sprite.move(speed * delta_time, 0);
 }
 
-void Character::move_up()
+void Character::move_up(float delta_time)
 {
-	float now_x = character_sprite.getPosition().x; // початкове значення x
-	float now_y = character_sprite.getPosition().y; // початкове значення y
-
 	// зміна позиції
-	character_sprite.setPosition(sf::Vector2f(now_x, (now_y - speed)));
-
+	character_sprite.move(0, -speed * delta_time);
 }
 
-void Character::move_down()
+void Character::move_down(float delta_time)
 {
-	float now_x = character_sprite.getPosition().x; // початкове значення x
-	float now_y = character_sprite.getPosition().y; // початкове значення y
-
 	// зміна позиції
-	character_sprite.setPosition(sf::Vector2f(now_x, (now_y + speed)));
+	character_sprite.move(0, speed * delta_time);
 }
 
 void Character::set_health(float new_health) {
@@ -94,7 +80,7 @@ float Character::get_health() const { return health; }
 
 float Character::get_damage() const { return damage; }
 
-void Character::move(sf::Event event) {
+void Character::move(sf::Event event, float delta_time) {
 	// перевірка чи нажата клавіша
 	if (event.type == sf::Event::KeyPressed) {
 		// отримання стану натиснутих клавіш для руху по діагоналі
@@ -107,19 +93,19 @@ void Character::move(sf::Event event) {
 
 		if (is_key_pressed_a)
 		{
-			move_left(); // рух вліво
+			move_left(delta_time); // рух вліво
 		}
 		if (is_key_pressed_d)
 		{
-			move_right(); // рух вправо
+			move_right(delta_time); // рух вправо
 		}
 		if (is_key_pressed_w)
 		{
-			move_up(); // рух вверх
+			move_up(delta_time); // рух вверх
 		}
 		if (is_key_pressed_s)
 		{
-			move_down(); // рух вних
+			move_down(delta_time); // рух вних
 		}
 	}
 }

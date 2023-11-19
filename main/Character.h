@@ -12,10 +12,10 @@ protected:
 	bool is_alive; // чи живий
 	float speed; // швидкість
 
-	void move_left(); // рух вліво
-	void move_right(); // рух вправо
-	void move_up(); // рух вгору
-	void move_down(); // рух вниз
+	void move_left(float delta_time); // рух вліво
+	void move_right(float delta_time); // рух вправо
+	void move_up(float delta_time); // рух вгору
+	void move_down(float delta_time); // рух вниз
 
 
 public:
@@ -30,10 +30,10 @@ public:
 	float get_health() const; // повертає здоров'я персонажа
 	float get_damage() const; // повертає урон персонажа
 	bool get_live_status() const; // повертає статус життя героя, true - живий, false - мертвий
-
+	
 	void show(sf::RenderWindow& window); // промальовка персонажа
 
-	void move(sf::Event event); // рух персонажа
+	void move(sf::Event event, float delta_time); // рух персонажа
 
 	void death(); // смерть персонажа
 
