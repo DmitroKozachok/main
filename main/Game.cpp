@@ -1,9 +1,12 @@
 #include "Game.h"
 
+// коефіцієнт часу впливає на швидкість руху та програвання руху: чим менший, тим швидше
+int time_c = 10000;
+
 void Game::event_processing(sf::RenderWindow& window, Character& character, float delta_time)
 {
     sf::Event event;
-    while (window.waitEvent(event))
+    while (window.pollEvent(event))
     {
         // вікно закривається, коли ти натискаєш Escape
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
@@ -16,11 +19,8 @@ void Game::event_processing(sf::RenderWindow& window, Character& character, floa
 
 void Game::play_game()
 {
-    // створення тексту
-    EditTxt tmp_text("Hello");
-    
     // створення персонажа
-    Character character; 
+    Character character(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(1000.f, 200.f), sf::Vector2f(3.f, 3.f));
 
     // створення вікна на весь екран
     sf::RenderWindow window(sf::VideoMode::getFullscreenModes()[0], "SFML works!");
@@ -31,10 +31,10 @@ void Game::play_game()
     while (window.isOpen())
     {
         // створення різниці часу (потрібно для руху та анімацій)
-        float delta_time = clock.getElapsedTime().asMicroseconds();
+        float delta_time = clock.getElapsedTime().asSeconds();
         clock.restart();
 
-        delta_time /= 50;
+        delta_time /= time_c;
 
         // обробка подій
         event_processing(window, character, delta_time);
@@ -42,7 +42,6 @@ void Game::play_game()
         window.clear();
 
         character.show(window);
-        tmp_text.show(window);
 
         window.display();
     }
