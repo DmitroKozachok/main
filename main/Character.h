@@ -3,9 +3,21 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+// структура координат анімації
+struct CordAnimation
+{
+	int cord_left_anim;
+	int cord_right_anim;
+	int cord_up_anim;
+	int cord_down_anim;
+};
+
 class Character
 {
 protected:
+
+	CordAnimation cord_for_animation; // кординати анімації
+
 	float health; // здоров'я
 	float damage; // урон
 	bool is_alive; // чи живий
@@ -33,6 +45,7 @@ protected:
 	void idle_animation(float delta_time); // анімація стояння
 
 public:
+
 	Character(); // конструктор за завмовчуванням, створює звичайний квадрат
 	Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale); // конструктор, що встановлює спрайт персонажа
 
@@ -47,8 +60,6 @@ public:
 	void show(sf::RenderWindow& window); // промальовка персонажа
 
 	void move(sf::Event event, float delta_time); // рух персонажа
-
-	void death(); // смерть персонажа
 
 };
 

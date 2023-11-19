@@ -1,5 +1,4 @@
 #include "Character.h"
-#include <iostream>
 
 // коефіцієнт анімації впливає на швидкість показу анімації: чим більший, тим швидше
 int animation_c = 5000000;
@@ -34,6 +33,10 @@ Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f
 
 	// встановлення позиції
 	character_sprite.setPosition(position);
+
+	//встановлення координат анімації
+	
+
 }
 
 void Character::move_left(float delta_time)
@@ -176,11 +179,6 @@ void Character::set_damage(float new_damage) {
 
 void Character::set_live_status(bool status) {
 	// перевірка на смерть
-	if (!status)
-	{
-		death();
-	}
-
 	is_alive = status;
 }
 
@@ -204,11 +202,6 @@ void Character::move(sf::Event event, float delta_time) {
 		if (is_key_pressed_s) move_down(delta_time);
 
 	}
-}
-
-void Character::death()
-{
-	// анімація смерті...
 }
 
 bool Character::get_live_status() const { return is_alive; }
