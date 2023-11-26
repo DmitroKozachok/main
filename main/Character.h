@@ -22,6 +22,7 @@ protected:
 	float damage; // урон
 	bool is_alive; // чи живий
 	float speed; // швидк≥сть
+	float diagonal_speed; // швидк≥сть п≥д час руху по д≥агонал≥
 	
 	sf::Sprite character_sprite; // спрайт персонажа
 	sf::Image character_image; // картинка персонажа
@@ -56,6 +57,7 @@ public:
 	float get_health() const; // повертаЇ здоров'€ персонажа
 	float get_damage() const; // повертаЇ урон персонажа
 	bool get_live_status() const; // повертаЇ статус житт€ геро€, true - живий, false - мертвий
+	sf::Vector2f get_character_position() const; // повертаЇ позиц≥ю гравц€
 	
 	void show(sf::RenderWindow& window); // промальовка персонажа
 
