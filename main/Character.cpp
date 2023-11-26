@@ -206,6 +206,11 @@ void Character::move(sf::Event event, float delta_time) {
 
 bool Character::get_live_status() const { return is_alive; }
 
+sf::Vector2f Character::get_character_position() const
+{
+	return character_sprite.getPosition();
+}
+
 void Character::show(sf::RenderWindow& window) {
 	// вивід спрайту на екран
 	window.draw(character_sprite);

@@ -56,6 +56,7 @@ public:
 	float get_health() const; // повертає здоров'я персонажа
 	float get_damage() const; // повертає урон персонажа
 	bool get_live_status() const; // повертає статус життя героя, true - живий, false - мертвий
+	sf::Vector2f get_character_position() const; // повертає позицію гравця
 	
 	void show(sf::RenderWindow& window); // промальовка персонажа
 

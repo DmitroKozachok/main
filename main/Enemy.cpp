@@ -2,6 +2,8 @@
 
 Enemy::Enemy() : Character() {}
 
+Enemy::Enemy(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : Character(size_x, size_y, image_way, position, scale){} // делегування батьківського конструктора
+
 void Enemy::move(sf::Vector2f player_position, float game_timer)
 {
     sf::Vector2f enemy_position = character_sprite.getPosition(); // теперішня позиція ворога на екрані
