@@ -1,9 +1,12 @@
 // Клас для обробки усіх подій в процесі гри
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "Character.h"
 #include "EditTxt.h"
 #include "Enemy.h"
+
+#define ANIMATION_TIME 0.3f
 
 class Game
 {

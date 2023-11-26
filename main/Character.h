@@ -22,6 +22,7 @@ protected:
 	float damage; // урон
 	bool is_alive; // чи живий
 	float speed; // швидкість
+	float diagonal_speed; // швидкість під час руху по діагоналі
 	
 	sf::Sprite character_sprite; // спрайт персонажа
 	sf::Image character_image; // картинка персонажа
