@@ -8,11 +8,12 @@ void Game::event_processing(sf::RenderWindow& window, Character& character, floa
         // вікно закривається, коли ти натискаєш Escape
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
             window.close();
+
         //рух персонажа
         character.move(event, delta_time);
 
         //рух злодія
-        enemy.move(character.get_character_position(), ANIMATION_TIME);
+        enemy.move(character.get_character_position(), delta_time);
     }
 }
 
@@ -29,13 +30,14 @@ void Game::play_game()
 
     while (window.isOpen())
     {
+
         // обробка подій
         event_processing(window, character, ANIMATION_TIME, enemy);
         window.clear();
         
+        // вивід
         character.show(window);
         enemy.show(window);
         window.display();
-        
     }
 }

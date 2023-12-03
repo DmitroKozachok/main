@@ -1,5 +1,4 @@
 #include "Character.h"
-#include <iostream>
 
 Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 15 }, diagonal_speed{ speed / 1.3f }, frame{0.f} {
 	// створення текстури зеленого квадрату
@@ -222,7 +221,8 @@ float Character::get_health() const { return health; }
 
 float Character::get_damage() const { return damage; }
 
-void Character::move(sf::Event event, float delta_time) {
+void Character::move(sf::Event& event, float delta_time) {
+
 	// перевірка чи нажата клавіша
 	if (event.type == sf::Event::KeyPressed) {
 		// отримання стану натиснутих клавіш для руху по діагоналі
@@ -241,11 +241,6 @@ void Character::move(sf::Event event, float delta_time) {
 		if (is_key_pressed_d) move_right(delta_time);
 		if (is_key_pressed_w) move_up(delta_time);
 		if (is_key_pressed_s) move_down(delta_time);
-		
-		std::cout << "A: " << is_key_pressed_a << std::endl;
-		std::cout << "D: " << is_key_pressed_d << std::endl;
-		std::cout << "W: " << is_key_pressed_w << std::endl;
-		std::cout << "S: " << is_key_pressed_s << std::endl;
 	}
 }
 
