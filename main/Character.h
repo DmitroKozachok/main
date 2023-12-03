@@ -22,6 +22,7 @@ protected:
 	float damage; // урон
 	bool is_alive; // чи живий
 	float speed; // швидкість
+	float diagonal_speed; // швидкість під час руху по діагоналі
 	
 	sf::Sprite character_sprite; // спрайт персонажа
 	sf::Image character_image; // картинка персонажа
@@ -60,7 +61,7 @@ public:
 	
 	void show(sf::RenderWindow& window); // промальовка персонажа
 
-	void move(sf::Event event, float delta_time); // рух персонажа
+	void move(sf::Event& event, float delta_time); // рух персонажа
 
 };
 

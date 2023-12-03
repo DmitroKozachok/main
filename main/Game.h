@@ -5,6 +5,8 @@
 #include "EditTxt.h"
 #include "Enemy.h"
 
+#define ANIMATION_TIME 0.3f
+
 class Game
 {
 private:
