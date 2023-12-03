@@ -61,7 +61,7 @@ public:
 	
 	void show(sf::RenderWindow& window); // промальовка персонажа
 
-	void move(sf::Event event, float delta_time); // рух персонажа
+	void move(sf::Event& event, float delta_time); // рух персонажа
 
 };
 
