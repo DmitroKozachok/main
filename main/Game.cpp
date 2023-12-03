@@ -28,6 +28,12 @@ void Game::play_game()
     // створення вікна на весь екран
     sf::RenderWindow window(sf::VideoMode::getFullscreenModes()[0], "SFML works!");
 
+    // створення музики для гри 
+    Music music;
+
+    // запуск стартової бг музики
+    music.start_background_music_in_Menu();
+
     while (window.isOpen())
     {
 

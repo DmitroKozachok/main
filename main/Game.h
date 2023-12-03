@@ -4,7 +4,7 @@
 #include "Character.h"
 #include "EditTxt.h"
 #include "Enemy.h"
-
+#include "Music.h"
 #define ANIMATION_TIME 0.3f
 
 class Game
