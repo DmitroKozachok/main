@@ -1,10 +1,12 @@
+/*Клас для роботи з текстом*/
+
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
 
 class EditTxt
 {
-private:
+protected:
 	sf::Text text_string; // стрічка
 	sf::Font text_font; // шрифт тексту
 	sf::Vector2f text_position; // позиція тексту

@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Character& character, float delta_time, Enemy& enemy)
+void Game::event_processing(sf::RenderWindow& window, Character& character, float delta_time, Enemy& enemy, GyperText& gt)
 {
     sf::Event event;
     while (window.pollEvent(event))
@@ -11,6 +11,9 @@ void Game::event_processing(sf::RenderWindow& window, Character& character, floa
 
         //рух персонажа
         character.move(event, delta_time);
+
+        // наведення на текст
+        gt.hover(window);
 
         //рух злодія
         enemy.move(character.get_character_position(), delta_time);
@@ -28,14 +31,19 @@ void Game::play_game()
     // створення вікна на весь екран
     sf::RenderWindow window(sf::VideoMode::getFullscreenModes()[0], "SFML works!");
 
+    // створення гіпертексту
+    GyperText gt("TEST");
+
     while (window.isOpen())
     {
 
         // обробка подій
-        event_processing(window, character, ANIMATION_TIME, enemy);
+        event_processing(window, character, ANIMATION_TIME, enemy, gt);
+
         window.clear();
         
         // вивід
+        gt.show(window);
         character.show(window);
         enemy.show(window);
         window.display();

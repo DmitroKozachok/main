@@ -12,6 +12,10 @@ EditTxt::EditTxt()
 
     text_string.setPosition(text_position); // зміна позиції
 
+    // встановлення центру стрічки
+    sf::FloatRect text_bounds = text_string.getLocalBounds();
+    text_string.setOrigin(text_bounds.left + text_bounds.width / 2.0f, text_bounds.top + text_bounds.height / 2.0f);;
+
 }
 
 EditTxt::EditTxt(std::string string) : EditTxt() // делигування конструкторів
