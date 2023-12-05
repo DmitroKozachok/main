@@ -143,6 +143,7 @@
     <ClCompile Include="GyperText.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="StandartMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GyperText.h" />
     <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="StandartMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
