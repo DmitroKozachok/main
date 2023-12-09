@@ -5,6 +5,7 @@
 #include "EditTxt.h"
 #include "Enemy.h"
 #include "GyperText.h"
+#include "Map.h"
 
 #define ANIMATION_TIME 0.3f
 
