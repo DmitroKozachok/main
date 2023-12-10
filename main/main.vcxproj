@@ -154,6 +154,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GyperText.h" />
     <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="StandartMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
