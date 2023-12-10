@@ -42,6 +42,12 @@ void Game::play_game()
 
     MainMenu main_menu;
 
+    // створення музики для гри 
+    Game_Music music;
+
+    // запуск стартової бг музики
+    music.start_background_music_in_Menu();
+
     while (window.isOpen())
     {
 

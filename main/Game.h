@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "EditTxt.h"
 #include "Enemy.h"
+#include "Game_Music.h"
 #include "GyperText.h"
 #include "Map.h"
 #include "MainMenu.h"
