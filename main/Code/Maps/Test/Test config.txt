@@ -1,3 +1,4 @@
 Resources/map/Forest BETA V3/Forest Cliff.png
-192X192
+12X8
 16
+5
