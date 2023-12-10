@@ -140,15 +140,24 @@
     <ClCompile Include="EditTxt.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GyperText.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="StandartMenu.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Game_Music.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="EditTxt.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GyperText.h" />
     <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Game_Music.h" />
+    <ClInclude Include="StandartMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
