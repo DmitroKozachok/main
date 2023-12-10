@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 
-struct char_and_coords
+struct char_and_coords // структура, яка містить символ, який відповідає за певний тайл
 {
 	char ch;
 
@@ -23,8 +23,8 @@ private:
 	int scale;
 	char** map_arr; // масив символів карти
 	std::string path; // шлях до тайлсету карти
-	char_and_coords* symbol_coord_arr;
-	int symbol_coord_arr_size;
+	char_and_coords* symbol_coord_arr; // масив координатів та символів для відображення карти
+	int symbol_coord_arr_size; // розмір масиву координатів
 
 	sf::Image map_image; // картинка тайлсету
 	sf::Texture map_texture; // текстура тайлсету
@@ -34,8 +34,8 @@ private:
 	void load_arr(std::string file_path); // загрузка масиву
 
 public:
-	Map(std::string file_config_path, std::string file_arr_path, std::string file_code_path);
+	Map(std::string file_config_path, std::string file_arr_path, std::string file_code_path); // конструктор, що встановлює налаштування карти
 
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window); // промальова карти
 
 };
