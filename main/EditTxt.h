@@ -16,7 +16,10 @@ public:
 	EditTxt(std::string string); // створення введеного тексту
 
 	void set_string(std::string string); // зміна стрічки
-	
+	void set_position(sf::Vector2f position); // зміна розиції
+	void set_size(float size);
+
+	sf::Text get_txt(); // повертає текст
 	sf::Vector2f get_position() const; // повертає позицію
 
 	void show(sf::RenderWindow& window); // вивід

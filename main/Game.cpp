@@ -6,9 +6,12 @@ void Game::event_processing(sf::RenderWindow& window, Character& character, floa
     while (window.pollEvent(event))
     {
         // вікно закривається, коли ти натискаєш Escape
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-            window.close();
-
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Escape) {
+                window.close();
+            }
+        }
+        
         //рух персонажа
         character.move(event, delta_time);
 
@@ -34,6 +37,8 @@ void Game::play_game()
     // створення гіпертексту
     GyperText gt("TEST");
 
+    MainMenu main_menu;
+
     while (window.isOpen())
     {
 
@@ -43,9 +48,11 @@ void Game::play_game()
         window.clear();
         
         // вивід
-        gt.show(window);
-        character.show(window);
-        enemy.show(window);
+        //gt.show(window);
+        //character.show(window);
+        //enemy.show(window);
+
+        main_menu.show(window);
         window.display();
     }
 }

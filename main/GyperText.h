@@ -8,11 +8,10 @@
 class GyperText : public EditTxt
 {
 public:
-
+	GyperText();
 	GyperText(std::string string); // створення гіпертексту
 
 	void hover(sf::RenderWindow& window); // зміна кольору при наведені
-	void click(); // обробка натискання на клавішу
-
+	bool is_button_pressed(sf::Event event); // обробка натискання на клавішу
 };
 
