@@ -1,10 +1,14 @@
 #include "StandartMenu.h"
 
-StandartMenu::StandartMenu(std::string path, int text_amount, int gyper_text_amount)
+StandartMenu::StandartMenu(std::string path, int new_text_amount, int new_gyper_text_amount) // переназвав аргументи
 {
 	set_background_image(path);
-	set_text_amount(text_amount);
-	set_gyper_text_amount(gyper_text_amount);
+	background_texture.loadFromImage(background_image);
+	background_sprite.setTexture(background_texture);
+	set_text_amount(new_text_amount); // переназвав аргументи
+	set_gyper_text_amount(new_gyper_text_amount); // переназвав аргументи
+	text_arr = new EditTxt[text_amount]; // добавляю текст
+	gyper_text_arr = new GyperText[gyper_text_amount]; // добавляю текст
 }
 
 void StandartMenu::set_background_image(std::string path)
