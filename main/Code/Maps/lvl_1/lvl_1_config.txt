@@ -1,0 +1,4 @@
+Resources/map/[Base]BaseChip_pipo.png
+20X12
+32
+2

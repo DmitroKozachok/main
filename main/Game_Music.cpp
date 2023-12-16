@@ -44,9 +44,9 @@ Game_Music::settings_music::settings_music(int song_lvl, std::string Amusik)
 		std::cout << "Error adding music in settings_music class" << std::endl;
 	}
 	else {
-		song_lvl = 50;
+		lvl_this_song = song_lvl;
 		path_to_music = Amusik;
-		this_music.setVolume(song_lvl);
+		this_music.setVolume(lvl_this_song);
 	}
 }
 

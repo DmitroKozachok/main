@@ -26,7 +26,9 @@ void Game::event_processing(sf::RenderWindow& window, Character& character, floa
 void Game::play_game()
 {
     // створення мапи
-    Map map("Code/Maps/Test/Test config.txt", "Code/Maps/Test/Test map.txt", "Code/Maps/Test/Code for test.txt");
+    //Map map("Code/Maps/Test/Test config.txt", "Code/Maps/Test/Test map.txt", "Code/Maps/Test/Code for test.txt");
+    Map map_lvl_1("Code/Maps/lvl_1/lvl_1_config.txt", "Code/Maps/lvl_1/lvl_1_map.txt", "Code/Maps/lvl_1/lvl_1_Codet.txt");
+
 
     // створення персонажа
     Character character(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(1000.f, 200.f), sf::Vector2f(3.f, 3.f));
@@ -35,7 +37,7 @@ void Game::play_game()
     Enemy enemy(32, 32, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/slime.png", sf::Vector2f(700.f, 200.f), sf::Vector2f(3.f, 3.f));
 
     // створення вікна на весь екран
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
 
     // створення гіпертексту
     GyperText gt("TEST");
@@ -57,7 +59,7 @@ void Game::play_game()
         window.clear();
         
         // вивід
-        map.draw(window);
+        map_lvl_1.draw(window);
         gt.show(window);
         character.show(window);
         enemy.show(window);
