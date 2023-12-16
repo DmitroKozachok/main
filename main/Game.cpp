@@ -47,6 +47,9 @@ void Game::play_game()
     // створення музики для гри 
     Game_Music music;
 
+    // створення камери
+    PlayerCamera camera(character, sf::Vector2f(600.f, 600.f), window);
+
     // запуск стартової бг музики
     music.start_background_music_in_Menu();
 
@@ -64,5 +67,6 @@ void Game::play_game()
         character.show(window);
         enemy.show(window);
         window.display();
+        camera.draw(character, window);
     }
 }

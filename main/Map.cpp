@@ -2,8 +2,10 @@
 
 void Map::load_config(std::string file_config_path, std::string file_code_path)
 {
+	// завантаження файлу конфігурації
     std::ifstream file(file_config_path);
 
+	// завантаження данних з файлу конфігурації
 	if (!file)
 	{
 		std::cout << "ERROR!!!" << std::endl;
@@ -23,8 +25,6 @@ void Map::load_config(std::string file_config_path, std::string file_code_path)
 			{
 				width = std::stoi(string.substr(0, string.find_first_of('X')));
 				height = std::stoi(string.substr(string.find_first_of('X') + 1, string.length()));
-
-				std::cout << width << "  " << height << std::endl;
 			}
 			else if (line == 2)
 			{
@@ -39,10 +39,12 @@ void Map::load_config(std::string file_config_path, std::string file_code_path)
 		}
 	}
 
+	// завантаження файлу для встановлення розміру масиву координатів
 	std::ifstream file_code1(file_code_path);
 
 	symbol_coord_arr_size = 0;
 
+	// встановлення розміру
 	if (!file_code1)
 	{
 		std::cout << "ERROR!!!" << std::endl;
@@ -59,11 +61,14 @@ void Map::load_config(std::string file_config_path, std::string file_code_path)
 		symbol_coord_arr = new char_and_coords[symbol_coord_arr_size];
 	}
 
+
+	// завантаження файлу для встановлення координатів елементів масиву
 	std::ifstream file_code2(file_code_path);
 
 	std::string string2;
 	int line2 = 0;
 
+	// встановлення координат
 	if (!file_code2)
 	{
 		std::cout << "ERROR!!!" << std::endl;
@@ -105,16 +110,20 @@ void Map::load_config(std::string file_config_path, std::string file_code_path)
 	}
 	
 }
+
 void Map::load_arr(std::string file_path)
 {
+	// загрузка файлу карти
 	std::ifstream file(file_path);
 	
+	// створення масиву карти розміром width X height
 	map_arr = new char* [height];
 	for (int i = 0; i < height; i++)
 	{
 		map_arr[i] = new char[width];
 	}
 
+	// завантаження масиву
 	if (!file)
 	{
 		std::cout << "ERROR!!!" << std::endl;
@@ -136,32 +145,26 @@ void Map::load_arr(std::string file_path)
 			}
 		}
 	}
-	
-	for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
-			std::cout << map_arr[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
 
 }
+
 Map::Map(std::string file_config_path, std::string file_arr_path, std::string file_code_path)
 {
+	// встановлення данних для роботи з картою
 	load_config(file_config_path, file_code_path);
 	load_arr(file_arr_path);
 
+	// налаштування спрайту карти
 	map_image.loadFromFile(path);
 	map_texture.loadFromImage(map_image);
-	map_sprite.setTexture(map_texture);
 
+	map_sprite.setTexture(map_texture);
 	map_sprite.setScale(scale, scale);
 }
 
 void Map::draw(sf::RenderWindow& window)
 {
-
+	// промальовка карти за допомогою пошуку елемента в масиві координат
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
