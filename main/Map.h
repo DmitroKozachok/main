@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 
 struct char_and_coords
 {
@@ -11,6 +12,8 @@ struct char_and_coords
 
 	int x;
 	int y;
+	int x_under;
+	int y_under;
 };
 
 class Map
@@ -39,3 +42,4 @@ public:
 	void draw(sf::RenderWindow& window);
 
 };
+

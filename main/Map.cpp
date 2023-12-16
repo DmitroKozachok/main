@@ -72,11 +72,34 @@ void Map::load_config(std::string file_config_path, std::string file_code_path)
 	{
 		while (std::getline(file_code2, string2))
 		{
-			symbol_coord_arr[line2].ch = string2[0];
-
+			/*symbol_coord_arr[line2].ch = string2[0];
 			symbol_coord_arr[line2].x = std::stoi(string2.substr(string2.find_first_of(' ') + 1, string2.find_last_of(' ')));
 			symbol_coord_arr[line2].y = std::stoi(string2.substr(string2.find_last_of(' ') + 1));
+			symbol_coord_arr[line2].lvl_layers = std::stoi(string2.substr(string2.find_first_of(lvl_find_char)+1));*/
+			/////////////////
+			char lvl_find_char = '#';
+			char lvl_under_pos = ',';
+			symbol_coord_arr[line2].ch = string2[0];
+			if (string2.find_first_of(lvl_find_char) != std::string::npos) {
+				symbol_coord_arr[line2].x = std::stoi(string2.substr(string2.find_first_of(' ') + 1, string2.find_last_of(' ')));
 
+				symbol_coord_arr[line2].y = std::stoi(string2.substr(string2.find_last_of(' ') + 1));
+
+				symbol_coord_arr[line2].x_under = std::stoi(string2.substr(string2.find_last_of(lvl_find_char)+1, string2.find_first_of(lvl_under_pos)));
+
+				symbol_coord_arr[line2].y_under = std::stoi(string2.substr(string2.find_last_of(lvl_under_pos) + 1));
+
+
+			}
+			else {
+				symbol_coord_arr[line2].x = std::stoi(string2.substr(string2.find_first_of(' ') + 1, string2.find_last_of(' ')));
+				symbol_coord_arr[line2].y = std::stoi(string2.substr(string2.find_last_of(' ') + 1));
+				symbol_coord_arr[line2].x_under = -1;
+				symbol_coord_arr[line2].y_under = -1;
+			}
+
+
+			/////////////////
 			line2++;
 		}
 	}
@@ -138,23 +161,35 @@ Map::Map(std::string file_config_path, std::string file_arr_path, std::string fi
 
 void Map::draw(sf::RenderWindow& window)
 {
-	
+
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
 			map_sprite.setPosition((tile_size * j * scale), (tile_size * i * scale));
-			
+
 			for (int k = 0; k < symbol_coord_arr_size; k++)
 			{
 				if (map_arr[i][j] == symbol_coord_arr[k].ch)
 				{
-					map_sprite.setTextureRect(sf::IntRect(tile_size * symbol_coord_arr[k].x, tile_size * symbol_coord_arr[k].y, tile_size, tile_size));
-					window.draw(map_sprite);
+					if (symbol_coord_arr[k].x_under == -1) {
+						map_sprite.setTextureRect(sf::IntRect(tile_size * symbol_coord_arr[k].x, tile_size * symbol_coord_arr[k].y, tile_size, tile_size));
+						window.draw(map_sprite);
+					}
+					else {
+						map_sprite.setTextureRect(sf::IntRect(tile_size * symbol_coord_arr[k].x_under, tile_size * symbol_coord_arr[k].y_under, tile_size, tile_size));
+						window.draw(map_sprite);
+						map_sprite.setTextureRect(sf::IntRect(tile_size * symbol_coord_arr[k].x, tile_size * symbol_coord_arr[k].y, tile_size, tile_size));
+						window.draw(map_sprite);
+					}
 				}
+
 			}
 
 		}
 
 	}
 }
+
+
+
