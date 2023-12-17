@@ -14,7 +14,7 @@ Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 15
 	character_sprite.setPosition(sf::Vector2f(1000, 200));
 }
 
-Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 35 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
+Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 20 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
 {
 	// встановлення картинки
 	character_image.loadFromFile(image_way);
@@ -236,7 +236,7 @@ float Character::get_damage() const { return damage; }
 void Character::move(sf::Event& event, float delta_time) {
 
 	// перевірка чи нажата клавіша
-	if (event.type == sf::Event::KeyPressed && is_attacking == false) {
+	if (is_attacking == false) {
 
 		// отримання стану натиснутих клавіш для руху по діагоналі
 		bool is_key_pressed_a = sf::Keyboard::isKeyPressed(sf::Keyboard::A);

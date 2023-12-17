@@ -3,6 +3,7 @@
 void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, Enemy& enemy, GyperText& gt)
 {
     sf::Event event;
+
     while (window.pollEvent(event))
     {
         // в≥кно закриваЇтьс€, коли ти натискаЇш Escape
@@ -11,20 +12,19 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 window.close();
             }
         }
-        
-        //рух персонажа
-        player.move(event, delta_time);
 
         // наведенн€ на текст
         gt.hover(window);
 
-        //рух злод≥€
+        // рух злод≥€
         enemy.move(player.get_character_position(), delta_time);
     }
 
+    // рух персонажа
+    player.move(event, delta_time);
+
     // атака гравц€
     player.attack(event, delta_time);
-
 }
 
 void Game::play_game()
