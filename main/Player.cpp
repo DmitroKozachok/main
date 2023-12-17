@@ -4,7 +4,7 @@ void Player::attack_animation_down(float delta_time)
 {
     // Якщо йде удар, програвайте анімацію
     if (is_attacking) {
-        frame += delta_time / 100;
+        frame += delta_time;
 
         // Перевірте, чи анімація програла повністю
         if (frame > 3) {
@@ -23,7 +23,7 @@ void Player::attack_animation_up(float delta_time)
 {
     // Якщо йде удар, програвайте анімацію
     if (is_attacking) {
-        frame += delta_time / 100;
+        frame += delta_time;
 
         // Перевірте, чи анімація програла повністю
         if (frame > 3) {
@@ -41,7 +41,7 @@ void Player::attack_animation_left(float delta_time)
 {
     // Якщо йде удар, програвайте анімацію
     if (is_attacking) {
-        frame += delta_time / 100;
+        frame += delta_time;
 
         // Перевірте, чи анімація програла повністю
         if (frame > 3) {
@@ -65,7 +65,7 @@ void Player::attack_animation_right(float delta_time)
 {
     // Якщо йде удар, програвайте анімацію
     if (is_attacking) {
-        frame += delta_time / 100;
+        frame += delta_time;
 
         // Перевірте, чи анімація програла повністю
         if (frame > 3) {
