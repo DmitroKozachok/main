@@ -14,7 +14,7 @@ Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 15
 	character_sprite.setPosition(sf::Vector2f(1000, 200));
 }
 
-Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 35 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }
+Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 35 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
 {
 	// встановлення картинки
 	character_image.loadFromFile(image_way);
@@ -38,6 +38,9 @@ void Character::move_left(float delta_time)
 	// зміна позиції
 	character_sprite.move(-speed * delta_time, 0);
 
+	// зміна положення анімації
+	move_status = LEFT;
+
 	// програвання анімації
 	move_animation_left(delta_time);
 }
@@ -46,6 +49,9 @@ void Character::move_right(float delta_time)
 {
 	// зміна позиції
 	character_sprite.move(speed * delta_time, 0);
+
+	// зміна положення анімації
+	move_status = RIGHT;
 
 	// програвання анімації
 	move_animation_right(delta_time);
@@ -56,6 +62,9 @@ void Character::move_up(float delta_time)
 	// зміна позиції
 	character_sprite.move(0, -speed * delta_time);
 
+	// зміна положення анімації
+	move_status = UP;
+
 	// програвання анімації
 	move_animation_up(delta_time);
 }
@@ -64,6 +73,9 @@ void Character::move_down(float delta_time)
 {
 	// зміна позиції
 	character_sprite.move(0, speed * delta_time);
+
+	// зміна положення анімації
+	move_status = DOWN;
 
 	// програвання анімації
 	move_animation_down(delta_time);
@@ -224,7 +236,8 @@ float Character::get_damage() const { return damage; }
 void Character::move(sf::Event& event, float delta_time) {
 
 	// перевірка чи нажата клавіша
-	if (event.type == sf::Event::KeyPressed) {
+	if (event.type == sf::Event::KeyPressed && is_attacking == false) {
+
 		// отримання стану натиснутих клавіш для руху по діагоналі
 		bool is_key_pressed_a = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 		bool is_key_pressed_d = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
