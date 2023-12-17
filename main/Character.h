@@ -12,6 +12,15 @@ struct CordAnimation
 	int cord_down_anim;
 };
 
+// положення анімації персонажа
+enum MoveStatus
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+};
+
 class Character
 {
 protected:
@@ -21,6 +30,7 @@ protected:
 	float health; // здоров'я
 	float damage; // урон
 	bool is_alive; // чи живий
+	bool is_attacking; // чи атакує
 	float speed; // швидкість
 	float diagonal_speed; // швидкість під час руху по діагоналі
 	
@@ -32,6 +42,8 @@ protected:
 	int size_texture_y; // розмір тайлу по У
 
 	float frame; // теперішній кадр
+
+	MoveStatus move_status; // положення анімації персонажа
 
 	void move_left(float delta_time); // рух вліво
 	void move_right(float delta_time); // рух вправо
