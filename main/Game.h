@@ -8,6 +8,7 @@
 #include "GyperText.h"
 #include "Map.h"
 #include "MainMenu.h"
+#include "PlayerCamera.h"
 
 #define ANIMATION_TIME 0.3f
 
