@@ -1,22 +1,33 @@
 #include "MainMenu.h"
+#include <iostream>
 
-MainMenu::MainMenu() : StandartMenu("---", 1, 3)
+MainMenu::MainMenu(PlayerCamera& camera, sf::RenderWindow& window) : StandartMenu("---", 1, 3)
 {
-	text_arr[0].set_size(120);
+	camera.set_position(sf::Vector2f{ 0.f, 0.f }, window);
+	camera.set_size(sf::Vector2f{ (float)window.getSize().x, (float)window.getSize().y });
+
+	std::cout << camera.get_position().x << " " << camera.get_position().y << std::endl;
+	std::cout << camera.get_size().x << " " << camera.get_size().y << std::endl;
+
+	text_arr[0].set_size(60);
 	text_arr[0].set_string("Main Menu");
-	text_arr[0].set_position({ 1000.f, 200.f });
 
-	gyper_text_arr[0].set_size(60);
+	gyper_text_arr[0].set_size(30);
 	gyper_text_arr[0].set_string("Start");
-	gyper_text_arr[0].set_position({ 340.f, 600.f });
 
-	gyper_text_arr[1].set_size(60);
+	gyper_text_arr[1].set_size(30);
 	gyper_text_arr[1].set_string("Settings");
-	gyper_text_arr[1].set_position({ 340.f, 700.f });
 
-	gyper_text_arr[2].set_size(60);
+	gyper_text_arr[2].set_size(30);
 	gyper_text_arr[2].set_string("Exit");
-	gyper_text_arr[2].set_position({ 340.f, 800.f });
+}
+
+void MainMenu::set_position(PlayerCamera& camera)
+{
+	text_arr[0].set_position({ camera.get_size().x * 0.5f, camera.get_size().y * 0.35f });
+	gyper_text_arr[0].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.6f });
+	gyper_text_arr[1].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.7f });
+	gyper_text_arr[2].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.8f });
 }
 
 void MainMenu::show(sf::RenderWindow& window)

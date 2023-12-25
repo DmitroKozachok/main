@@ -13,8 +13,8 @@ void GyperText::hover(sf::RenderWindow& window)
     sf::Vector2f text_position = get_position();
 
     // ѕерев≥р€Їмо, чи мишка знаходитьс€ над текстом
-    if (mouse_position.x >= text_position.x - (text_string.getGlobalBounds().width / 2) && mouse_position.x <= text_position.x + (text_string.getGlobalBounds().width / 2) && 
-        mouse_position.y >= text_position.y - (text_string.getGlobalBounds().height / 2) && mouse_position.y <= text_position.y + (text_string.getGlobalBounds().height / 2))
+    if (mouse_position.x >= text_position.x - (text_string.getGlobalBounds().width) && mouse_position.x <= text_position.x + (text_string.getGlobalBounds().width) && 
+        mouse_position.y >= text_position.y - (text_string.getGlobalBounds().height) && mouse_position.y <= text_position.y + (text_string.getGlobalBounds().height))
     {
         // «м≥нюЇмо кол≥р тексту при наведенн≥ мишки
         text_string.setFillColor(sf::Color::Red); // «м≥н≥ть кол≥р на бажаний
