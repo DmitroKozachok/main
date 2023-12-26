@@ -12,4 +12,7 @@ public:
 	void set_position(PlayerCamera& camera, sf::RenderWindow& window); // встановлення позицій об'єктів
 
 	void show(sf::RenderWindow& window) override; // вивід карти
+
+	void click_processing(sf::RenderWindow& window, sf::Event event); // обробка натискання кнопок меню
+
 };

@@ -6,11 +6,13 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
 
     while (window.pollEvent(event))
     {
-        // вікно закривається, коли ти натискаєш Escape
         if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Escape) {
+            if (event.key.code == sf::Keyboard::Escape) { // вікно закривається, коли ти натискаєш Escape
                 window.close();
             }
+
+            // обробка відкриття меню
+
             if (event.key.code == sf::Keyboard::P && main_menu.get_status()) {
                 main_menu.set_status(false);
             }
@@ -22,6 +24,9 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         // рух злодія
         enemy.move(player.get_character_position(), delta_time);
     }
+
+    // обробка натискання кнопок меню
+    main_menu.click_processing(window, event);
 
     // рух персонажа
     player.move(event, delta_time);
@@ -41,6 +46,9 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
 
 void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf::RenderWindow& window, MainMenu main_menu)
 {
+
+    // вивід гри, або меню
+
     if (main_menu.get_status())
     {
         main_menu.show(window);

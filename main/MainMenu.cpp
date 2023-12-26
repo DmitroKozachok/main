@@ -3,9 +3,11 @@
 
 MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("---", 1, 3)
 {
+	// створення тексту
 	text_arr[0].set_size(60);
 	text_arr[0].set_string("Main Menu");
 
+	// створення кнопок
 	gyper_text_arr[0].set_size(30);
 	gyper_text_arr[0].set_string("Start");
 
@@ -18,6 +20,7 @@ MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("---", 1, 3)
 
 void MainMenu::set_position(PlayerCamera& camera, sf::RenderWindow& window)
 {
+	// встановлення позиції об'єктів в залежності від вікна
 	camera.set_position(sf::Vector2f{ 0.f, 0.f }, window);
 	camera.set_size(sf::Vector2f{ (float)window.getSize().x, (float)window.getSize().y });
 
@@ -29,6 +32,7 @@ void MainMenu::set_position(PlayerCamera& camera, sf::RenderWindow& window)
 
 void MainMenu::show(sf::RenderWindow& window)
 {
+	// вивід усіх елементів
 	for (int i = 0; i < gyper_text_amount; i++)
 	{
 		gyper_text_arr[i].hover(window);
@@ -43,4 +47,17 @@ void MainMenu::show(sf::RenderWindow& window)
 	for (int i = 0; i < gyper_text_amount; i++) {
 		gyper_text_arr[i].show(window);
 	}
+}
+
+void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event)
+{
+	if (gyper_text_arr[0].is_button_pressed(event))
+	{
+		is_open = false; // кнопка виходу
+	}
+	else if (gyper_text_arr[2].is_button_pressed(event))
+	{
+		window.close(); // кнопка старту
+	}
+
 }
