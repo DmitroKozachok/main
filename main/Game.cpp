@@ -11,6 +11,12 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             if (event.key.code == sf::Keyboard::Escape) {
                 window.close();
             }
+            if (event.key.code == sf::Keyboard::P && main_menu.get_status()) {
+                main_menu.set_status(false);
+            }
+            else if (event.key.code == sf::Keyboard::P && !main_menu.get_status()) {
+                main_menu.set_status(true);
+            }
         }
 
         // рух злодія
@@ -24,18 +30,30 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     player.attack(event, delta_time);
 
     // вивід меню
-    main_menu.set_position(camera);
-
+    if (main_menu.get_status()) {
+        main_menu.set_position(camera, window);
+    }
+    else
+    {
+        camera.set_size(sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5));
+    }
 }
 
 void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf::RenderWindow& window, MainMenu main_menu)
 {
-    main_menu.show(window);
-    /*map_lvl.draw(window);
-    player.show(window);
-    enemy.show(window);*/
+    if (main_menu.get_status())
+    {
+        main_menu.show(window);
+    }
+    else
+    {
+        map_lvl.draw(window);
+        player.show(window);
+        enemy.show(window);
+    }
+
     window.display();
-    //camera.draw(player, window);
+    camera.draw(player, window);
 }
 
 void Game::play_game()
@@ -57,10 +75,10 @@ void Game::play_game()
     Game_Music music;
 
     // створення камери
-    PlayerCamera camera(player, sf::Vector2f(window.getSize().x, window.getSize().y), window);
+    PlayerCamera camera(player, sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5), window);
 
     // створення меню
-    MainMenu main_menu(camera, window);
+    MainMenu main_menu(camera);
 
     // запуск стартової бг музики
     music.start_background_music_in_Menu();

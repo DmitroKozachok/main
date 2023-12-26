@@ -24,7 +24,6 @@ void PlayerCamera::set_position(sf::Vector2f new_position, sf::RenderWindow& win
 void PlayerCamera::set_size(sf::Vector2f new_size)
 {
 	size = new_size;
-	camera.setSize(size);
 }
 
 sf::Vector2f PlayerCamera::get_size() const
@@ -40,7 +39,7 @@ sf::Vector2f PlayerCamera::get_position() const
 void PlayerCamera::draw(Character& character, sf::RenderWindow& window)
 {
 	set_position(character.get_character_position(), window); // встановлення позиції
-	
+	camera.setSize(size); // встановлення розміру
 	window.setView(camera); // встановлення камери
 
 }

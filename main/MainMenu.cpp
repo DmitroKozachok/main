@@ -1,14 +1,8 @@
 #include "MainMenu.h"
 #include <iostream>
 
-MainMenu::MainMenu(PlayerCamera& camera, sf::RenderWindow& window) : StandartMenu("---", 1, 3)
+MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("---", 1, 3)
 {
-	camera.set_position(sf::Vector2f{ 0.f, 0.f }, window);
-	camera.set_size(sf::Vector2f{ (float)window.getSize().x, (float)window.getSize().y });
-
-	std::cout << camera.get_position().x << " " << camera.get_position().y << std::endl;
-	std::cout << camera.get_size().x << " " << camera.get_size().y << std::endl;
-
 	text_arr[0].set_size(60);
 	text_arr[0].set_string("Main Menu");
 
@@ -22,8 +16,11 @@ MainMenu::MainMenu(PlayerCamera& camera, sf::RenderWindow& window) : StandartMen
 	gyper_text_arr[2].set_string("Exit");
 }
 
-void MainMenu::set_position(PlayerCamera& camera)
+void MainMenu::set_position(PlayerCamera& camera, sf::RenderWindow& window)
 {
+	camera.set_position(sf::Vector2f{ 0.f, 0.f }, window);
+	camera.set_size(sf::Vector2f{ (float)window.getSize().x, (float)window.getSize().y });
+
 	text_arr[0].set_position({ camera.get_size().x * 0.5f, camera.get_size().y * 0.35f });
 	gyper_text_arr[0].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.6f });
 	gyper_text_arr[1].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.7f });

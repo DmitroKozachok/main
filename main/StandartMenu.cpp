@@ -9,6 +9,7 @@ StandartMenu::StandartMenu(std::string path, int new_text_amount, int new_gyper_
 	set_gyper_text_amount(new_gyper_text_amount); // переназвав аргументи
 	text_arr = new EditTxt[text_amount]; // добавл€ю текст
 	gyper_text_arr = new GyperText[gyper_text_amount]; // добавл€ю текст
+	is_open = false; // в≥кно не в≥дкрите
 }
 
 void StandartMenu::set_background_image(std::string path)
@@ -35,6 +36,16 @@ void StandartMenu::set_gyper_text_amount(int new_gyper_text_amount)
 	}
 }
 
+void StandartMenu::set_status(bool status)
+{
+	is_open = status;
+}
+
 int StandartMenu::get_text_amount() const { return text_amount; }
 
 int StandartMenu::get_gyper_text_amount() const { return gyper_text_amount; }
+
+int StandartMenu::get_status() const
+{
+	return is_open;
+}
