@@ -11,7 +11,7 @@ void PlayerCamera::set_position(sf::Vector2f new_position, sf::RenderWindow& win
 {
 	// перевірка чи камера не виходить за межі екрану
 	if (new_position.x < (size.x / 2))
-		new_position.x = (size.x / 2);
+		new_position.x = (size.x / 2);				// Для тесту поставив коментарі , при потребі можна зняти
 	if (new_position.y < (size.y / 2))
 		new_position.y = (size.y / 2);
 	if (new_position.x > (window.getSize().x - size.x / 2))
@@ -21,10 +21,25 @@ void PlayerCamera::set_position(sf::Vector2f new_position, sf::RenderWindow& win
 	camera.setCenter(new_position);
 }
 
+void PlayerCamera::set_size(sf::Vector2f new_size)
+{
+	size = new_size;
+}
+
+sf::Vector2f PlayerCamera::get_size() const
+{
+	return size;
+}
+
+sf::Vector2f PlayerCamera::get_position() const
+{
+	return position;
+}
+
 void PlayerCamera::draw(Character& character, sf::RenderWindow& window)
 {
 	set_position(character.get_character_position(), window); // встановлення позиції
-	
+	camera.setSize(size); // встановлення розміру
 	window.setView(camera); // встановлення камери
 
 }

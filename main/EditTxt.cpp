@@ -1,4 +1,5 @@
 #include "EditTxt.h"
+#include <iostream>
 
 EditTxt::EditTxt()
 {
@@ -6,10 +7,6 @@ EditTxt::EditTxt()
     text_string.setFillColor(sf::Color::White); // зміна кольору
     text_string.setFont(text_font); // зміна шрифта
     text_string.setString("---"); // зміна стрічки
-
-    //text_position = sf::Vector2f(600.f, 600.f); // встановлення позиції
-
-    //text_string.setPosition(text_position); // зміна позиції
 
     // встановлення центру стрічки
     sf::FloatRect text_bounds = text_string.getLocalBounds();
@@ -29,6 +26,8 @@ void EditTxt::set_string(std::string string)
 
 void EditTxt::set_position(sf::Vector2f position)
 {
+    sf::FloatRect text_bounds = text_string.getLocalBounds();
+    text_string.setOrigin(text_bounds.width / 2.0f, text_bounds.height / 2.0f);
     text_position = position;
     text_string.setPosition(text_position);
 }

@@ -50,10 +50,10 @@ protected:
 	void move_up(float delta_time); // рух вгору
 	void move_down(float delta_time); // рух вниз
 
-	void move_animation_left(float delta_time); // анімація руху вліво
-	void move_animation_right(float delta_time); // анімація руху вправо
-	void move_animation_up(float delta_time); // анімація руху вгору
-	void move_animation_down(float delta_time); // анімація руху вниз
+	virtual void move_animation_left(float delta_time); // анімація руху вліво
+	virtual void move_animation_right(float delta_time); // анімація руху вправо
+	virtual void move_animation_up(float delta_time); // анімація руху вгору
+	virtual void move_animation_down(float delta_time); // анімація руху вниз
 
 	void idle_animation(float delta_time); // анімація стояння
 

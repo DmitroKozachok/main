@@ -14,7 +14,7 @@ Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 15
 	character_sprite.setPosition(sf::Vector2f(1000, 200));
 }
 
-Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 35 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
+Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 20 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
 {
 	// встановлення картинки
 	character_image.loadFromFile(image_way);
@@ -225,7 +225,7 @@ void Character::set_damage(float new_damage) {
 }
 
 void Character::set_live_status(bool status) {
-	// перевірка на смерть
+	// встановлення статусу
 	is_alive = status;
 }
 
@@ -234,10 +234,8 @@ float Character::get_health() const { return health; }
 float Character::get_damage() const { return damage; }
 
 void Character::move(sf::Event& event, float delta_time) {
-
-	// перевірка чи нажата клавіша
-	if (event.type == sf::Event::KeyPressed && is_attacking == false) {
-
+	if (!is_attacking)
+	{
 		// отримання стану натиснутих клавіш для руху по діагоналі
 		bool is_key_pressed_a = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 		bool is_key_pressed_d = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
@@ -250,10 +248,10 @@ void Character::move(sf::Event& event, float delta_time) {
 		else
 			speed = diagonal_speed * 1.3;
 
-		if (is_key_pressed_a) move_left(delta_time);
-		if (is_key_pressed_d) move_right(delta_time);
-		if (is_key_pressed_w) move_up(delta_time);
-		if (is_key_pressed_s) move_down(delta_time);
+		if (is_key_pressed_a) move_left(delta_time); is_attacking = false;
+		if (is_key_pressed_d) move_right(delta_time); is_attacking = false;
+		if (is_key_pressed_w) move_up(delta_time); is_attacking = false;
+		if (is_key_pressed_s) move_down(delta_time); is_attacking = false;
 	}
 }
 
