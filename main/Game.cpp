@@ -16,9 +16,11 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         // наведення на текст
         gt.hover(window);
 
-        // рух злодія
-        enemy.move(player.get_character_position(), delta_time);
+        //// рух злодія
+        //enemy.move(player.get_character_position(), delta_time);
     }
+    // рух злодія
+    enemy.move(player.get_character_position(), delta_time / 8);
 
     // рух персонажа
     player.move(event, delta_time);
@@ -68,8 +70,8 @@ void Game::play_game()
         // вивід
         map_lvl_1.draw(window);
         gt.show(window);
-        player.show(window);
         enemy.show(window);
+        player.show(window);
         window.display();
         camera.draw(player, window);
     }
