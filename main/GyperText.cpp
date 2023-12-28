@@ -28,7 +28,7 @@ void GyperText::hover(sf::RenderWindow& window)
 
 bool GyperText::is_button_pressed(sf::Event event)
 {
-    if (event.type == sf::Event::MouseButtonPressed && event.key.code == sf::Mouse::Left) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         if (text_string.getFillColor() == sf::Color::Red)
             return true;
         else

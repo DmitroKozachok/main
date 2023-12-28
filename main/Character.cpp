@@ -234,22 +234,25 @@ float Character::get_health() const { return health; }
 float Character::get_damage() const { return damage; }
 
 void Character::move(sf::Event& event, float delta_time) {
-	// отримання стану натиснутих клавіш для руху по діагоналі
-	bool is_key_pressed_a = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-	bool is_key_pressed_d = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-	bool is_key_pressed_w = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-	bool is_key_pressed_s = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+	if (!is_attacking)
+	{
+		// отримання стану натиснутих клавіш для руху по діагоналі
+		bool is_key_pressed_a = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+		bool is_key_pressed_d = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+		bool is_key_pressed_w = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+		bool is_key_pressed_s = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 
-	// рух
-	if (is_key_pressed_a && is_key_pressed_w || is_key_pressed_a && is_key_pressed_s || is_key_pressed_d && is_key_pressed_s || is_key_pressed_d && is_key_pressed_w)
-		speed = diagonal_speed;
-	else
-		speed = diagonal_speed * 1.3;
+		// рух
+		if (is_key_pressed_a && is_key_pressed_w || is_key_pressed_a && is_key_pressed_s || is_key_pressed_d && is_key_pressed_s || is_key_pressed_d && is_key_pressed_w)
+			speed = diagonal_speed;
+		else
+			speed = diagonal_speed * 1.3;
 
-	if (is_key_pressed_a) move_left(delta_time); is_attacking = false;
-	if (is_key_pressed_d) move_right(delta_time); is_attacking = false;
-	if (is_key_pressed_w) move_up(delta_time); is_attacking = false;
-	if (is_key_pressed_s) move_down(delta_time); is_attacking = false;
+		if (is_key_pressed_a) move_left(delta_time); is_attacking = false;
+		if (is_key_pressed_d) move_right(delta_time); is_attacking = false;
+		if (is_key_pressed_w) move_up(delta_time); is_attacking = false;
+		if (is_key_pressed_s) move_down(delta_time); is_attacking = false;
+	}
 }
 
 bool Character::get_live_status() const { return is_alive; }
