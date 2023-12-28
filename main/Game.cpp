@@ -62,8 +62,8 @@ void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf
     else
     {
         map_lvl.draw(window);
-        player.show(window);
         enemy.show(window);
+        player.show(window); 
     }
 
     window.display();
