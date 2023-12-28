@@ -89,7 +89,7 @@ Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f posit
 void Player::attack(sf::Event event , float delta_time)
 {
     // перевірка на атаку
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 		is_attacking = true;
 	}
 

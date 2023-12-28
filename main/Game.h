@@ -10,7 +10,7 @@
 #include "PlayerCamera.h"
 #include "Player.h"
 
-#define ANIMATION_TIME 0.05f
+#define ANIMATION_TIME 0.08f
 
 class Game
 {
