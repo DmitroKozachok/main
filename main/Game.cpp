@@ -48,7 +48,7 @@ void Game::play_game()
     Game_Music music;
 
     // створення камери
-    PlayerCamera camera(character, sf::Vector2f(600.f, 600.f), window);
+    PlayerCamera camera(character, sf::Vector2f(1200.f, 800.f), window);
 
     // запуск стартової бг музики
     music.start_background_music_in_Menu();
