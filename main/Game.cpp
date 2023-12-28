@@ -22,7 +22,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         }
 
         // наведення на текст
-        gt.hover(window);
+        //gt.hover(window);
 
         //// рух злодія
         //enemy.move(player.get_character_position(), delta_time);
