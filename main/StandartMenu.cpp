@@ -5,6 +5,7 @@ StandartMenu::StandartMenu(std::string path, int new_text_amount, int new_gyper_
 	set_background_image(path);
 	background_texture.loadFromImage(background_image);
 	background_sprite.setTexture(background_texture);
+	background_sprite.setOrigin(background_image.getSize().x / 2, background_image.getSize().y / 2);
 	set_text_amount(new_text_amount); // переназвав аргументи
 	set_gyper_text_amount(new_gyper_text_amount); // переназвав аргументи
 	text_arr = new EditTxt[text_amount]; // добавляю текст

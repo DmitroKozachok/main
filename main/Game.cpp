@@ -25,22 +25,23 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         enemy.move(player.get_character_position(), delta_time);
     }
 
-    // обробка натисканн€ кнопок меню
-    main_menu.click_processing(window, event);
-
-    // рух персонажа
-    player.move(event, delta_time);
-
-    // атака гравц€
-    player.attack(event, delta_time);
-
-    // вив≥д меню
     if (main_menu.get_status()) {
+
+        // обробка натисканн€ кнопок меню
+        main_menu.click_processing(window, event);
+
+        // вив≥д меню
         main_menu.set_position(camera, window);
     }
     else
     {
         camera.set_size(sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5));
+
+        // рух персонажа
+        player.move(event, delta_time);
+
+        // атака гравц€
+        player.attack(event, delta_time);
     }
 }
 
@@ -87,6 +88,7 @@ void Game::play_game()
 
     // створенн€ меню
     MainMenu main_menu(camera);
+    main_menu.set_status(true);
 
     // запуск стартовоњ бг музики
     music.start_background_music_in_Menu();

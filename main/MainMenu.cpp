@@ -1,7 +1,7 @@
 #include "MainMenu.h"
 #include <iostream>
 
-MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("---", 1, 3)
+MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("Resources/menu/Main_Menu_BG.jpg", 1, 3)
 {
 	// створення тексту
 	text_arr[0].set_size(60);
@@ -16,6 +16,7 @@ MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("---", 1, 3)
 
 	gyper_text_arr[2].set_size(30);
 	gyper_text_arr[2].set_string("Exit");
+
 }
 
 void MainMenu::set_position(PlayerCamera& camera, sf::RenderWindow& window)
@@ -28,6 +29,10 @@ void MainMenu::set_position(PlayerCamera& camera, sf::RenderWindow& window)
 	gyper_text_arr[0].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.6f });
 	gyper_text_arr[1].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.7f });
 	gyper_text_arr[2].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.8f });
+
+	// редагування зображення
+	background_sprite.setPosition(camera.get_size().x * 0.5f, camera.get_size().y * 0.5f);
+	background_sprite.setScale(camera.get_size().x / background_image.getSize().x, camera.get_size().y / background_image.getSize().y);
 }
 
 void MainMenu::show(sf::RenderWindow& window)
