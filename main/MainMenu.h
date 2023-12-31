@@ -9,7 +9,7 @@ class MainMenu : public StandartMenu
 public:
 	MainMenu(PlayerCamera& camera); // створення меню
 
-	void set_position(PlayerCamera& camera, sf::RenderWindow& window); // встановлення позицій об'єктів
+	void set_position(PlayerCamera& camera, sf::Vector2f border_size, sf::RenderWindow& window); // встановлення позицій об'єктів
 
 	void show(sf::RenderWindow& window) override; // вивід карти
 

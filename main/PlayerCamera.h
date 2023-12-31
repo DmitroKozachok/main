@@ -11,14 +11,14 @@ private:
 	sf::Vector2f size; // розмір камери
 
 public:
-	PlayerCamera(Character& character, sf::Vector2f size, sf::RenderWindow& window); // конструктор камери
+	PlayerCamera(sf::Vector2f center, sf::Vector2f size, sf::RenderWindow& window, sf::Vector2f border_size); // конструктор камери
 
-	void set_position(sf::Vector2f new_position, sf::RenderWindow& window); // встановлення позиції
+	void set_position(sf::Vector2f new_position, sf::Vector2f border_size); // встановлення позиції
 	void set_size(sf::Vector2f new_size);
 
 	sf::Vector2f get_size() const; // отримання розміру
 	sf::Vector2f get_position() const; // отримання позиції
 
-	void draw(Character& character, sf::RenderWindow& window); // промальовка камери
+	void draw(sf::Vector2f center, sf::RenderWindow& window, sf::Vector2f border_size); // промальовка камери
 };
 

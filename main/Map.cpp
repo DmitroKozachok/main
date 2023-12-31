@@ -194,5 +194,10 @@ void Map::draw(sf::RenderWindow& window)
 	}
 }
 
+sf::Vector2f Map::get_map_size() const
+{
+	return sf::Vector2f(width * scale * tile_size, height * scale * tile_size);
+}
+
 
 

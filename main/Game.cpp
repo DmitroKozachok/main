@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, Enemy& enemy, MainMenu& main_menu, PlayerCamera& camera)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, Enemy& enemy, MainMenu& main_menu, PlayerCamera& camera, Map& map)
 {
     sf::Event event;
 
@@ -36,7 +36,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         main_menu.click_processing(window, event);
 
         // вивід меню
-        main_menu.set_position(camera, window);
+        main_menu.set_position(camera, map.get_map_size(), window);
     }
     else
     {
@@ -58,16 +58,18 @@ void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf
     if (main_menu.get_status())
     {
         main_menu.show(window);
+        camera.draw(sf::Vector2f{0.f, 0.f}, window, map_lvl.get_map_size());
     }
     else
     {
         map_lvl.draw(window);
         enemy.show(window);
         player.show(window); 
+        camera.draw(player.get_character_position(), window, map_lvl.get_map_size());
     }
 
     window.display();
-    camera.draw(player, window);
+    
 }
 
 void Game::play_game()
@@ -89,7 +91,7 @@ void Game::play_game()
     Game_Music music;
 
     // створення камери
-    PlayerCamera camera(player, sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5), window);
+    PlayerCamera camera(player.get_character_position(), sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5), window, map_lvl_1.get_map_size());
 
     // створення меню
     MainMenu main_menu(camera);
@@ -102,7 +104,7 @@ void Game::play_game()
     {
 
         // обробка подій
-        event_processing(window, player, ANIMATION_TIME, enemy, main_menu, camera);
+        event_processing(window, player, ANIMATION_TIME, enemy, main_menu, camera, map_lvl_1);
 
         window.clear();
         
