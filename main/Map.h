@@ -14,6 +14,8 @@ struct char_and_coords // структура, яка містить символ, який відповідає за певн
 	int y;
 	int x_under;
 	int y_under;
+
+	bool is_colision;
 };
 
 class Map
@@ -42,6 +44,11 @@ public:
 	void draw(sf::RenderWindow& window); // промальова карти
 
 	sf::Vector2f get_map_size() const;
+	int get_tile_size() const;
+	int get_scale() const;
+	char_and_coords* get_cord_arr() const;
+	char** get_map_arr() const;
+	int get_symbol_coord_arr_size() const;
 
 };
 

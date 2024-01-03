@@ -229,6 +229,11 @@ void Character::set_live_status(bool status) {
 	is_alive = status;
 }
 
+void Character::set_position(sf::Vector2f position)
+{
+	character_sprite.setPosition(position);
+}
+
 float Character::get_health() const { return health; }
 
 float Character::get_damage() const { return damage; }
@@ -252,12 +257,163 @@ void Character::move(sf::Event& event, float delta_time) {
 		if (is_key_pressed_d) move_right(delta_time); is_attacking = false;
 		if (is_key_pressed_w) move_up(delta_time); is_attacking = false;
 		if (is_key_pressed_s) move_down(delta_time); is_attacking = false;
+		is_move = true;
+	}
+	else
+	{
+		is_move = false;
 	}
 }
 
 bool Character::get_live_status() const { return is_alive; }
 
 sf::Vector2f Character::get_character_position() const { return character_sprite.getPosition(); }
+
+void Character::detect_colision(Map& map_lvl)
+{
+	// координати персонажа
+	int x = get_character_position().x / (map_lvl.get_tile_size() * map_lvl.get_scale());
+	int y = get_character_position().y / (map_lvl.get_tile_size() * map_lvl.get_scale());
+
+	// завантаження карти
+	char** map_arr = map_lvl.get_map_arr();
+	char_and_coords* cord_arr = map_lvl.get_cord_arr();
+
+	// обробка колізії
+	if (is_move)
+	{
+		if (move_status == LEFT)
+		{
+			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
+			{
+				if (x - 1 >= 0)
+				{
+					if (cord_arr[i].ch == map_arr[y][x - 1] && cord_arr[i].is_colision)
+					{
+						set_position(sf::Vector2f{ get_character_position().x + 1.7f, get_character_position().y });
+					}
+				}
+				else {
+					set_position(sf::Vector2f{ get_character_position().x + 0.1f, get_character_position().y });
+				}
+				
+			}
+
+		}
+		if (move_status == RIGHT)
+		{
+			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
+			{
+				if (x + 1 <= map_lvl.get_map_size().x / (map_lvl.get_tile_size() * map_lvl.get_scale()))
+				{
+					if (cord_arr[i].ch == map_arr[y][x + 1] && cord_arr[i].is_colision)
+					{
+						set_position(sf::Vector2f{ get_character_position().x - 1.7f, get_character_position().y });
+					}
+				}
+				else {
+					set_position(sf::Vector2f{ get_character_position().x - 0.1f, get_character_position().y });
+				}
+
+			}
+		}
+		if (move_status == DOWN)
+		{
+			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
+			{
+				if (x - 1 >= 0)
+				{
+					if (cord_arr[i].ch == map_arr[y][x - 1] && cord_arr[i].is_colision)
+					{
+						set_position(sf::Vector2f{ get_character_position().x + 1.7f, get_character_position().y });
+					}
+				}
+				else {
+					set_position(sf::Vector2f{ get_character_position().x + 0.1f, get_character_position().y });
+				}
+
+			}
+
+			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
+			{
+				if (x + 1 <= map_lvl.get_map_size().x / (map_lvl.get_tile_size() * map_lvl.get_scale()))
+				{
+					if (cord_arr[i].ch == map_arr[y][x + 1] && cord_arr[i].is_colision)
+					{
+						set_position(sf::Vector2f{ get_character_position().x - 1.7f, get_character_position().y });
+					}
+				}
+				else {
+					set_position(sf::Vector2f{ get_character_position().x - 0.1f, get_character_position().y });
+				}
+
+			}
+
+			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
+			{
+				if (y + 1 < map_lvl.get_map_size().y / (map_lvl.get_tile_size() * map_lvl.get_scale()))
+				{
+					if (cord_arr[i].ch == map_arr[y + 1][x] && cord_arr[i].is_colision)
+					{
+						set_position(sf::Vector2f{ get_character_position().x, get_character_position().y - 1.7f });
+					}
+				}
+				else {
+					set_position(sf::Vector2f{ get_character_position().x, get_character_position().y - 0.1f });
+				}
+
+			}
+		}
+		if (move_status == UP)
+		{
+			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
+			{
+				if (x - 1 >= 0)
+				{
+					if (cord_arr[i].ch == map_arr[y][x - 1] && cord_arr[i].is_colision)
+					{
+						set_position(sf::Vector2f{ get_character_position().x + 1.7f, get_character_position().y });
+					}
+				}
+				else {
+					set_position(sf::Vector2f{ get_character_position().x + 0.1f, get_character_position().y });
+				}
+
+			}
+
+			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
+			{
+				if (x + 1 <= map_lvl.get_map_size().x / (map_lvl.get_tile_size() * map_lvl.get_scale()))
+				{
+					if (cord_arr[i].ch == map_arr[y][x + 1] && cord_arr[i].is_colision)
+					{
+						set_position(sf::Vector2f{ get_character_position().x - 1.7f, get_character_position().y });
+					}
+				}
+				else {
+					set_position(sf::Vector2f{ get_character_position().x - 0.1f, get_character_position().y });
+				}
+
+			}
+
+			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
+			{
+				if (y - 1 >= 0)
+				{
+					if (cord_arr[i].ch == map_arr[y][x] && cord_arr[i].is_colision)
+					{
+						set_position(sf::Vector2f{ get_character_position().x, get_character_position().y + 1.7f });
+					}
+				}
+				else{
+					set_position(sf::Vector2f{ get_character_position().x, get_character_position().y + 0.1f });
+				}
+
+			}
+		}
+	}
+
+}
 
 void Character::show(sf::RenderWindow& window) {
 	// вивід спрайту на екран

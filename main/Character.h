@@ -2,6 +2,7 @@
 
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Map.h"
 
 // структура координат анімації
 struct CordAnimation
@@ -31,6 +32,7 @@ protected:
 	float damage; // урон
 	bool is_alive; // чи живий
 	bool is_attacking; // чи атакує
+	bool is_move; // чи рухається
 	float speed; // швидкість
 	float diagonal_speed; // швидкість під час руху по діагоналі
 	
@@ -65,12 +67,15 @@ public:
 	void set_health(float new_health); // встановлення життя
 	void set_damage(float new_damage); // встановлення урону
 	void set_live_status(bool status); // встановлення чи герой живий, true - живий, false - мертвий
+	void set_position(sf::Vector2f position); // встановлення позиції
 
 	float get_health() const; // повертає здоров'я персонажа
 	float get_damage() const; // повертає урон персонажа
 	bool get_live_status() const; // повертає статус життя героя, true - живий, false - мертвий
 	sf::Vector2f get_character_position() const; // повертає позицію гравця
 	
+	void detect_colision(Map& map_lvl); // обробка колізії
+
 	void show(sf::RenderWindow& window); // промальовка персонажа
 
 	void move(sf::Event& event, float delta_time); // рух персонажа
