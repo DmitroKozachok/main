@@ -35,7 +35,8 @@ protected:
 	bool is_move; // чи рухається
 	float speed; // швидкість
 	float diagonal_speed; // швидкість під час руху по діагоналі
-	
+	sf::Vector2f old_position; // стара позиція (для колізії)
+
 	sf::Sprite character_sprite; // спрайт персонажа
 	sf::Image character_image; // картинка персонажа
 	sf::Texture character_texture; // текстура персонажа

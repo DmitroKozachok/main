@@ -146,13 +146,44 @@ void Map::load_arr(std::string file_path)
 		}
 	}
 
+	sf::Sprite tmp_sprite = map_sprite;
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			tmp_sprite.setPosition((tile_size * j * scale), (tile_size * i * scale));
+
+			for (int k = 0; k < symbol_coord_arr_size; k++)
+			{
+				if (map_arr[i][j] == symbol_coord_arr[k].ch)
+				{
+					if (symbol_coord_arr[k].x_under == -1) {
+						tmp_sprite.setTextureRect(sf::IntRect(tile_size * symbol_coord_arr[k].x, tile_size * symbol_coord_arr[k].y, tile_size, tile_size));
+					}
+					else {
+						tmp_sprite.setTextureRect(sf::IntRect(tile_size * symbol_coord_arr[k].x_under, tile_size * symbol_coord_arr[k].y_under, tile_size, tile_size));
+						tmp_sprite.setTextureRect(sf::IntRect(tile_size * symbol_coord_arr[k].x, tile_size * symbol_coord_arr[k].y, tile_size, tile_size));
+					}
+					if (symbol_coord_arr[k].is_colision)
+					{
+						colision_sprite_arr.push_back(tmp_sprite);
+					}
+					
+				}
+
+			}
+
+		}
+
+	}
+
 }
 
 Map::Map(std::string file_config_path, std::string file_arr_path, std::string file_code_path)
 {
 	// встановлення данних для роботи з картою
 	load_config(file_config_path, file_code_path);
-	load_arr(file_arr_path);
 
 	// налаштування спрайту карти
 	map_image.loadFromFile(path);
@@ -160,6 +191,8 @@ Map::Map(std::string file_config_path, std::string file_arr_path, std::string fi
 
 	map_sprite.setTexture(map_texture);
 	map_sprite.setScale(scale, scale);
+
+	load_arr(file_arr_path);
 }
 
 void Map::draw(sf::RenderWindow& window)
@@ -224,5 +257,8 @@ int Map::get_symbol_coord_arr_size() const
 	return symbol_coord_arr_size;
 }
 
-
+std::vector<sf::Sprite> Map::get_colision_sprite_arr() const
+{
+	return colision_sprite_arr;
+}
 

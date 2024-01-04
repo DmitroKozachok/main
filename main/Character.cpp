@@ -241,6 +241,8 @@ float Character::get_damage() const { return damage; }
 void Character::move(sf::Event& event, float delta_time) {
 	if (!is_attacking)
 	{
+		old_position = get_character_position();
+
 		// отримання стану натиснутих клавіш для руху по діагоналі
 		bool is_key_pressed_a = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 		bool is_key_pressed_d = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
@@ -271,146 +273,24 @@ sf::Vector2f Character::get_character_position() const { return character_sprite
 
 void Character::detect_colision(Map& map_lvl)
 {
-	// координати персонажа
-	int x = get_character_position().x / (map_lvl.get_tile_size() * map_lvl.get_scale());
-	int y = get_character_position().y / (map_lvl.get_tile_size() * map_lvl.get_scale());
 
-	// завантаження карти
-	char** map_arr = map_lvl.get_map_arr();
-	char_and_coords* cord_arr = map_lvl.get_cord_arr();
+	std::vector<sf::Sprite> colision_sprite_arr = map_lvl.get_colision_sprite_arr();
+
+	sf::FloatRect character_bounds = character_sprite.getGlobalBounds();
 
 	// обробка колізії
 	if (is_move)
 	{
-		if (move_status == LEFT)
+		for (int i = 0; i < colision_sprite_arr.size(); i++)
 		{
-			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
-			{
-				if (x - 1 >= 0)
-				{
-					if (cord_arr[i].ch == map_arr[y][x - 1] && cord_arr[i].is_colision)
-					{
-						set_position(sf::Vector2f{ get_character_position().x + 1.7f, get_character_position().y });
-					}
-				}
-				else {
-					set_position(sf::Vector2f{ get_character_position().x + 0.1f, get_character_position().y });
-				}
-				
-			}
+			sf::FloatRect obj_bounds = colision_sprite_arr[i].getGlobalBounds();
 
-		}
-		if (move_status == RIGHT)
-		{
-			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
+			if (character_bounds.intersects(obj_bounds))
 			{
-				if (x + 1 <= map_lvl.get_map_size().x / (map_lvl.get_tile_size() * map_lvl.get_scale()))
-				{
-					if (cord_arr[i].ch == map_arr[y][x + 1] && cord_arr[i].is_colision)
-					{
-						set_position(sf::Vector2f{ get_character_position().x - 1.7f, get_character_position().y });
-					}
-				}
-				else {
-					set_position(sf::Vector2f{ get_character_position().x - 0.1f, get_character_position().y });
-				}
-
+				set_position(sf::Vector2f{old_position});
 			}
 		}
-		if (move_status == DOWN)
-		{
-			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
-			{
-				if (x - 1 >= 0)
-				{
-					if (cord_arr[i].ch == map_arr[y][x - 1] && cord_arr[i].is_colision)
-					{
-						set_position(sf::Vector2f{ get_character_position().x + 1.7f, get_character_position().y });
-					}
-				}
-				else {
-					set_position(sf::Vector2f{ get_character_position().x + 0.1f, get_character_position().y });
-				}
 
-			}
-
-			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
-			{
-				if (x + 1 <= map_lvl.get_map_size().x / (map_lvl.get_tile_size() * map_lvl.get_scale()))
-				{
-					if (cord_arr[i].ch == map_arr[y][x + 1] && cord_arr[i].is_colision)
-					{
-						set_position(sf::Vector2f{ get_character_position().x - 1.7f, get_character_position().y });
-					}
-				}
-				else {
-					set_position(sf::Vector2f{ get_character_position().x - 0.1f, get_character_position().y });
-				}
-
-			}
-
-			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
-			{
-				if (y + 1 < map_lvl.get_map_size().y / (map_lvl.get_tile_size() * map_lvl.get_scale()))
-				{
-					if (cord_arr[i].ch == map_arr[y + 1][x] && cord_arr[i].is_colision)
-					{
-						set_position(sf::Vector2f{ get_character_position().x, get_character_position().y - 1.7f });
-					}
-				}
-				else {
-					set_position(sf::Vector2f{ get_character_position().x, get_character_position().y - 0.1f });
-				}
-
-			}
-		}
-		if (move_status == UP)
-		{
-			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
-			{
-				if (x - 1 >= 0)
-				{
-					if (cord_arr[i].ch == map_arr[y][x - 1] && cord_arr[i].is_colision)
-					{
-						set_position(sf::Vector2f{ get_character_position().x + 1.7f, get_character_position().y });
-					}
-				}
-				else {
-					set_position(sf::Vector2f{ get_character_position().x + 0.1f, get_character_position().y });
-				}
-
-			}
-
-			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
-			{
-				if (x + 1 <= map_lvl.get_map_size().x / (map_lvl.get_tile_size() * map_lvl.get_scale()))
-				{
-					if (cord_arr[i].ch == map_arr[y][x + 1] && cord_arr[i].is_colision)
-					{
-						set_position(sf::Vector2f{ get_character_position().x - 1.7f, get_character_position().y });
-					}
-				}
-				else {
-					set_position(sf::Vector2f{ get_character_position().x - 0.1f, get_character_position().y });
-				}
-
-			}
-
-			for (int i = 0; i < map_lvl.get_symbol_coord_arr_size(); i++)
-			{
-				if (y - 1 >= 0)
-				{
-					if (cord_arr[i].ch == map_arr[y][x] && cord_arr[i].is_colision)
-					{
-						set_position(sf::Vector2f{ get_character_position().x, get_character_position().y + 1.7f });
-					}
-				}
-				else{
-					set_position(sf::Vector2f{ get_character_position().x, get_character_position().y + 0.1f });
-				}
-
-			}
-		}
 	}
 
 }
