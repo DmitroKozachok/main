@@ -146,6 +146,7 @@ void Map::load_arr(std::string file_path)
 		}
 	}
 
+	// доавання колізійних об'єктів для їх обробки
 	sf::Sprite tmp_sprite = map_sprite;
 
 	for (int i = 0; i < height; i++)

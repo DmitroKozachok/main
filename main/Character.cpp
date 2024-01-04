@@ -273,9 +273,10 @@ sf::Vector2f Character::get_character_position() const { return character_sprite
 
 void Character::detect_colision(Map& map_lvl)
 {
-
+	// створення вектора для обробки колізії
 	std::vector<sf::Sprite> colision_sprite_arr = map_lvl.get_colision_sprite_arr();
 
+	// отримання глобальних координат гравця
 	sf::FloatRect character_bounds = character_sprite.getGlobalBounds();
 
 	// обробка колізії
@@ -285,9 +286,10 @@ void Character::detect_colision(Map& map_lvl)
 		{
 			sf::FloatRect obj_bounds = colision_sprite_arr[i].getGlobalBounds();
 
+			// перевірка на колізію
 			if (character_bounds.intersects(obj_bounds))
 			{
-				set_position(sf::Vector2f{old_position});
+				set_position(old_position);
 			}
 		}
 
