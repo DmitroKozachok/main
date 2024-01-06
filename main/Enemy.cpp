@@ -113,7 +113,7 @@ void Enemy::detect_colision_with_player(Character player, sf::FloatRect enemy_re
 	// перевірка на колізію
 	if (enemy_bounds.intersects(enemy_bounds))
 	{
-		std::cout << "-1" << std::endl;
+		//std::cout << "-1" << std::endl;
 	}
 }
 
