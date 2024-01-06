@@ -238,7 +238,7 @@ float Character::get_health() const { return health; }
 
 float Character::get_damage() const { return damage; }
 
-void Character::move(sf::Event& event, float delta_time) {
+void Character::move(float delta_time) {
 	if (!is_attacking)
 	{
 		old_position = get_character_position();
@@ -259,11 +259,17 @@ void Character::move(sf::Event& event, float delta_time) {
 		if (is_key_pressed_d) move_right(delta_time); is_attacking = false;
 		if (is_key_pressed_w) move_up(delta_time); is_attacking = false;
 		if (is_key_pressed_s) move_down(delta_time); is_attacking = false;
-		is_move = true;
+		can_move = true;
 	}
 	else
 	{
-		is_move = false;
+		can_move = false;
+	}
+
+	if (get_character_position() == old_position && !is_attacking)
+	{
+		move_status = STAND;
+		idle_animation(delta_time);
 	}
 }
 
@@ -277,17 +283,19 @@ void Character::detect_colision(Map& map_lvl)
 	std::vector<sf::Sprite> colision_sprite_arr = map_lvl.get_colision_sprite_arr();
 
 	// отриманн€ глобальних координат гравц€
-	sf::FloatRect character_bounds = character_sprite.getGlobalBounds();
+	/*sf::FloatRect character_bounds = character_sprite.getGlobalBounds();*/
+
+	sf::FloatRect character_bounds = sf::FloatRect{ character_sprite.getGlobalBounds().left + 45, character_sprite.getGlobalBounds().top + 80, character_sprite.getGlobalBounds().width - 95, character_sprite.getGlobalBounds().height - 100 };
 
 	// обробка кол≥з≥њ
-	if (is_move)
+	if (can_move)
 	{
 		for (int i = 0; i < colision_sprite_arr.size(); i++)
 		{
 			sf::FloatRect obj_bounds = colision_sprite_arr[i].getGlobalBounds();
 
 			// перев≥рка на кол≥з≥ю
-			if (character_bounds.intersects(obj_bounds))
+			if (character_bounds.intersects(obj_bounds) || !(get_character_position().x - map_lvl.get_tile_size() > 0 && get_character_position().y - map_lvl.get_tile_size() > 0 && get_character_position().x + map_lvl.get_tile_size() < map_lvl.get_map_size().x && get_character_position().y + map_lvl.get_tile_size() < map_lvl.get_map_size().y))
 			{
 				set_position(old_position);
 			}

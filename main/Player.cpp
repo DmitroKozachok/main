@@ -99,5 +99,6 @@ void Player::attack(sf::Event event , float delta_time)
     if (move_status == RIGHT) attack_animation_right(delta_time);
     if (move_status == UP) attack_animation_up(delta_time);
     if (move_status == DOWN) attack_animation_down(delta_time);
+    if (move_status == STAND) attack_animation_down(delta_time);
 
 }

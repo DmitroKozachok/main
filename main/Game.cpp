@@ -37,7 +37,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         camera.set_size(sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5));
 
         // рух персонажа
-        player.move(event, delta_time);
+        player.move(delta_time);
 
         // атака гравц€
         player.attack(event, delta_time);

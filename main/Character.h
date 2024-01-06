@@ -19,7 +19,8 @@ enum MoveStatus
 	LEFT,
 	RIGHT,
 	UP,
-	DOWN
+	DOWN,
+	STAND
 };
 
 class Character
@@ -32,7 +33,7 @@ protected:
 	float damage; // урон
 	bool is_alive; // чи живий
 	bool is_attacking; // чи атакує
-	bool is_move; // чи рухається
+	bool can_move; // чи може рухаєтись
 	float speed; // швидкість
 	float diagonal_speed; // швидкість під час руху по діагоналі
 	sf::Vector2f old_position; // стара позиція (для колізії)
@@ -79,7 +80,7 @@ public:
 
 	void show(sf::RenderWindow& window); // промальовка персонажа
 
-	void move(sf::Event& event, float delta_time); // рух персонажа
+	void move(float delta_time); // рух персонажа
 
 };
 

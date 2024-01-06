@@ -84,7 +84,6 @@ void Map::load_config(std::string file_config_path, std::string file_code_path)
 
 			if (string2.find_first_of(lvl_find_collision) != std::string::npos) {
 				symbol_coord_arr[line2].is_colision = true;
-				std::cout << "True" << std::endl;
 			}
 			else
 			{
