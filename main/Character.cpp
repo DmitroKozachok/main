@@ -14,7 +14,7 @@ Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 15
 	character_sprite.setPosition(sf::Vector2f(1000, 200));
 }
 
-Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 20 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
+Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage) : health{ health }, damage{ damage }, is_alive{ true }, speed{ speed }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
 {
 	// встановлення картинки
 	character_image.loadFromFile(image_way);
@@ -238,6 +238,11 @@ float Character::get_health() const { return health; }
 
 float Character::get_damage() const { return damage; }
 
+bool Character::get_can_move()
+{
+	return can_move;
+}
+
 void Character::move(float delta_time) {
 	if (!is_attacking)
 	{
@@ -277,15 +282,18 @@ bool Character::get_live_status() const { return is_alive; }
 
 sf::Vector2f Character::get_character_position() const { return character_sprite.getPosition(); }
 
-void Character::detect_colision(Map& map_lvl)
+sf::Sprite Character::get_character_sprite() const
+{
+	return character_sprite;
+}
+
+void Character::detect_colision(Map& map_lvl, sf::FloatRect rect)
 {
 	// створення вектора для обробки колізії
 	std::vector<sf::Sprite> colision_sprite_arr = map_lvl.get_colision_sprite_arr();
 
 	// отримання глобальних координат гравця
-	/*sf::FloatRect character_bounds = character_sprite.getGlobalBounds();*/
-
-	sf::FloatRect character_bounds = sf::FloatRect{ character_sprite.getGlobalBounds().left + 45, character_sprite.getGlobalBounds().top + 80, character_sprite.getGlobalBounds().width - 95, character_sprite.getGlobalBounds().height - 100 };
+	sf::FloatRect character_bounds = sf::FloatRect{ rect };
 
 	// обробка колізії
 	if (can_move)

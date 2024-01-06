@@ -64,7 +64,7 @@ protected:
 public:
 
 	Character(); // конструктор за завмовчуванням, створює звичайний квадрат
-	Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale); // конструктор, що встановлює спрайт персонажа
+	Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage); // конструктор, що встановлює спрайт персонажа
 
 	void set_health(float new_health); // встановлення життя
 	void set_damage(float new_damage); // встановлення урону
@@ -73,10 +73,12 @@ public:
 
 	float get_health() const; // повертає здоров'я персонажа
 	float get_damage() const; // повертає урон персонажа
+	bool get_can_move(); // чи може рухатись
 	bool get_live_status() const; // повертає статус життя героя, true - живий, false - мертвий
 	sf::Vector2f get_character_position() const; // повертає позицію гравця
-	
-	void detect_colision(Map& map_lvl); // обробка колізії
+	sf::Sprite get_character_sprite() const; // повертає спрайт гравця
+
+	void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка колізії
 
 	void show(sf::RenderWindow& window); // промальовка персонажа
 
