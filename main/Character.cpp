@@ -309,12 +309,16 @@ void Character::detect_colision(Map& map_lvl, sf::FloatRect rect)
 			sf::FloatRect obj_bounds = colision_sprite_arr[i].getGlobalBounds();
 
 			// перевірка на колізію
-			if (character_bounds.intersects(obj_bounds) || !(get_character_position().x - map_lvl.get_tile_size() > 0 && get_character_position().y - map_lvl.get_tile_size() > 0 && get_character_position().x + map_lvl.get_tile_size() < map_lvl.get_map_size().x && get_character_position().y + map_lvl.get_tile_size() < map_lvl.get_map_size().y))
+			if (character_bounds.intersects(obj_bounds))
 			{
 				set_position(old_position);
 			}
 		}
 
+		if (!(get_character_position().x - map_lvl.get_tile_size() > 0 && get_character_position().y - map_lvl.get_tile_size() > 0 && get_character_position().x + map_lvl.get_tile_size() < map_lvl.get_map_size().x && get_character_position().y + map_lvl.get_tile_size() < map_lvl.get_map_size().y))
+		{
+			set_position(old_position);
+		}
 	}
 
 }
