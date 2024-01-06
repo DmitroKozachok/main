@@ -2,6 +2,7 @@
 
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "HealthBar.h"
 
 // структура координат анімації
 struct CordAnimation
@@ -33,11 +34,13 @@ protected:
 	bool is_attacking; // чи атакує
 	float speed; // швидкість
 	float diagonal_speed; // швидкість під час руху по діагоналі
-	
+
 	sf::Sprite character_sprite; // спрайт персонажа
 	sf::Image character_image; // картинка персонажа
 	sf::Texture character_texture; // текстура персонажа
-
+	
+	HealthBar character_health; // здоров'я персонажа
+	
 	int size_texture_x; // розмір тайлу по Х
 	int size_texture_y; // розмір тайлу по У
 
@@ -75,5 +78,5 @@ public:
 
 	void move(sf::Event& event, float delta_time); // рух персонажа
 
+	void gain_damage(float x);
 };
-

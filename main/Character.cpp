@@ -14,7 +14,7 @@ Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 15
 	character_sprite.setPosition(sf::Vector2f(1000, 200));
 }
 
-Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 20 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
+Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : character_health(character_sprite.getPosition()), health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 20 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
 {
 	// встановлення картинки
 	character_image.loadFromFile(image_way);
@@ -31,6 +31,7 @@ Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f
 	// встановлення позиції
 	character_sprite.setPosition(position);
 
+	character_health.set_health_bar_position(character_sprite.getPosition());
 }
 
 void Character::move_left(float delta_time)
@@ -255,6 +256,11 @@ void Character::move(sf::Event& event, float delta_time) {
 	}
 }
 
+void Character::gain_damage(float x)
+{
+	character_health.lose_health(x);
+}
+
 bool Character::get_live_status() const { return is_alive; }
 
 sf::Vector2f Character::get_character_position() const { return character_sprite.getPosition(); }
@@ -262,4 +268,7 @@ sf::Vector2f Character::get_character_position() const { return character_sprite
 void Character::show(sf::RenderWindow& window) {
 	// вивід спрайту на екран
 	window.draw(character_sprite);
+
+	character_health.set_health_bar_position(character_sprite.getPosition());
+	window.draw(character_health.get_health_bar());
 }

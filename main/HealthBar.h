@@ -12,6 +12,7 @@ class HealthBar
 	const float health_bar_y = HEALTH_BAR_Y; // розмір прямокутника по y (константa)
 
 public:
+	HealthBar();
 	HealthBar(sf::Vector2f character_position); // конструктор
 
 	void set_health_bar_position(sf::Vector2f character_position); // метод для встановлення розташування здоров'я відносно гравця
