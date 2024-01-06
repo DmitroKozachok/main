@@ -83,7 +83,7 @@ void Game::play_game()
     Enemy enemy(32, 32, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/slime.png", sf::Vector2f(700.f, 600.f), sf::Vector2f(3.f, 3.f));
 
     // створення вікна на весь екран
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
 
     // створення музики для гри 
     Game_Music music;
@@ -93,7 +93,7 @@ void Game::play_game()
 
     // створення меню
     MainMenu main_menu(camera);
-    main_menu.set_status(true);
+    main_menu.set_status(false);
 
     // запуск стартової бг музики
     music.start_background_music_in_Menu();
