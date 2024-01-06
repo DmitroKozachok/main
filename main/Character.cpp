@@ -14,7 +14,7 @@ Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 15
 	character_sprite.setPosition(sf::Vector2f(1000, 200));
 }
 
-Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : character_health(character_sprite.getPosition()), health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 20 }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
+Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage) : health{ health }, damage{ damage }, is_alive{ true }, speed{ speed }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
 {
 	// встановлення картинки
 	character_image.loadFromFile(image_way);
@@ -230,13 +230,25 @@ void Character::set_live_status(bool status) {
 	is_alive = status;
 }
 
+void Character::set_position(sf::Vector2f position)
+{
+	character_sprite.setPosition(position);
+}
+
 float Character::get_health() const { return health; }
 
 float Character::get_damage() const { return damage; }
 
-void Character::move(sf::Event& event, float delta_time) {
+bool Character::get_can_move()
+{
+	return can_move;
+}
+
+void Character::move(float delta_time) {
 	if (!is_attacking)
 	{
+		old_position = get_character_position();
+
 		// отримання стану натиснутих клавіш для руху по діагоналі
 		bool is_key_pressed_a = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
 		bool is_key_pressed_d = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
@@ -253,6 +265,17 @@ void Character::move(sf::Event& event, float delta_time) {
 		if (is_key_pressed_d) move_right(delta_time); is_attacking = false;
 		if (is_key_pressed_w) move_up(delta_time); is_attacking = false;
 		if (is_key_pressed_s) move_down(delta_time); is_attacking = false;
+		can_move = true;
+	}
+	else
+	{
+		can_move = false;
+	}
+
+	if (get_character_position() == old_position && !is_attacking)
+	{
+		move_status = STAND;
+		idle_animation(delta_time);
 	}
 }
 
@@ -264,6 +287,37 @@ void Character::gain_damage(float x)
 bool Character::get_live_status() const { return is_alive; }
 
 sf::Vector2f Character::get_character_position() const { return character_sprite.getPosition(); }
+
+sf::Sprite Character::get_character_sprite() const
+{
+	return character_sprite;
+}
+
+void Character::detect_colision(Map& map_lvl, sf::FloatRect rect)
+{
+	// створення вектора для обробки колізії
+	std::vector<sf::Sprite> colision_sprite_arr = map_lvl.get_colision_sprite_arr();
+
+	// отримання глобальних координат гравця
+	sf::FloatRect character_bounds = sf::FloatRect{ rect };
+
+	// обробка колізії
+	if (can_move)
+	{
+		for (int i = 0; i < colision_sprite_arr.size(); i++)
+		{
+			sf::FloatRect obj_bounds = colision_sprite_arr[i].getGlobalBounds();
+
+			// перевірка на колізію
+			if (character_bounds.intersects(obj_bounds) || !(get_character_position().x - map_lvl.get_tile_size() > 0 && get_character_position().y - map_lvl.get_tile_size() > 0 && get_character_position().x + map_lvl.get_tile_size() < map_lvl.get_map_size().x && get_character_position().y + map_lvl.get_tile_size() < map_lvl.get_map_size().y))
+			{
+				set_position(old_position);
+			}
+		}
+
+	}
+
+}
 
 void Character::show(sf::RenderWindow& window) {
 	// вивід спрайту на екран

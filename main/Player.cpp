@@ -84,7 +84,7 @@ void Player::attack_animation_right(float delta_time)
     }
 }
 
-Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : Character(size_x, size_y, image_way, position, scale) {}
+Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : Character(size_x, size_y, image_way, position, scale, 20, 100, 5) {}
 
 void Player::attack(sf::Event event , float delta_time)
 {
@@ -99,5 +99,6 @@ void Player::attack(sf::Event event , float delta_time)
     if (move_status == RIGHT) attack_animation_right(delta_time);
     if (move_status == UP) attack_animation_up(delta_time);
     if (move_status == DOWN) attack_animation_down(delta_time);
+    if (move_status == STAND) attack_animation_down(delta_time);
 
 }

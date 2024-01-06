@@ -1,23 +1,24 @@
 #include "PlayerCamera.h"
+#include <iostream>
 
-PlayerCamera::PlayerCamera(Character& character, sf::Vector2f size, sf::RenderWindow& window) : size{ size }
+PlayerCamera::PlayerCamera(sf::Vector2f center, sf::Vector2f size, sf::RenderWindow& window, sf::Vector2f border_size) : size{ size }
 {
-	set_position(character.get_character_position(), window); // встановлення центру камери
+	set_position(center, border_size); // встановлення центру камери
 	camera.setSize(size); //встановлення розміру
 	window.setView(camera);
 }
 
-void PlayerCamera::set_position(sf::Vector2f new_position, sf::RenderWindow& window)
+void PlayerCamera::set_position(sf::Vector2f new_position, sf::Vector2f border_size)
 {
 	// перевірка чи камера не виходить за межі екрану
 	if (new_position.x < (size.x / 2))
-		new_position.x = (size.x / 2);				// Для тесту поставив коментарі , при потребі можна зняти
+		new_position.x = (size.x / 2);
 	if (new_position.y < (size.y / 2))
 		new_position.y = (size.y / 2);
-	if (new_position.x > (window.getSize().x - size.x / 2))
-		new_position.x = (window.getSize().x - size.x / 2);
-	if (new_position.y > (window.getSize().y - size.y / 2))
-		new_position.y = (window.getSize().y - size.y / 2);
+	if (new_position.x > (border_size.x - size.x / 2))
+		new_position.x = (border_size.x - size.x / 2);
+	if (new_position.y > (border_size.y - size.y / 2))
+		new_position.y = (border_size.y - size.y / 2);
 	camera.setCenter(new_position);
 }
 
@@ -36,9 +37,9 @@ sf::Vector2f PlayerCamera::get_position() const
 	return position;
 }
 
-void PlayerCamera::draw(Character& character, sf::RenderWindow& window)
+void PlayerCamera::draw(sf::Vector2f center, sf::RenderWindow& window, sf::Vector2f border_size)
 {
-	set_position(character.get_character_position(), window); // встановлення позиції
+	set_position(center, border_size); // встановлення позиції
 	camera.setSize(size); // встановлення розміру
 	window.setView(camera); // встановлення камери
 
