@@ -102,12 +102,25 @@ void Enemy::move_animation_down(float delta_time)
 
 Enemy::Enemy() : Character() {}
 
-Enemy::Enemy(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : Character(size_x, size_y, image_way, position, scale){} // делегування батьківського конструктора
+Enemy::Enemy(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : Character(size_x, size_y, image_way, position, scale, 5, 100, 1) {} // делегування батьківського конструктора
+
+void Enemy::detect_colision_with_player(Character player, sf::FloatRect enemy_rect, sf::FloatRect player_rect)
+{
+	// отримання глобальних координат гравця та ворога
+	sf::FloatRect enemy_bounds = enemy_rect;
+	sf::FloatRect player_bounds = player_rect;
+
+	// перевірка на колізію
+	if (enemy_bounds.intersects(enemy_bounds))
+	{
+		//std::cout << "-1" << std::endl;
+	}
+}
 
 void Enemy::move(sf::Vector2f player_position, float game_timer)
 {
+	old_position = character_sprite.getPosition();
     sf::Vector2f enemy_position = character_sprite.getPosition(); // теперішня позиція ворога на екрані
-    //sf::Vector2f new_enemy_position = enemy_position; // нова позиція ворога на екрані
     
     if (enemy_position.x > player_position.x + 1) {
         move_left(game_timer);
@@ -119,16 +132,14 @@ void Enemy::move(sf::Vector2f player_position, float game_timer)
 	else {
 		// idle animation
 	}
-	if (enemy_position.y > player_position.y + 32) {
+	if (enemy_position.y > player_position.y + 22) {
         move_up(game_timer);
     }
-	else if (enemy_position.y < player_position.y + 32)
+	else if (enemy_position.y < player_position.y + 22)
 	{
 		move_down(game_timer);
 	}
 	else {
 		// idle animation
 	}
-    
-    //character_sprite.setPosition(new_enemy_position); // зміна позиції ворога на екрані
 }

@@ -19,10 +19,10 @@ MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("Resources/menu/Main_Men
 
 }
 
-void MainMenu::set_position(PlayerCamera& camera, sf::RenderWindow& window)
+void MainMenu::set_position(PlayerCamera& camera, sf::Vector2f border_size, sf::RenderWindow& window)
 {
 	// встановлення позиції об'єктів в залежності від вікна
-	camera.set_position(sf::Vector2f{ 0.f, 0.f }, window);
+	camera.set_position(sf::Vector2f{ 0.f, 0.f }, sf::Vector2f{ window.getSize() });
 	camera.set_size(sf::Vector2f{ (float)window.getSize().x, (float)window.getSize().y });
 
 	text_arr[0].set_position({ camera.get_size().x * 0.5f, camera.get_size().y * 0.35f });
