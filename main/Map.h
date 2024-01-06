@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 struct char_and_coords // структура, яка містить символ, який відповідає за певний тайл
 {
@@ -14,6 +15,8 @@ struct char_and_coords // структура, яка містить символ, який відповідає за певн
 	int y;
 	int x_under;
 	int y_under;
+
+	bool is_colision;
 };
 
 class Map
@@ -23,11 +26,12 @@ private:
 	int height; // висота карти
 	int width; // ширина карти
 	int tile_size; // розмір одного тайлу
-	int scale;
+	int scale; // збільшення окремого тайлу
 	char** map_arr; // масив символів карти
 	std::string path; // шлях до тайлсету карти
 	char_and_coords* symbol_coord_arr; // масив координатів та символів для відображення карти
 	int symbol_coord_arr_size; // розмір масиву координатів
+	std::vector<sf::Sprite> colision_sprite_arr; // масив колізійних об'єктів
 
 	sf::Image map_image; // картинка тайлсету
 	sf::Texture map_texture; // текстура тайлсету
@@ -41,5 +45,12 @@ public:
 
 	void draw(sf::RenderWindow& window); // промальова карти
 
+	sf::Vector2f get_map_size() const;
+	int get_tile_size() const;
+	int get_scale() const;
+	char_and_coords* get_cord_arr() const;
+	char** get_map_arr() const;
+	int get_symbol_coord_arr_size() const;
+	std::vector<sf::Sprite> get_colision_sprite_arr() const;
 };
 

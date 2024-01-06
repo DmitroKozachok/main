@@ -1,4 +1,4 @@
 Resources/map/[Base]BaseChip_pipo.png
-40X20
+30X20
 32
-2
+1
