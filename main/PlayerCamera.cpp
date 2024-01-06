@@ -14,7 +14,7 @@ void PlayerCamera::set_position(sf::Vector2f new_position, sf::RenderWindow& win
 		new_position.x = (size.x / 2);				// Для тесту поставив коментарі , при потребі можна зняти
 	if (new_position.y < (size.y / 2))
 		new_position.y = (size.y / 2);
-	if (new_position.x > (window.getSize().x - size.x / 2))
+	if (new_position.x >(window.getSize().x - size.x / 2))
 		new_position.x = (window.getSize().x - size.x / 2);
 	if (new_position.y > (window.getSize().y - size.y / 2))
 		new_position.y = (window.getSize().y - size.y / 2);
