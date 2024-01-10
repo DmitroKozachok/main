@@ -62,7 +62,7 @@ protected:
 	virtual void move_animation_up(float delta_time); // анімація руху вгору
 	virtual void move_animation_down(float delta_time); // анімація руху вниз
 
-	void idle_animation(float delta_time); // анімація стояння
+	virtual void idle_animation(float delta_time); // анімація стояння
 
 public:
 
@@ -76,10 +76,12 @@ public:
 
 	float get_health() const; // повертає здоров'я персонажа
 	float get_damage() const; // повертає урон персонажа
+	bool is_character_attacking() const; // чи атакує
 	bool get_can_move(); // чи може рухатись
 	bool get_live_status() const; // повертає статус життя героя, true - живий, false - мертвий
 	sf::Vector2f get_character_position() const; // повертає позицію гравця
 	sf::Sprite get_character_sprite() const; // повертає спрайт гравця
+	float get_frame() const; // повертає теперішній кадр анімації
 
 	void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка колізії
 

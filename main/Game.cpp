@@ -22,10 +22,13 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         }
     }
     // рух злодія
-    enemy.move(player.get_character_position(), delta_time / 2);
-    enemy.detect_colision(map, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 45, enemy.get_character_sprite().getGlobalBounds().top + 60, enemy.get_character_sprite().getGlobalBounds().width - 95, enemy.get_character_sprite().getGlobalBounds().height - 100 });
-    enemy.detect_colision_with_player(player, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 45, enemy.get_character_sprite().getGlobalBounds().top + 60, enemy.get_character_sprite().getGlobalBounds().width - 95, enemy.get_character_sprite().getGlobalBounds().height - 100 }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, player.get_character_sprite().getGlobalBounds().height - 100 });
-
+    if (enemy.get_live_status())
+    {
+        enemy.move(player.get_character_position(), delta_time / 2);
+        enemy.detect_colision(map, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 45, enemy.get_character_sprite().getGlobalBounds().top + 60, enemy.get_character_sprite().getGlobalBounds().width - 95, enemy.get_character_sprite().getGlobalBounds().height - 100 });
+        enemy.detect_colision_with_player(player, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 25, enemy.get_character_sprite().getGlobalBounds().top + 40, enemy.get_character_sprite().getGlobalBounds().width - 45, enemy.get_character_sprite().getGlobalBounds().height - 80 }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+    }
+    
     if (main_menu.get_status()) {
 
         // обробка натискання кнопок меню
@@ -61,8 +64,11 @@ void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf
     else
     {
         map_lvl.draw(window);
-        enemy.show(window);
-        player.show(window); 
+        player.show(window);
+        if (enemy.get_live_status())
+        {
+            enemy.show(window);
+        }
         camera.draw(player.get_character_position(), window, map_lvl.get_map_size());
     }
 
