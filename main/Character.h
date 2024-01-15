@@ -82,6 +82,7 @@ public:
 	sf::Vector2f get_character_position() const; // повертаЇ позиц≥ю гравц€
 	sf::Sprite get_character_sprite() const; // повертаЇ спрайт гравц€
 	float get_frame() const; // повертаЇ тепер≥шн≥й кадр ан≥мац≥њ
+	sf::Vector2f get_old_position() const; // повертаЇ колишню позиц≥ю гравц€
 
 	void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка кол≥з≥њ
 

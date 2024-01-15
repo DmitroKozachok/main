@@ -304,6 +304,11 @@ float Character::get_frame() const
 	return frame;
 }
 
+sf::Vector2f Character::get_old_position() const
+{
+	return old_position;
+}
+
 void Character::detect_colision(Map& map_lvl, sf::FloatRect rect)
 {
 	// створення вектора для обробки колізії
@@ -337,7 +342,4 @@ void Character::detect_colision(Map& map_lvl, sf::FloatRect rect)
 void Character::show(sf::RenderWindow& window) {
 	// вивід спрайту на екран
 	window.draw(character_sprite);
-
-	character_health.set_health_bar_position(character_sprite.getPosition());
-	window.draw(character_health.get_health_bar());
 }
