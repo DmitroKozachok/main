@@ -13,7 +13,7 @@ protected:
 
 public:
 	EditTxt(); // створення стандартного тексту
-	EditTxt(std::string string); // створення введеного тексту
+	EditTxt(std::string font_path); // створення тексту із певним шрифтом
 
 	void set_string(std::string string); // зміна стрічки
 	void set_position(sf::Vector2f position); // зміна розиції

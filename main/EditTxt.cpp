@@ -1,9 +1,11 @@
 #include "EditTxt.h"
 #include <iostream>
 
-EditTxt::EditTxt()
+EditTxt::EditTxt() :EditTxt ("Resources/Fonts/Pixel_Font-7 (1).ttf") {}
+
+EditTxt::EditTxt(std::string font_path)
 {
-    text_font.loadFromFile("Resources/Fonts/Pixel_Font-7 (1).ttf"); // підключення шрифта
+    text_font.loadFromFile(font_path); // підключення шрифта
     text_string.setFillColor(sf::Color::White); // зміна кольору
     text_string.setFont(text_font); // зміна шрифта
     text_string.setString("---"); // зміна стрічки
@@ -11,12 +13,6 @@ EditTxt::EditTxt()
     // встановлення центру стрічки
     sf::FloatRect text_bounds = text_string.getLocalBounds();
     text_string.setOrigin(text_bounds.left + text_bounds.width / 2.0f, text_bounds.top + text_bounds.height / 2.0f);
-
-}
-
-EditTxt::EditTxt(std::string string) : EditTxt() // делигування конструкторів
-{
-    text_string.setString(string); // зміна стрічки
 }
 
 void EditTxt::set_string(std::string string)

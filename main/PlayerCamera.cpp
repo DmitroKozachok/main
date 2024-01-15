@@ -20,6 +20,7 @@ void PlayerCamera::set_position(sf::Vector2f new_position, sf::Vector2f border_s
 	if (new_position.y > (border_size.y - size.y / 2))
 		new_position.y = (border_size.y - size.y / 2);
 	camera.setCenter(new_position);
+	position = new_position;
 }
 
 void PlayerCamera::set_size(sf::Vector2f new_size)
