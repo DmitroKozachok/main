@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "EditTxt.h"
+#include "PlayerCamera.h"
 
 class DialogSystem {
 private:
@@ -20,7 +21,7 @@ public:
 
     void dialog_switch(sf::Event event); // обробка прогортання діалогу
 
-    void show(sf::RenderWindow& window); // вивід діалогу
+    void show(sf::RenderWindow& window, PlayerCamera& camera, bool& is_dialog); // вивід діалогу
 };
 
 

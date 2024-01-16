@@ -11,9 +11,11 @@ protected:
 	sf::Font text_font; // шрифт тексту
 	sf::Vector2f text_position; // позиція тексту
 
+	bool is_center;
+
 public:
 	EditTxt(); // створення стандартного тексту
-	EditTxt(std::string font_path); // створення тексту із певним шрифтом
+	EditTxt(std::string font_path, bool is_center); // створення тексту із певним шрифтом
 
 	void set_string(std::string string); // зміна стрічки
 	void set_position(sf::Vector2f position); // зміна розиції

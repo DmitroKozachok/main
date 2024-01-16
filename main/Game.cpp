@@ -64,7 +64,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     }
 }
 
-void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf::RenderWindow& window, MainMenu main_menu, NPC npc)
+void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, NPC& npc)
 {
     // вивід гри, або меню
 
@@ -76,7 +76,7 @@ void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf
     else
     {
         map_lvl.draw(window);
-        npc.show(window);
+        npc.show(window, camera);
         player.show(window);
         if (enemy.get_live_status())
         {
@@ -102,7 +102,7 @@ void Game::play_game()
     Enemy enemy(32, 32, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/slime.png", sf::Vector2f(700.f, 600.f), sf::Vector2f(3.f, 3.f));
 
     // створення NPC
-    NPC npc(32, 32, "Resources/TailSet/Male/Male 03-1.png", sf::Vector2f(2000.f, 400.f), sf::Vector2f(1.5f, 1.5f), "Resources/Fonts/NAMU-1910.ttf", "Code/Dialogs/TMP_NPC/Dialog.txt");
+    NPC npc(32, 32, "Resources/TailSet/Male/Male 03-1.png", sf::Vector2f(2000.f, 400.f), sf::Vector2f(1.5f, 1.5f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/TMP_NPC/Dialog.txt");
 
     // створення вікна на весь екран
     sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen);

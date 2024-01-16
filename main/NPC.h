@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include "DialogSystem.h"
+#include "PlayerCamera.h"
 
 class NPC : public Character
 {
@@ -23,6 +24,6 @@ public:
 
 	void dialog_processing(sf::Event event); // обробка діалогу
 
-	void show(sf::RenderWindow& window);
+	void show(sf::RenderWindow& window, PlayerCamera& camera); // вивід
 };
 

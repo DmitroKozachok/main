@@ -129,7 +129,7 @@ void NPC::dialog_processing(sf::Event event)
 	}
 }
 
-void NPC::show(sf::RenderWindow& window)
+void NPC::show(sf::RenderWindow& window, PlayerCamera& camera)
 {
 	// вивід спрайту на екран
 	window.draw(character_sprite);
@@ -137,7 +137,7 @@ void NPC::show(sf::RenderWindow& window)
 	if (is_dialog)
 	{
 		// вивід діалогу на екран
-		dialog.show(window);
+		dialog.show(window, camera, is_dialog);
 	}
-	
+
 }

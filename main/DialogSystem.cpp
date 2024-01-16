@@ -1,9 +1,10 @@
 #include "DialogSystem.h"
 
-DialogSystem::DialogSystem(std::string font_path, std::string replik_file_path) : dialog_text(font_path), current_line{0}
+DialogSystem::DialogSystem(std::string font_path, std::string replik_file_path) : dialog_text(font_path, false), current_line{0}
 {
     // Налаштування вікна діалогу
-    dialog_box.setSize(sf::Vector2f(600, 200));
+    dialog_box.setSize(sf::Vector2f(500, 125));
+    dialog_box.setOrigin(sf::Vector2f(dialog_box.getSize().x / 2, dialog_box.getSize().y / 2));
     dialog_box.setPosition(2000, 500);
     dialog_box.setFillColor(sf::Color::Black);
     dialog_box.setOutlineColor(sf::Color::White);
@@ -40,14 +41,17 @@ void DialogSystem::dialog_switch(sf::Event event)
     }
 }
 
-void DialogSystem::show(sf::RenderWindow& window)
+void DialogSystem::show(sf::RenderWindow& window, PlayerCamera& camera, bool& is_dialog)
 {
+    dialog_box.setPosition(camera.get_position().x, camera.get_position().y + 150);
+
     // Виведення діалогового вікна
     window.draw(dialog_box);
 
     // Виведення поточної репліки
     if (current_line < dialog_replik.size()) {
         dialog_text.set_string(dialog_replik[current_line]);
+        dialog_text.set_position(sf::Vector2f{ dialog_box.getPosition().x - 230, dialog_box.getPosition().y - 60 });
         dialog_text.show(window);
     }
     else {
@@ -56,6 +60,7 @@ void DialogSystem::show(sf::RenderWindow& window)
             waiting_for_input = true;
             // Очищення вікна після завершення діалогу
             current_line = 0;
+            is_dialog = false;
         }
     }
 }

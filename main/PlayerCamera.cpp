@@ -1,5 +1,4 @@
 #include "PlayerCamera.h"
-#include <iostream>
 
 PlayerCamera::PlayerCamera(sf::Vector2f center, sf::Vector2f size, sf::RenderWindow& window, sf::Vector2f border_size) : size{ size }
 {
