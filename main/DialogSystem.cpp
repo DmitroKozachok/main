@@ -11,6 +11,7 @@ DialogSystem::DialogSystem(std::string font_path, std::string replik_file_path) 
     dialog_box.setOutlineThickness(2.0f);
 
     // Налаштування тексту діалогу
+    dialog_text.set_size(20.f);
     dialog_text.set_position(sf::Vector2f{ dialog_box.getPosition().x + 10, dialog_box.getPosition().y + 10 });
 
     // Завантаження реплік з файлу
@@ -51,7 +52,7 @@ void DialogSystem::show(sf::RenderWindow& window, PlayerCamera& camera, bool& is
     // Виведення поточної репліки
     if (current_line < dialog_replik.size()) {
         dialog_text.set_string(dialog_replik[current_line]);
-        dialog_text.set_position(sf::Vector2f{ dialog_box.getPosition().x - 230, dialog_box.getPosition().y - 60 });
+        dialog_text.set_position(sf::Vector2f{ dialog_box.getPosition().x - 230, dialog_box.getPosition().y - 15 });
         dialog_text.show(window);
     }
     else {

@@ -112,7 +112,7 @@ void Game::play_game()
     Map map_lvl_1("Code/Maps/lvl_1/lvl_1_config.txt", "Code/Maps/lvl_1/lvl_1_map.txt", "Code/Maps/lvl_1/lvl_1_Codet.txt");
 
     // створення персонажа
-    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(2300.f, 400.f), sf::Vector2f(2.3f, 2.3f));
+    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(400.f, 3000.f), sf::Vector2f(2.3f, 2.3f));
 
     // створення злодіїв
     std::vector<Enemy> enemies;
@@ -122,9 +122,11 @@ void Game::play_game()
 
     // створення NPC
     std::vector<NPC> npcs;
-    NPC npc(32, 32, "Resources/TailSet/Male/Male 03-1.png", sf::Vector2f(2000.f, 400.f), sf::Vector2f(1.5f, 1.5f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/TMP_NPC/Dialog.txt");
+    NPC warlock(32, 32, "Resources/TailSet/Male/Male 12-2.png", sf::Vector2f(1000.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Warlock/Dialog.txt");
+    NPC brother(32, 32, "Resources/TailSet/Male/Male 02-2.png", sf::Vector2f(900.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Brother/Dialog1.txt");
 
-    npcs.push_back(npc);
+    npcs.push_back(warlock);
+    npcs.push_back(brother);
 
     // створення вікна на весь екран
     sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen);
