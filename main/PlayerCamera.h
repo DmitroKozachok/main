@@ -1,7 +1,8 @@
 // клас для роботи з камерою
+#pragma once
 #include <SFML/Graphics.hpp>
 #include "Character.h"
-#pragma once
+#include <iostream>
 
 class PlayerCamera
 {

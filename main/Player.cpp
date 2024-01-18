@@ -84,7 +84,7 @@ void Player::attack_animation_right(float delta_time)
     }
 }
 
-Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : Character(size_x, size_y, image_way, position, scale, 20, 100, 5) {}
+Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : Character(size_x, size_y, image_way, position, scale, 10, 100, 7) {}
 
 void Player::attack(sf::Event event , float delta_time)
 {
