@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, Enemy& enemy, MainMenu& main_menu, PlayerCamera& camera, Map& map)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs)
 {
     sf::Event event;
 
@@ -12,20 +12,44 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             }
 
             // обробка відкриття меню
-
             if (event.key.code == sf::Keyboard::P && main_menu.get_status()) {
                 main_menu.set_status(false);
             }
             else if (event.key.code == sf::Keyboard::P && !main_menu.get_status()) {
                 main_menu.set_status(true);
             }
+
+            // обробка можливого діалогу
+            for (auto& npc : npcs)
+            {
+                npc.dialog_processing(event);
+            }
+
         }
     }
     // рух злодія
-    enemy.move(player.get_character_position(), delta_time);
-    enemy.detect_colision(map, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 45, enemy.get_character_sprite().getGlobalBounds().top + 60, enemy.get_character_sprite().getGlobalBounds().width - 95, enemy.get_character_sprite().getGlobalBounds().height - 100 });
-    enemy.detect_colision_with_player(player, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 45, enemy.get_character_sprite().getGlobalBounds().top + 60, enemy.get_character_sprite().getGlobalBounds().width - 95, enemy.get_character_sprite().getGlobalBounds().height - 100 }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, player.get_character_sprite().getGlobalBounds().height - 100 });
+    for (auto& enemy : enemies)
+    {
+        if (enemy.get_live_status())
+        {
+            enemy.move(player.get_character_position(), delta_time / 2);
+            enemy.detect_colision(map, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 45, enemy.get_character_sprite().getGlobalBounds().top + 60, enemy.get_character_sprite().getGlobalBounds().width - 95, enemy.get_character_sprite().getGlobalBounds().height - 100 });
+            enemy.detect_colision_with_player(player, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 25, enemy.get_character_sprite().getGlobalBounds().top + 40, enemy.get_character_sprite().getGlobalBounds().width - 45, enemy.get_character_sprite().getGlobalBounds().height - 80 }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+        }
+    }
+    
+    //рух NPC
+    for (auto& npc : npcs)
+    {
+        if (npc.get_live_status())
+        {
+            npc.script_move(delta_time);
+            npc.detect_colision(map, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left + 45, npc.get_character_sprite().getGlobalBounds().top + 60, npc.get_character_sprite().getGlobalBounds().width - 95, npc.get_character_sprite().getGlobalBounds().height - 100 });
+            npc.detect_colision_with_player(player, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left, npc.get_character_sprite().getGlobalBounds().top, npc.get_character_sprite().getGlobalBounds().width, npc.get_character_sprite().getGlobalBounds().height }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+        }
+    }
 
+    // меню
     if (main_menu.get_status()) {
 
         // обробка натискання кнопок меню
@@ -49,7 +73,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     }
 }
 
-void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf::RenderWindow& window, MainMenu main_menu)
+void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs)
 {
     // вивід гри, або меню
 
@@ -61,8 +85,20 @@ void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf
     else
     {
         map_lvl.draw(window);
-        enemy.show(window);
-        player.show(window); 
+        for (auto& npc : npcs)
+        {
+            npc.show(window, camera);
+        }
+        player.show(window);
+
+        for (auto& enemy : enemies)
+        {
+            if (enemy.get_live_status())
+            {
+                enemy.show(window);
+            }
+        }
+
         camera.draw(player.get_character_position(), window, map_lvl.get_map_size());
     }
 
@@ -73,14 +109,22 @@ void Game::draw(Map map_lvl, Player player, Enemy enemy, PlayerCamera camera, sf
 void Game::play_game()
 {
     // створення мапи
-    //Map map("Code/Maps/Test/Test config.txt", "Code/Maps/Test/Test map.txt", "Code/Maps/Test/Code for test.txt");
     Map map_lvl_1("Code/Maps/lvl_1/lvl_1_config.txt", "Code/Maps/lvl_1/lvl_1_map.txt", "Code/Maps/lvl_1/lvl_1_Codet.txt");
 
     // створення персонажа
-    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(50.f, 600.f), sf::Vector2f(2.3f, 2.3f));
+    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(2300.f, 400.f), sf::Vector2f(2.3f, 2.3f));
 
-    // створення злодія
+    // створення злодіїв
+    std::vector<Enemy> enemies;
     Enemy enemy(32, 32, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/slime.png", sf::Vector2f(700.f, 600.f), sf::Vector2f(3.f, 3.f));
+
+    enemies.push_back(enemy);
+
+    // створення NPC
+    std::vector<NPC> npcs;
+    NPC npc(32, 32, "Resources/TailSet/Male/Male 03-1.png", sf::Vector2f(2000.f, 400.f), sf::Vector2f(1.5f, 1.5f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/TMP_NPC/Dialog.txt");
+
+    npcs.push_back(npc);
 
     // створення вікна на весь екран
     sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen);
@@ -102,12 +146,12 @@ void Game::play_game()
     {
 
         // обробка подій
-        event_processing(window, player, ANIMATION_TIME, enemy, main_menu, camera, map_lvl_1);
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs);
 
         window.clear();
         
         // вивід
-        draw(map_lvl_1, player, enemy, camera, window, main_menu);
+        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs);
 
     }
 }

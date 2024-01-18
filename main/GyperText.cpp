@@ -2,7 +2,7 @@
 
 GyperText::GyperText() : EditTxt() {}
 
-GyperText::GyperText(std::string string) : EditTxt(string){}
+GyperText::GyperText(std::string string) : EditTxt(string, true){}
 
 void GyperText::hover(sf::RenderWindow& window)
 {

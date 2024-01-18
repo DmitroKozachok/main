@@ -2,13 +2,15 @@
 
 HealthBar::HealthBar() {}
 
-HealthBar::HealthBar(sf::Vector2f character_position)
+HealthBar::HealthBar(sf::Vector2f character_position, float character_health)
 {
 	health_bar.setFillColor(sf::Color::Red);
 	health_bar.setSize(sf::Vector2f(health_bar_x, health_bar_y));
 	health_bar.setOutlineColor(sf::Color::White);
 	health_bar.setOutlineThickness(2.f);
 	set_health_bar_position(character_position);
+
+	c_for_damage = health_bar.getSize().x / character_health;
 }
 
 void HealthBar::set_health_bar_position(sf::Vector2f character_position)
@@ -29,7 +31,7 @@ void HealthBar::lose_health(float x)
 		return;
 	}
 
-	health_bar_x -= x;
+	health_bar_x -= x * c_for_damage;
 	health_bar.setSize(sf::Vector2f(health_bar_x, health_bar_y));
 }
 
