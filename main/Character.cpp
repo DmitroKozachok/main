@@ -14,7 +14,7 @@ Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 15
 	character_sprite.setPosition(sf::Vector2f(1000, 200));
 }
 
-Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage) :character_health(character_sprite.getPosition()), health{ health }, damage{ damage }, is_alive{ true }, speed{ speed }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
+Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage) :character_health(character_sprite.getPosition(), health), health{ health }, damage{ damage }, is_alive{ true }, speed{ speed }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
 {
 	// встановлення картинки
 	character_image.loadFromFile(image_way);
@@ -208,6 +208,7 @@ void Character::set_health(float new_health) {
 	// смерть в разі відє'много значення
 	if (new_health > 0)
 	{
+		gain_damage(health - new_health);
 		health = new_health;
 		set_live_status(true);
 	}
@@ -238,6 +239,11 @@ void Character::set_position(sf::Vector2f position)
 float Character::get_health() const { return health; }
 
 float Character::get_damage() const { return damage; }
+
+bool Character::is_character_attacking() const
+{
+	return is_attacking;
+}
 
 bool Character::get_can_move()
 {
@@ -291,6 +297,16 @@ sf::Vector2f Character::get_character_position() const { return character_sprite
 sf::Sprite Character::get_character_sprite() const
 {
 	return character_sprite;
+}
+
+float Character::get_frame() const
+{
+	return frame;
+}
+
+sf::Vector2f Character::get_old_position() const
+{
+	return old_position;
 }
 
 void Character::detect_colision(Map& map_lvl, sf::FloatRect rect)
