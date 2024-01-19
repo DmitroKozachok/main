@@ -14,7 +14,7 @@ Character::Character() : health{ 100 }, damage{ 5 }, is_alive{ true }, speed{ 15
 	character_sprite.setPosition(sf::Vector2f(1000, 200));
 }
 
-Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage) :character_health(character_sprite.getPosition(), health), health{ health }, damage{ damage }, is_alive{ true }, speed{ speed }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }
+Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage, std::string name) :character_health(character_sprite.getPosition(), health), health{ health }, damage{ damage }, is_alive{ true }, speed{ speed }, diagonal_speed{ speed / 1.3f }, frame{ 0.f }, size_texture_x{ size_x }, size_texture_y{ size_y }, is_attacking{ false }, name{ name }
 {
 	// встановлення картинки
 	character_image.loadFromFile(image_way);
@@ -307,6 +307,11 @@ float Character::get_frame() const
 sf::Vector2f Character::get_old_position() const
 {
 	return old_position;
+}
+
+std::string Character::get_name() const
+{
+	return name;
 }
 
 void Character::detect_colision(Map& map_lvl, sf::FloatRect rect)

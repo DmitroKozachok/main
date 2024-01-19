@@ -1,6 +1,6 @@
 #include "DialogSystem.h"
 
-DialogSystem::DialogSystem(std::string font_path, std::string replik_file_path) : dialog_text(font_path, false), current_line{0}
+DialogSystem::DialogSystem(std::string font_path, std::string replik_file_path, std::string dialog_name) : dialog_text(font_path, false), current_line{ 0 }, dialog_name{ dialog_name }
 {
     // Налаштування вікна діалогу
     dialog_box.setSize(sf::Vector2f(500, 125));
@@ -18,8 +18,15 @@ DialogSystem::DialogSystem(std::string font_path, std::string replik_file_path) 
     load_dialog_from_file(replik_file_path);
 }
 
+void DialogSystem::set_dialog_name(std::string name)
+{
+    dialog_name = name;
+}
+
 void DialogSystem::load_dialog_from_file(std::string filename)
 {
+    current_line = 0;
+    dialog_replik.clear();
     std::ifstream file(filename);
     if (file.is_open()) {
         std::string line;
@@ -62,6 +69,23 @@ void DialogSystem::show(sf::RenderWindow& window, PlayerCamera& camera, bool& is
             // Очищення вікна після завершення діалогу
             current_line = 0;
             is_dialog = false;
+            all_complate_dialog.push_back(dialog_name);
         }
     }
 }
+
+std::string DialogSystem::get_dialog_name() const
+{
+    return dialog_name;
+}
+
+std::string DialogSystem::get_font_path() const
+{
+    return font_path;
+}
+
+bool DialogSystem::get_waiting_for_input() const
+{
+    return waiting_for_input;
+}
+

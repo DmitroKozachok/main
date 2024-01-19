@@ -13,7 +13,7 @@ private:
 
 public:
 
-	Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale); // конструктор гравц€
+	Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name); // конструктор гравц€
 
 	void attack(sf::Event event, float delta_time); // обробка атаки
 

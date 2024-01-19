@@ -98,7 +98,7 @@ void NPC::idle_animation(float delta_time)
 	character_sprite.setTextureRect(sf::IntRect(size_texture_x * 1, size_texture_y * 0, size_texture_x, size_texture_y));
 }
 
-NPC::NPC(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string font_path, std::string replik_file_path) : Character(size_x, size_y, image_way, position, scale, 5, 100, 1), dialog{ font_path, replik_file_path } {}
+NPC::NPC(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string font_path, std::string replik_file_path, std::string dialog_name, std::string name) : Character(size_x, size_y, image_way, position, scale, 5, 100, 1, name), dialog{ font_path, replik_file_path, dialog_name } {}
 
 void NPC::detect_colision_with_player(Character& player, sf::FloatRect npc_rect, sf::FloatRect player_rect, float delta_time)
 {
@@ -129,6 +129,12 @@ void NPC::dialog_processing(sf::Event event)
 	}
 }
 
+void NPC::load_new_dialog(std::string path, std::string dialog_name)
+{
+	dialog.set_dialog_name(dialog_name);
+	dialog.load_dialog_from_file(path);
+}
+
 void NPC::show(sf::RenderWindow& window, PlayerCamera& camera)
 {
 	// вивід спрайту на екран
@@ -140,4 +146,9 @@ void NPC::show(sf::RenderWindow& window, PlayerCamera& camera)
 		dialog.show(window, camera, is_dialog);
 	}
 
+}
+
+DialogSystem NPC::get_dialog() const
+{
+	return dialog;
 }

@@ -1,6 +1,8 @@
 // Клас для обробки усіх подій в процесі гри
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <algorithm>
 #include "EditTxt.h"
 #include "Enemy.h"
 #include "Game_Music.h"
@@ -10,7 +12,7 @@
 #include "PlayerCamera.h"
 #include "Player.h"
 #include "NPC.h"
-#include <vector>
+#include "DialogSystem.h"
 
 #define ANIMATION_TIME 0.25f
 

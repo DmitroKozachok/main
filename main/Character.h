@@ -38,6 +38,7 @@ protected:
 	float speed; // швидкість
 	float diagonal_speed; // швидкість під час руху по діагоналі
 	sf::Vector2f old_position; // стара позиція (для колізії)
+	std::string name; // ім'я гравця
 
 	sf::Sprite character_sprite; // спрайт персонажа
 	sf::Image character_image; // картинка персонажа
@@ -67,7 +68,7 @@ protected:
 public:
 
 	Character(); // конструктор за завмовчуванням, створює звичайний квадрат
-	Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage); // конструктор, що встановлює спрайт персонажа
+	Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage, std::string name); // конструктор, що встановлює спрайт персонажа
 
 	void set_health(float new_health); // встановлення життя
 	void set_damage(float new_damage); // встановлення урону
@@ -83,6 +84,7 @@ public:
 	sf::Sprite get_character_sprite() const; // повертає спрайт гравця
 	float get_frame() const; // повертає теперішній кадр анімації
 	sf::Vector2f get_old_position() const; // повертає колишню позицію гравця
+	std::string get_name() const; // повертає ім'я
 
 	void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка колізії
 
