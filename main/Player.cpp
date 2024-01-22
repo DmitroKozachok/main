@@ -86,6 +86,15 @@ void Player::attack_animation_right(float delta_time)
 
 Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale) : Character(size_x, size_y, image_way, position, scale, 10, 100, 7) {}
 
+void Player::move(float delta_time, Game_Music& my_music)
+{
+    Character::move(delta_time);    // працює рух
+    if (move_status == UP || move_status == LEFT || move_status == RIGHT || move_status == DOWN) { // перевірка руху
+        my_music.song_walking_playear.start_play_this_sound();   // запуск руху по траві (звуку)
+        
+    }
+}
+
 void Player::attack(sf::Event event , float delta_time)
 {
     // перевірка на атаку

@@ -88,7 +88,7 @@ public:
 
 	void show(sf::RenderWindow& window); // промальовка персонажа
 
-	void move(float delta_time); // рух персонажа
+	virtual void move(float delta_time); // рух персонажа
 
 	void gain_damage(float x);
 };

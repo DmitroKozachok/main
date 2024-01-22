@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music)
 {
     sf::Event event;
 
@@ -53,7 +53,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     if (main_menu.get_status()) {
 
         // обробка натискання кнопок меню
-        main_menu.click_processing(window, event);
+        main_menu.click_processing(window, event, my_music);
 
         // вивід меню
         main_menu.set_position(camera, map.get_map_size(), window);
@@ -63,7 +63,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         camera.set_size(sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5));
 
         // рух персонажа
-        player.move(delta_time);
+        player.move(delta_time, my_music);
 
         // атака гравця
         player.attack(event, delta_time);
@@ -127,7 +127,7 @@ void Game::play_game()
     npcs.push_back(npc);
 
     // створення вікна на весь екран
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!"); //, sf::Style::Fullscreen
 
     // створення музики для гри 
     Game_Music music;
@@ -140,13 +140,13 @@ void Game::play_game()
     main_menu.set_status(true);
 
     // запуск стартової бг музики
-    music.start_background_music_in_Menu();
+    music.background_Music_in_Menu.start_play_this_music();
 
     while (window.isOpen())
     {
 
         // обробка подій
-        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs);
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music);
 
         window.clear();
         
