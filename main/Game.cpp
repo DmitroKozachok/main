@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, PauseMenu& pause_menu)
 {
     sf::Event event;
 
@@ -12,11 +12,11 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             }
 
             // обробка відкриття меню
-            if (event.key.code == sf::Keyboard::P && main_menu.get_status()) {
-                main_menu.set_status(false);
+            if (event.key.code == sf::Keyboard::P && pause_menu.get_status()) {
+                pause_menu.set_status(false);
             }
-            else if (event.key.code == sf::Keyboard::P && !main_menu.get_status()) {
-                main_menu.set_status(true);
+            else if (event.key.code == sf::Keyboard::P && !pause_menu.get_status()) {
+                pause_menu.set_status(true);
             }
 
             // обробка можливого діалогу
@@ -68,9 +68,10 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         // обробка натискання кнопок меню
         main_menu.click_processing(window, event);
 
-        // вивід меню
+        // позиція меню
         main_menu.set_position(camera, map.get_map_size(), window);
     }
+
     else
     {
         camera.set_size(sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5));
@@ -83,10 +84,20 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
 
         // обробка колізії
         player.detect_colision(map, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, player.get_character_sprite().getGlobalBounds().height - 100});
+
+        if (pause_menu.get_status())
+        {
+            // обробка натискання кнопок меню
+            pause_menu.click_processing(window, event);
+
+            // позиція меню
+            pause_menu.set_position(camera, map.get_map_size(), window);
+        }
+
     }
 }
 
-void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs)
+void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu pause_menu)
 {
     // вивід гри, або меню
 
@@ -112,7 +123,13 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
             }
         }
 
+        if (pause_menu.get_status())
+        {
+            pause_menu.show(window);
+        }
+
         camera.draw(player.get_character_position(), window, map_lvl.get_map_size());
+        
     }
 
     window.display();
@@ -154,6 +171,8 @@ void Game::play_game()
     MainMenu main_menu(camera);
     main_menu.set_status(true);
 
+    PauseMenu pause_menu(camera);
+
     // запуск стартової бг музики
     music.start_background_music_in_Menu();
 
@@ -161,12 +180,12 @@ void Game::play_game()
     {
 
         // обробка подій
-        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs);
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, pause_menu);
 
         window.clear();
         
         // вивід
-        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs);
+        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu);
 
     }
 }
