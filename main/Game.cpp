@@ -76,14 +76,6 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     {
         camera.set_size(sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5));
 
-        // рух персонажа
-        player.move(delta_time);
-
-        // атака гравц€
-        player.attack(event, delta_time);
-
-        // обробка кол≥з≥њ
-        player.detect_colision(map, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, player.get_character_sprite().getGlobalBounds().height - 100});
 
         if (pause_menu.get_status())
         {
@@ -93,11 +85,22 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             // позиц≥€ меню
             pause_menu.set_position(camera, map.get_map_size(), window);
         }
+        else
+        {
+            // рух персонажа
+            player.move(delta_time);
+
+            // атака гравц€
+            player.attack(event, delta_time);
+
+            // обробка кол≥з≥њ
+            player.detect_colision(map, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, player.get_character_sprite().getGlobalBounds().height - 100 });
+        }
 
     }
 }
 
-void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu pause_menu)
+void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu)
 {
     // вив≥д гри, або меню
 

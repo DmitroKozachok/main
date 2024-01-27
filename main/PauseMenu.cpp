@@ -3,7 +3,7 @@
 PauseMenu::PauseMenu(PlayerCamera& camera) : StandartMenu("Resources/menu/Main_Menu_BG.jpg", 1, 3) {
 	// створення тексту
 	text_arr[0].set_size(60);
-	text_arr[0].set_string("Main Menu");
+	text_arr[0].set_string("Pause Menu");
 
 	// створення кнопок
 	gyper_text_arr[0].set_size(30);
@@ -19,17 +19,14 @@ PauseMenu::PauseMenu(PlayerCamera& camera) : StandartMenu("Resources/menu/Main_M
 void PauseMenu::set_position(PlayerCamera& camera, sf::Vector2f border_size, sf::RenderWindow& window)
 {
 	// встановлення позиції об'єктів в залежності від вікна
-	camera.set_position(sf::Vector2f{ 0.f, 0.f }, sf::Vector2f{ window.getSize() });
-	camera.set_size(sf::Vector2f{ window.getSize().x * 0.5f,  window.getSize().y * 0.5f });
-
-	text_arr[0].set_position({ camera.get_size().x * 0.5f, camera.get_size().y * 0.35f });
-	gyper_text_arr[0].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.6f });
-	gyper_text_arr[1].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.7f });
-	gyper_text_arr[2].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.8f });
+	text_arr[0].set_position({ camera.get_position().x, camera.get_position().y - 150.f });
+	gyper_text_arr[0].set_position({ camera.get_position().x, camera.get_position().y - 50.f });
+	gyper_text_arr[1].set_position({ camera.get_position().x, camera.get_position().y + 25.f });
+	gyper_text_arr[2].set_position({ camera.get_position().x, camera.get_position().y + 100.f });
 
 	// редагування зображення
-	background_sprite.setPosition(sf::Vector2f(400.f, 3000.f));
-	background_sprite.setScale(camera.get_size().x / background_image.getSize().x, camera.get_size().y / background_image.getSize().y);
+	background_sprite.setPosition(camera.get_position().x, camera.get_position().y);
+	background_sprite.setScale((camera.get_size().x / background_image.getSize().x) / 2, (camera.get_size().y / background_image.getSize().y) / 1.2f);
 }
 
 void PauseMenu::show(sf::RenderWindow& window)
