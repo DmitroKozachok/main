@@ -54,8 +54,7 @@ void MainMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
-void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, SettingMenu& setting_menu)
-void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_Music &music)
+void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_Music &music, SettingMenu& setting_menu)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{

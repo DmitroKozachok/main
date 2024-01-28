@@ -1,7 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu)
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu)
 {
     sf::Event event;
 
@@ -71,8 +70,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     if (main_menu.get_status()) {
 
         // обробка натисканн€ кнопок меню
-        main_menu.click_processing(window, event, my_music);
-        main_menu.click_processing(window, event, setting_menu);
+        main_menu.click_processing(window, event, my_music, setting_menu);
 
         // позиц≥€ меню
         main_menu.set_position(camera, map.get_map_size(), window);
@@ -101,9 +99,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         else
         {
             // рух персонажа
-            player.move(delta_time);
-        // рух персонажа
-        player.move(delta_time, my_music);
+            player.move(delta_time, my_music);
 
             // атака гравц€
             player.attack(event, delta_time);
@@ -205,8 +201,7 @@ void Game::play_game()
     {
 
         // обробка под≥й
-        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, pause_menu, setting_menu);
-        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music);
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu);
 
         window.clear();
         
