@@ -309,6 +309,11 @@ sf::Vector2f Character::get_old_position() const
 	return old_position;
 }
 
+MoveStatus Character::get_move_status() const
+{
+	return move_status;
+}
+
 void Character::detect_colision(Map& map_lvl, sf::FloatRect rect)
 {
 	// створення вектора для обробки колізії

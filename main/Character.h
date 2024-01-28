@@ -2,8 +2,10 @@
 
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <cmath>
 #include "Map.h"
 #include "HealthBar.h"
+
 
 // структура координат анімації
 struct CordAnimation
@@ -83,6 +85,7 @@ public:
 	sf::Sprite get_character_sprite() const; // повертає спрайт гравця
 	float get_frame() const; // повертає теперішній кадр анімації
 	sf::Vector2f get_old_position() const; // повертає колишню позицію гравця
+	MoveStatus get_move_status() const;
 
 	void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка колізії
 
