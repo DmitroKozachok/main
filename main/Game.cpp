@@ -7,18 +7,18 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     while (window.pollEvent(event))
     {
         if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Escape) { // вікно закривається, коли ти натискаєш Escape
-                window.close();
-            }
+            //if (event.key.code == sf::Keyboard::Escape) { // вікно закривається, коли ти натискаєш Escape
+            //    window.close();
+            //}
 
             
             // обробка відкриття меню
             if (!main_menu.get_status() && !setting_menu.get_status())
             {
-                if (event.key.code == sf::Keyboard::P && pause_menu.get_status()) {
+                if (event.key.code == sf::Keyboard::Escape && pause_menu.get_status()) {
                     pause_menu.set_status(false);
                 }
-                else if (event.key.code == sf::Keyboard::P && !pause_menu.get_status()) {
+                else if (event.key.code == sf::Keyboard::Escape && !pause_menu.get_status()) {
                     pause_menu.set_status(true);
                 }
             }
