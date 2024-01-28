@@ -11,14 +11,18 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 window.close();
             }
 
+            
             // обробка відкриття меню
-            if (event.key.code == sf::Keyboard::P && pause_menu.get_status()) {
-                pause_menu.set_status(false);
+            if (!main_menu.get_status() && !setting_menu.get_status())
+            {
+                if (event.key.code == sf::Keyboard::P && pause_menu.get_status()) {
+                    pause_menu.set_status(false);
+                }
+                else if (event.key.code == sf::Keyboard::P && !pause_menu.get_status()) {
+                    pause_menu.set_status(true);
+                }
             }
-            else if (event.key.code == sf::Keyboard::P && !pause_menu.get_status()) {
-                pause_menu.set_status(true);
-            }
-
+            
             // обробка можливого діалогу
             for (auto& npc : npcs)
             {
