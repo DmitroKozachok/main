@@ -7,11 +7,6 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     while (window.pollEvent(event))
     {
         if (event.type == sf::Event::KeyPressed) {
-            //if (event.key.code == sf::Keyboard::Escape) { // вікно закривається, коли ти натискаєш Escape
-            //    window.close();
-            //}
-
-            
             // обробка відкриття меню
             if (!main_menu.get_status() && !setting_menu.get_status())
             {
@@ -158,7 +153,7 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
 void Game::play_game()
 {
     // створення мапи
-    Map map_lvl_1("Code/Maps/lvl_1/lvl_1_config.txt", "Code/Maps/lvl_1/lvl_1_map.txt", "Code/Maps/lvl_1/lvl_1_Codet.txt");
+    Map map_lvl_1("Code/Maps/lvl_1 - map/lvl_1_config.txt", "Code/Maps/lvl_1 - map/lvl_1_map.txt", "Code/Maps/lvl_1 - map/lvl_1_Codet.txt");
 
     // створення персонажа
     Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(400.f, 3000.f), sf::Vector2f(2.3f, 2.3f), "Player");
@@ -178,7 +173,7 @@ void Game::play_game()
     npcs.push_back(brother);
 
     // створення вікна на весь екран
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!"); //, sf::Style::Fullscreen
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen); //, sf::Style::Fullscreen
 
     // створення музики для гри 
     Game_Music music;
@@ -188,7 +183,7 @@ void Game::play_game()
 
     // створення меню
     MainMenu main_menu(camera);
-    main_menu.set_status(false);
+    main_menu.set_status(true);
 
     PauseMenu pause_menu(camera);
 
