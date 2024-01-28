@@ -11,7 +11,7 @@ protected:
 	sf::Font text_font; // шрифт тексту
 	sf::Vector2f text_position; // позиція тексту
 
-	bool is_center;
+	bool is_center; // чи центр
 
 public:
 	EditTxt(); // створення стандартного тексту

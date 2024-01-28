@@ -2,6 +2,7 @@
 
 #pragma once
 #include "Character.h"
+#include "Game_Music.h"
 
 class Player : public Character
 {
@@ -13,9 +14,11 @@ private:
 
 public:
 
-	Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale); // конструктор гравц€
+	Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name); // конструктор гравц€
+
+	void move(float delta_time, Game_Music& my_music);
 
 	void attack(sf::Event event, float delta_time); // обробка атаки
-
+	
 };
 

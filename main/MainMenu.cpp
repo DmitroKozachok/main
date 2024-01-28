@@ -35,12 +35,12 @@ void MainMenu::set_position(PlayerCamera& camera, sf::Vector2f border_size, sf::
 	background_sprite.setScale(camera.get_size().x / background_image.getSize().x, camera.get_size().y / background_image.getSize().y);
 }
 
-void MainMenu::show(sf::RenderWindow& window)
+void MainMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 {
 	// вивід усіх елементів
 	for (int i = 0; i < gyper_text_amount; i++)
 	{
-		gyper_text_arr[i].hover(window);
+		gyper_text_arr[i].hover(window, camera);
 	}
 	
 	window.draw(background_sprite);
@@ -54,15 +54,23 @@ void MainMenu::show(sf::RenderWindow& window)
 	}
 }
 
-void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event)
+void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_Music &music, SettingMenu& setting_menu)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
-		is_open = false; // кнопка виходу
+		is_open = false; // кнопка старту
+		music.background_Music_in_Menu.stop_play_this_music();
+		music.background_music_in_world.start_play_this_music();
+	}
+	else if (gyper_text_arr[1].is_button_pressed(event))
+	{
+		//кнопка відкриття налаштувань
+		setting_menu.set_status(true);
+		set_status(false);
 	}
 	else if (gyper_text_arr[2].is_button_pressed(event))
 	{
-		window.close(); // кнопка старту
+		window.close(); // кнопка виходу
 	}
 
 }

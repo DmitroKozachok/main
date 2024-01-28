@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "EditTxt.h"
 #include "GyperText.h"
+#include "PlayerCamera.h"
 
 class StandartMenu
 {
@@ -20,7 +21,7 @@ protected:
 public:
 	StandartMenu(std::string path, int new_text_amount, int new_gyper_text_amount); // переназвав аргументи
 
-	virtual void show(sf::RenderWindow& window) = 0; // стандартний вивід
+	virtual void show(sf::RenderWindow& window, PlayerCamera& camera) = 0; // стандартний вивід
 
 	void set_background_image(std::string path); // встановлення зображення
 	void set_text_amount(int new_text_amount); // встановлення кількості тексту
