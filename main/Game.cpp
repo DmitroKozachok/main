@@ -1,6 +1,7 @@
 #include "Game.h"
 
 void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music)
 {
     sf::Event event;
 
@@ -70,6 +71,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     if (main_menu.get_status()) {
 
         // обробка натискання кнопок меню
+        main_menu.click_processing(window, event, my_music);
         main_menu.click_processing(window, event, setting_menu);
 
         // позиція меню
@@ -100,6 +102,8 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         {
             // рух персонажа
             player.move(delta_time);
+        // рух персонажа
+        player.move(delta_time, my_music);
 
             // атака гравця
             player.attack(event, delta_time);
@@ -178,7 +182,7 @@ void Game::play_game()
     npcs.push_back(brother);
 
     // створення вікна на весь екран
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!"); //, sf::Style::Fullscreen
 
     // створення музики для гри 
     Game_Music music;
@@ -188,20 +192,21 @@ void Game::play_game()
 
     // створення меню
     MainMenu main_menu(camera);
-    main_menu.set_status(true);
+    main_menu.set_status(false);
 
     PauseMenu pause_menu(camera);
 
     SettingMenu setting_menu(camera);
 
     // запуск стартової бг музики
-    music.start_background_music_in_Menu();
+    music.background_Music_in_Menu.start_play_this_music();
 
     while (window.isOpen())
     {
 
         // обробка подій
         event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, pause_menu, setting_menu);
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music);
 
         window.clear();
         

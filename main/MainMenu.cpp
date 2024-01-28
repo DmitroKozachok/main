@@ -55,10 +55,13 @@ void MainMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 }
 
 void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, SettingMenu& setting_menu)
+void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_Music &music)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
-		is_open = false; // кнопка виходу
+		is_open = false; // кнопка старту
+		music.background_Music_in_Menu.stop_play_this_music();
+		music.background_music_in_world.start_play_this_music();
 	}
 	else if (gyper_text_arr[1].is_button_pressed(event))
 	{
@@ -68,7 +71,7 @@ void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Setti
 	}
 	else if (gyper_text_arr[2].is_button_pressed(event))
 	{
-		window.close(); // кнопка старту
+		window.close(); // кнопка виходу
 	}
 
 }

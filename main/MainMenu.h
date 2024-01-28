@@ -1,6 +1,6 @@
 // клас для головного меню
 #pragma once
-
+#include "Game_Music.h"
 #include "StandartMenu.h"
 #include "PlayerCamera.h"
 #include "SettingMenu.h"
@@ -15,5 +15,6 @@ public:
 	void show(sf::RenderWindow& window, PlayerCamera& camera) override; // вивід карти
 
 	void click_processing(sf::RenderWindow& window, sf::Event event, SettingMenu& setting_menu); // обробка натискання кнопок меню
+	void click_processing(sf::RenderWindow& window, sf::Event event, Game_Music &music); // обробка натискання кнопок меню
 
 };
