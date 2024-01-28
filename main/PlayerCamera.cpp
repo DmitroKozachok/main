@@ -37,6 +37,11 @@ sf::Vector2f PlayerCamera::get_position() const
 	return position;
 }
 
+sf::View PlayerCamera::get_view() const
+{
+	return camera;
+}
+
 void PlayerCamera::draw(sf::Vector2f center, sf::RenderWindow& window, sf::Vector2f border_size)
 {
 	set_position(center, border_size); // встановлення позиції

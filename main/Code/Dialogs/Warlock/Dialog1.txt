@@ -1,0 +1,10 @@
+WARLOCK: Good day. How can I help?
+PLAYER: I need a potion of fire immediately
+WARLOCK: I can't sell you that, forget?
+PLAYER: I need this damn potion!
+(shows a certificate of knighthood)
+WARLOCK: Oh... Yes, yes, your bravery,
+WARLOCK: here is a FIRE POTION
+WARLOCK: Keep yourselves!
+PLAYER: ...
+(you got the FIRE POTION)
