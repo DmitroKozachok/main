@@ -262,18 +262,18 @@ void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
 			}
 		}
 		else if (move_status == UP) {
-			if (enemy_position.x > player_position.x + 2 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+			if (enemy_position.x > player_position.x + 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
 				move_left(game_timer);
 			}
-			else if (enemy_position.x < player_position.x - 2 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+			else if (enemy_position.x < player_position.x - 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
 				move_right(game_timer);
 			}
 		}
 		else if (move_status == DOWN) {
-			if (enemy_position.x > player_position.x + 2 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+			if (enemy_position.x > player_position.x + 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
 				move_left(game_timer);
 			}
-			else if (enemy_position.x < player_position.x - 2 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+			else if (enemy_position.x < player_position.x - 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
 				move_right(game_timer);
 			}
 		}
