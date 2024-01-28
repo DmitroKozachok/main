@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, PauseMenu& pause_menu)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu)
 {
     sf::Event event;
 
@@ -66,12 +66,19 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     if (main_menu.get_status()) {
 
         // обробка натискання кнопок меню
-        main_menu.click_processing(window, event);
+        main_menu.click_processing(window, event, setting_menu);
 
         // позиція меню
         main_menu.set_position(camera, map.get_map_size(), window);
     }
+    else if (setting_menu.get_status())
+    {
+        // обробка натискання кнопок меню
+        setting_menu.click_processing(window, event);
 
+        // позиція меню
+        setting_menu.set_position(camera, map.get_map_size(), window);
+    }
     else
     {
         camera.set_size(sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5));
@@ -80,7 +87,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         if (pause_menu.get_status())
         {
             // обробка натискання кнопок меню
-            pause_menu.click_processing(event, main_menu);
+            pause_menu.click_processing(event, main_menu, setting_menu);
 
             // позиція меню
             pause_menu.set_position(camera, map.get_map_size(), window);
@@ -100,7 +107,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     }
 }
 
-void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu)
+void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu)
 {
     // вивід гри, або меню
 
@@ -108,6 +115,11 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
     {
         main_menu.show(window, camera);
         camera.draw(sf::Vector2f{0.f, 0.f}, window, map_lvl.get_map_size());
+    }
+    else if (setting_menu.get_status())
+    {
+        setting_menu.show(window, camera);
+        camera.draw(sf::Vector2f{ 0.f, 0.f }, window, map_lvl.get_map_size());
     }
     else
     {
@@ -176,6 +188,8 @@ void Game::play_game()
 
     PauseMenu pause_menu(camera);
 
+    SettingMenu setting_menu(camera);
+
     // запуск стартової бг музики
     music.start_background_music_in_Menu();
 
@@ -183,12 +197,12 @@ void Game::play_game()
     {
 
         // обробка подій
-        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, pause_menu);
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, pause_menu, setting_menu);
 
         window.clear();
         
         // вивід
-        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu);
+        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu);
 
     }
 }

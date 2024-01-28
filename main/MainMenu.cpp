@@ -54,11 +54,17 @@ void MainMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
-void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event)
+void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, SettingMenu& setting_menu)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
 		is_open = false; // кнопка виходу
+	}
+	else if (gyper_text_arr[1].is_button_pressed(event))
+	{
+		//кнопка відкриття налаштувань
+		setting_menu.set_status(true);
+		set_status(false);
 	}
 	else if (gyper_text_arr[2].is_button_pressed(event))
 	{

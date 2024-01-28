@@ -149,6 +149,7 @@
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
+    <ClCompile Include="SettingMenu.cpp" />
     <ClCompile Include="StandartMenu.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Game_Music.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCamera.h" />
+    <ClInclude Include="SettingMenu.h" />
     <ClInclude Include="StandartMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

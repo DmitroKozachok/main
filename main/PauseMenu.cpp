@@ -48,11 +48,17 @@ void PauseMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
-void PauseMenu::click_processing(sf::Event event, MainMenu& main_menu)
+void PauseMenu::click_processing(sf::Event event, MainMenu& main_menu, SettingMenu& setting_menu)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
 		is_open = false; // кнопка продовження гри
+	}
+	else if (gyper_text_arr[1].is_button_pressed(event))
+	{
+		//кнопка відкриття налаштувань
+		setting_menu.set_status(true);
+		set_status(false);
 	}
 	else if (gyper_text_arr[2].is_button_pressed(event))
 	{
