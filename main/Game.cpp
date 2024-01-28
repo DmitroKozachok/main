@@ -112,7 +112,7 @@ void Game::play_game()
     Map map_lvl_1("Code/Maps/lvl_1/lvl_1_config.txt", "Code/Maps/lvl_1/lvl_1_map.txt", "Code/Maps/lvl_1/lvl_1_Codet.txt");
 
     // створення персонажа
-    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(2300.f, 400.f), sf::Vector2f(2.3f, 2.3f));
+    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(300.f, 190.f), sf::Vector2f(2.3f, 2.3f));
 
     // створення злодіїв
     std::vector<Enemy> enemies;
@@ -137,7 +137,7 @@ void Game::play_game()
 
     // створення меню
     MainMenu main_menu(camera);
-    main_menu.set_status(true);
+    main_menu.set_status(false);
 
     // запуск стартової бг музики
     music.background_Music_in_Menu.start_play_this_music();

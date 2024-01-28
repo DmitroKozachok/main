@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include <string>
+#include <vector>
 
 #define SOUND_TIME 0.25f
 
@@ -41,9 +42,9 @@ public:
 	};
 
 	settings_music background_Music_in_Menu;
-
 	settings_music background_music_in_world;
-
+	std::vector<settings_music> vector_music;
+	//
 	settings_sound song_walking_playear;
 
 	Game_Music();	// Конструктор
