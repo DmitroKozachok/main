@@ -191,7 +191,7 @@ void Game::play_game()
     npcs.push_back(brother);
 
     // створення вікна на весь екран
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Default);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen);
 
     // створення музики для гри 
     Game_Music music;
