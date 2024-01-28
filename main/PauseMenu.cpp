@@ -7,13 +7,13 @@ PauseMenu::PauseMenu(PlayerCamera& camera) : StandartMenu("Resources/menu/Main_M
 
 	// створення кнопок
 	gyper_text_arr[0].set_size(30);
-	gyper_text_arr[0].set_string("Start");
+	gyper_text_arr[0].set_string("Continue");
 
 	gyper_text_arr[1].set_size(30);
 	gyper_text_arr[1].set_string("Settings");
 
 	gyper_text_arr[2].set_size(30);
-	gyper_text_arr[2].set_string("Exit");
+	gyper_text_arr[2].set_string("To MainMenu");
 }
 
 void PauseMenu::set_position(PlayerCamera& camera, sf::Vector2f border_size, sf::RenderWindow& window)
@@ -29,12 +29,12 @@ void PauseMenu::set_position(PlayerCamera& camera, sf::Vector2f border_size, sf:
 	background_sprite.setScale((camera.get_size().x / background_image.getSize().x) / 2, (camera.get_size().y / background_image.getSize().y) / 1.2f);
 }
 
-void PauseMenu::show(sf::RenderWindow& window)
+void PauseMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 {
 	// вивід усіх елементів
 	for (int i = 0; i < gyper_text_amount; i++)
 	{
-		gyper_text_arr[i].hover(window);
+		gyper_text_arr[i].hover(window, camera);
 	}
 
 	window.draw(background_sprite);
@@ -48,14 +48,16 @@ void PauseMenu::show(sf::RenderWindow& window)
 	}
 }
 
-void PauseMenu::click_processing(sf::RenderWindow& window, sf::Event event)
+void PauseMenu::click_processing(sf::Event event, MainMenu& main_menu)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
-		is_open = false; // кнопка виходу
+		is_open = false; // кнопка продовження гри
 	}
 	else if (gyper_text_arr[2].is_button_pressed(event))
 	{
-		window.close(); // кнопка старту
+		// кнопка виходу в головне меню
+		main_menu.set_status(true);
+		set_status(false);
 	}
 }

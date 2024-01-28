@@ -35,12 +35,12 @@ void MainMenu::set_position(PlayerCamera& camera, sf::Vector2f border_size, sf::
 	background_sprite.setScale(camera.get_size().x / background_image.getSize().x, camera.get_size().y / background_image.getSize().y);
 }
 
-void MainMenu::show(sf::RenderWindow& window)
+void MainMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 {
 	// вивід усіх елементів
 	for (int i = 0; i < gyper_text_amount; i++)
 	{
-		gyper_text_arr[i].hover(window);
+		gyper_text_arr[i].hover(window, camera);
 	}
 	
 	window.draw(background_sprite);

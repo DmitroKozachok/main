@@ -80,7 +80,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         if (pause_menu.get_status())
         {
             // обробка натискання кнопок меню
-            pause_menu.click_processing(window, event);
+            pause_menu.click_processing(event, main_menu);
 
             // позиція меню
             pause_menu.set_position(camera, map.get_map_size(), window);
@@ -106,7 +106,7 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
 
     if (main_menu.get_status())
     {
-        main_menu.show(window);
+        main_menu.show(window, camera);
         camera.draw(sf::Vector2f{0.f, 0.f}, window, map_lvl.get_map_size());
     }
     else
@@ -128,7 +128,7 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
 
         if (pause_menu.get_status())
         {
-            pause_menu.show(window);
+            pause_menu.show(window, camera);
         }
 
         camera.draw(player.get_character_position(), window, map_lvl.get_map_size());

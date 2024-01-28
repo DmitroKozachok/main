@@ -4,17 +4,20 @@ GyperText::GyperText() : EditTxt() {}
 
 GyperText::GyperText(std::string string) : EditTxt(string, true){}
 
-void GyperText::hover(sf::RenderWindow& window)
+void GyperText::hover(sf::RenderWindow& window, PlayerCamera& camera)
 {
     // ќтримуЇмо позиц≥ю мишки в≥дносно в≥кна
     sf::Vector2i mouse_position = sf::Mouse::getPosition(window);
+
+    // ¬раховуЇмо зсув камери
+    sf::Vector2f world_mouse_position = window.mapPixelToCoords(mouse_position, camera.get_view());
 
     // ќтримуЇмо границ≥ тексту
     sf::Vector2f text_position = get_position();
 
     // ѕерев≥р€Їмо, чи мишка знаходитьс€ над текстом
-    if (mouse_position.x >= text_position.x - (text_string.getGlobalBounds().width) && mouse_position.x <= text_position.x + (text_string.getGlobalBounds().width) && 
-        mouse_position.y >= text_position.y - (text_string.getGlobalBounds().height) && mouse_position.y <= text_position.y + (text_string.getGlobalBounds().height))
+    if (world_mouse_position.x >= text_position.x - (text_string.getGlobalBounds().width) && world_mouse_position.x <= text_position.x + (text_string.getGlobalBounds().width) &&
+        world_mouse_position.y >= text_position.y - (text_string.getGlobalBounds().height) && world_mouse_position.y <= text_position.y + (text_string.getGlobalBounds().height))
     {
         // «м≥нюЇмо кол≥р тексту при наведенн≥ мишки
         text_string.setFillColor(sf::Color::Red); // «м≥н≥ть кол≥р на бажаний

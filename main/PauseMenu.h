@@ -3,6 +3,7 @@
 
 #include "StandartMenu.h"
 #include "PlayerCamera.h"
+#include "MainMenu.h"
 
 class PauseMenu : public StandartMenu
 {
@@ -11,9 +12,9 @@ public:
 
 	void set_position(PlayerCamera& camera, sf::Vector2f border_size, sf::RenderWindow& window); // встановлення позицій об'єктів
 
-	void show(sf::RenderWindow& window); // вивід карти
+	void show(sf::RenderWindow& window, PlayerCamera& camera) override; // вивід карти
 
-	void click_processing(sf::RenderWindow& window, sf::Event event); // обробка натискання на кнопки меню
+	void click_processing(sf::Event event, MainMenu& main_menu); // обробка натискання на кнопки меню
 
 };
 

@@ -19,6 +19,7 @@ public:
 
 	sf::Vector2f get_size() const; // отримання розміру
 	sf::Vector2f get_position() const; // отримання позиції
+	sf::View get_view() const;
 
 	void draw(sf::Vector2f center, sf::RenderWindow& window, sf::Vector2f border_size); // промальовка камери
 };
