@@ -314,6 +314,11 @@ std::string Character::get_name() const
 	return name;
 }
 
+MoveStatus Character::get_move_status() const
+{
+	return move_status;
+}
+
 void Character::detect_colision(Map& map_lvl, sf::FloatRect rect)
 {
 	// створення вектора для обробки колізії

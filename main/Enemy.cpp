@@ -168,23 +168,130 @@ void Enemy::attack(float delta_time, Character& player)
 
 }
 
-void Enemy::move(sf::Vector2f player_position, float game_timer)
+bool Enemy::check_collision(Map& map_lvl, sf::Vector2f position)
+{
+	std::vector<sf::Sprite> colision_sprite_arr = map_lvl.get_colision_sprite_arr();
+	sf::FloatRect enemy_bounds = character_sprite.getGlobalBounds();
+
+	for (int i = 0; i < colision_sprite_arr.size(); i++)
+	{
+		sf::FloatRect obj_bounds = colision_sprite_arr[i].getGlobalBounds();
+
+		// Перевірка на колізію
+		if (enemy_bounds.intersects(obj_bounds))
+		{
+			return true; // Колізія виявлена
+		}
+	}
+
+	return false; // Колізія не виявлена
+}
+
+bool Enemy::can_move_left(sf::Vector2f position, Map& map_lvl)
+{
+	sf::FloatRect next_position = character_sprite.getGlobalBounds();
+	next_position.left -= speed; // Перемістимо ворога ліворуч
+
+	if (!check_collision(map_lvl, next_position.getPosition()))
+	{
+		return true; // Ворог може рухатися ліворуч
+	}
+
+	return false; // Ворог не може рухатися ліворуч
+}
+
+bool Enemy::can_move_right(sf::Vector2f position, Map& map_lvl)
+{
+	sf::FloatRect next_position = character_sprite.getGlobalBounds();
+	next_position.left += speed; // Перемістимо ворога праворуч
+
+	if (!check_collision(map_lvl, next_position.getPosition()))
+	{
+		return true; // Ворог може рухатися праворуч
+	}
+
+	return false; // Ворог не може рухатися праворуч
+}
+
+bool Enemy::can_move_up(sf::Vector2f position, Map& map_lvl)
+{
+	sf::FloatRect next_position = character_sprite.getGlobalBounds();
+	next_position.top -= speed; // Перемістимо ворога вверх
+
+	if (!check_collision(map_lvl, next_position.getPosition()))
+	{
+		return true; // Ворог може рухатися вверх
+	}
+
+	return false; // Ворог не може рухатися вверх
+}
+
+bool Enemy::can_move_down(sf::Vector2f position, Map& map_lvl)
+{
+	sf::FloatRect next_position = character_sprite.getGlobalBounds();
+	next_position.top += speed; // Перемістимо ворога вниз
+
+	if (!check_collision(map_lvl, next_position.getPosition()))
+	{
+		return true; // Ворог може рухатися вниз
+	}
+
+	return false; // Ворог не може рухатися вниз
+}
+
+void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
 {
 	old_position = character_sprite.getPosition();
     sf::Vector2f enemy_position = character_sprite.getPosition(); // теперішня позиція ворога на екрані
     
-    if (enemy_position.x > player_position.x + 22) {
-        move_left(game_timer);
-    }
-	else if (enemy_position.x < player_position.x - 22)
-	{
-		move_right(game_timer);
+	if (check_collision(map, enemy_position)) {		
+		if (move_status == LEFT) {
+			if (enemy_position.y > player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300) {
+				move_up(game_timer);
+			}
+			else if (enemy_position.y < player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300) {
+				move_down(game_timer);
+			}
+		}
+		else if (move_status == RIGHT) {
+			if (enemy_position.y > player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300) {
+				move_up(game_timer);
+			}
+			else if (enemy_position.y < player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300) {
+				move_down(game_timer);
+			}
+		}
+		else if (move_status == UP) {
+			if (enemy_position.x > player_position.x + 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+				move_left(game_timer);
+			}
+			else if (enemy_position.x < player_position.x - 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+				move_right(game_timer);
+			}
+		}
+		else if (move_status == DOWN) {
+			if (enemy_position.x > player_position.x + 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+				move_left(game_timer);
+			}
+			else if (enemy_position.x < player_position.x - 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+				move_right(game_timer);
+			}
+		}
 	}
-	if (enemy_position.y > player_position.y + 22) {
-        move_up(game_timer);
-    }
-	else if (enemy_position.y < player_position.y + 22)
-	{
-		move_down(game_timer);
+	else {
+		if (enemy_position.x > player_position.x + 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+			move_left(game_timer);
+		}
+		else if (enemy_position.x < player_position.x - 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170)
+		{
+			move_right(game_timer);
+		}
+		if (enemy_position.y > player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300) {
+			move_up(game_timer);
+		}
+		else if (enemy_position.y < player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300)
+		{
+			move_down(game_timer);
+		}
 	}
 }
