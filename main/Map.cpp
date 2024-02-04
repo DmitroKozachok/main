@@ -85,10 +85,12 @@ void Map::load_config(std::string file_config_path, std::string file_code_path)
 
 			if (string2.find_first_of(lvl_find_collision) != std::string::npos) {
 				symbol_coord_arr[line2].is_colision = true;
+				symbol_coord_arr[line2].is_enemy_spawn = false;
 			}
 			else if (string2.find_first_of(lvl_find_spawn) != std::string::npos)
 			{
 				symbol_coord_arr[line2].is_enemy_spawn = true;
+				symbol_coord_arr[line2].is_colision = false;
 			}
 			else
 			{
