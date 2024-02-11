@@ -174,8 +174,11 @@ void Game::enemy_spawn(std::vector<Enemy>& enemies, int num_of_enemies, Map& map
     std::vector<sf::Sprite> enemy_spawn_sprite_arr = map.get_enemy_spawn_sprite_arr();
     for (int i = 0; i < num_of_enemies; i++)
     {
-        Enemy enemy(32, 32, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/slime.png", enemy_spawn_sprite_arr[rand() % enemy_spawn_sprite_arr.size()].getPosition(), sf::Vector2f(3.f, 3.f), "enemy");
-        enemies.push_back(enemy);
+        sf::Sprite spawn_sprite = enemy_spawn_sprite_arr[rand() % enemy_spawn_sprite_arr.size()];
+        sf::Vector2f spawn_position{ spawn_sprite.getPosition().x + 32, spawn_sprite.getPosition().y + 46 };
+
+        Enemy* enemy = new Enemy(32, 32, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/slime.png", spawn_position, sf::Vector2f(3.f, 3.f), "enemy" + std::to_string(i));
+        enemies.push_back(*enemy);
     }
 }
 
@@ -190,7 +193,7 @@ void Game::play_game()
     // створення злодіїв
     std::vector<Enemy> enemies;
 
-    enemy_spawn(enemies, 2, map_lvl_1);
+    enemy_spawn(enemies, 20, map_lvl_1);
 
     // створення NPC
     std::vector<NPC> npcs;
