@@ -56,6 +56,12 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
         }
     }
+
+    //спавн ворогів
+    if (enemies.size() < 5)
+    {
+        enemy_spawn(enemies, 1, map);
+    }
     
     //рух NPC
     for (auto& npc : npcs)
@@ -153,6 +159,10 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
             {
                 enemy.show(window);
             }
+            else
+            {
+                // видалення ворога доробити
+            }
         }
 
         if (pause_menu.get_status())
@@ -182,6 +192,7 @@ void Game::enemy_spawn(std::vector<Enemy>& enemies, int num_of_enemies, Map& map
     }
 }
 
+
 void Game::play_game()
 {
     // створення мапи
@@ -192,8 +203,7 @@ void Game::play_game()
 
     // створення злодіїв
     std::vector<Enemy> enemies;
-
-    enemy_spawn(enemies, 20, map_lvl_1);
+    enemy_spawn(enemies, 1, map_lvl_1);
 
     // створення NPC
     std::vector<NPC> npcs;
