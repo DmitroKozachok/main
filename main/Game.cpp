@@ -40,27 +40,32 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         }
     }
     // рух злодія
-    for (auto& enemy : enemies)
+    for (auto enemy = enemies.begin(); enemy != enemies.end();)
     {
-        if (enemy.get_live_status())
+        if (enemy->get_live_status())
         {
-            enemy.move(player.get_character_position(), delta_time / 2, map);
-            enemy.detect_colision(map, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 45, 
-                enemy.get_character_sprite().getGlobalBounds().top + 60, enemy.get_character_sprite().getGlobalBounds().width - 95, 
-                enemy.get_character_sprite().getGlobalBounds().height - 100 });
+            enemy->move(player.get_character_position(), delta_time / 2, map);
+            enemy->detect_colision(map, sf::FloatRect{ enemy->get_character_sprite().getGlobalBounds().left + 45,
+                enemy->get_character_sprite().getGlobalBounds().top + 60, enemy->get_character_sprite().getGlobalBounds().width - 95,
+                enemy->get_character_sprite().getGlobalBounds().height - 100 });
 
-            enemy.detect_colision_with_player(player, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 25, 
-                enemy.get_character_sprite().getGlobalBounds().top + 40, enemy.get_character_sprite().getGlobalBounds().width - 45, 
-                enemy.get_character_sprite().getGlobalBounds().height - 80 }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, 
+            enemy->detect_colision_with_player(player, sf::FloatRect{ enemy->get_character_sprite().getGlobalBounds().left + 25,
+                enemy->get_character_sprite().getGlobalBounds().top + 40, enemy->get_character_sprite().getGlobalBounds().width - 45,
+                enemy->get_character_sprite().getGlobalBounds().height - 80 }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45,
                 player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, 
                 player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
         }
-    }
-
-    //спавн ворогів
-    if (enemies.size() < 5)
-    {
-        enemy_spawn(enemies, 1, map);
+        else
+        {
+            //переродження ворога
+            std::vector<sf::Sprite> enemy_spawn_sprite_arr = map.get_enemy_spawn_sprite_arr();
+            sf::Sprite spawn_sprite = enemy_spawn_sprite_arr[rand() % enemy_spawn_sprite_arr.size()];
+            sf::Vector2f spawn_position{ spawn_sprite.getPosition().x + 32, spawn_sprite.getPosition().y + 46 };
+            
+            enemy->set_position(spawn_position);
+            enemy->set_health(100);
+            enemy->set_live_status(true);
+        }
     }
     
     //рух NPC
@@ -153,15 +158,12 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
         }
         player.show(window);
 
+        // якщо ворог помирає, то вектор змінюється
         for (auto& enemy : enemies)
         {
             if (enemy.get_live_status())
             {
                 enemy.show(window);
-            }
-            else
-            {
-                // видалення ворога доробити
             }
         }
 
