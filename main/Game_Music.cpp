@@ -97,7 +97,6 @@ std::string Game_Music::settings_sound::get_This_sound()
 void Game_Music::settings_sound::start_play_this_sound()
 {
 	sound_timer_for_move += SOUND_TIME;
-	std::cout << sound_timer_for_move << std::endl;
 	if (sound_timer_for_move > 9) {
 		sound_timer_for_move = 0;
 		this_sound.play();
