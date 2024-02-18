@@ -153,6 +153,7 @@
     <ClCompile Include="StandartMenu.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Game_Music.cpp" />
+    <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="SettingMenu.h" />
     <ClInclude Include="StandartMenu.h" />
+    <ClInclude Include="Transition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
