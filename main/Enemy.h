@@ -9,6 +9,7 @@ class Enemy : public Character
 	void move_animation_right(float delta_time) override; // анімація руху вправо
 	void move_animation_up(float delta_time) override; // анімація руху вгору
 	void move_animation_down(float delta_time) override; // анімація руху вниз
+	void idle_animation(float delta_time) override;
 	void attack_animation(float delta_time); // атака ворога
 
 public:
