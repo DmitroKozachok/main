@@ -80,14 +80,22 @@ void Map::load_config(std::string file_config_path, std::string file_code_path)
 			char lvl_find_layer = '#';
 			char lvl_under_pos = ',';
 			char lvl_find_collision = '!';
+			char lvl_find_spawn = '@';
 			symbol_coord_arr[line2].ch = string2[0];
 
 			if (string2.find_first_of(lvl_find_collision) != std::string::npos) {
 				symbol_coord_arr[line2].is_colision = true;
+				symbol_coord_arr[line2].is_enemy_spawn = false;
+			}
+			else if (string2.find_first_of(lvl_find_spawn) != std::string::npos)
+			{
+				symbol_coord_arr[line2].is_enemy_spawn = true;
+				symbol_coord_arr[line2].is_colision = false;
 			}
 			else
 			{
 				symbol_coord_arr[line2].is_colision = false;
+				symbol_coord_arr[line2].is_enemy_spawn = false;
 			}
 
 			if (string2.find_first_of(lvl_find_layer) != std::string::npos) {
@@ -145,7 +153,7 @@ void Map::load_arr(std::string file_path)
 		}
 	}
 
-	// доавання колізійних об'єктів для їх обробки
+	// додавання колізійних об'єктів для їх обробки
 	sf::Sprite tmp_sprite = map_sprite;
 
 	for (int i = 0; i < height; i++)
@@ -168,6 +176,10 @@ void Map::load_arr(std::string file_path)
 					if (symbol_coord_arr[k].is_colision)
 					{
 						colision_sprite_arr.push_back(tmp_sprite);
+					}
+					if (symbol_coord_arr[k].is_enemy_spawn)
+					{
+						enemy_spawn_sprite_arr.push_back(tmp_sprite);
 					}
 					
 				}
@@ -260,5 +272,10 @@ int Map::get_symbol_coord_arr_size() const
 std::vector<sf::Sprite> Map::get_colision_sprite_arr() const
 {
 	return colision_sprite_arr;
+}
+
+std::vector<sf::Sprite> Map::get_enemy_spawn_sprite_arr() const
+{
+	return enemy_spawn_sprite_arr;
 }
 
