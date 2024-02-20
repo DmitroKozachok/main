@@ -99,6 +99,28 @@ void Enemy::move_animation_down(float delta_time)
 	character_sprite.setTextureRect(sf::IntRect(size_texture_x * int(frame), size_texture_y * 1, size_texture_x, size_texture_y));
 }
 
+void Enemy::idle_animation(float delta_time)
+{
+	// прогортання кадру анімації
+	if (speed == diagonal_speed)
+	{
+		frame += delta_time / 2;
+	}
+	else
+	{
+		frame += delta_time;
+	}
+
+	// перевірка на кадр
+	if (frame > 3)
+	{
+		frame -= 3;
+	}
+
+	// встановлення кадру
+	character_sprite.setTextureRect(sf::IntRect(size_texture_x * int(frame), size_texture_y * 0, size_texture_x, size_texture_y));
+}
+
 void Enemy::attack_animation(float delta_time)
 {
 	// прогортання кадру анімації
@@ -277,6 +299,10 @@ void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
 				move_right(game_timer);
 			}
 		}
+		else
+		{
+			idle_animation(game_timer);
+		}
 	}
 	else {
 		if (enemy_position.x > player_position.x + 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
@@ -286,12 +312,20 @@ void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
 		{
 			move_right(game_timer);
 		}
+		else
+		{
+			idle_animation(game_timer);
+		}
 		if (enemy_position.y > player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300) {
 			move_up(game_timer);
 		}
 		else if (enemy_position.y < player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300)
 		{
 			move_down(game_timer);
+		}
+		else
+		{
+			idle_animation(game_timer);
 		}
 	}
 }
