@@ -110,7 +110,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             // рух персонажа
             player.move(delta_time, my_music);
             
-            std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
+            //std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
             // Перехід через двері в селі 
             if ((player.get_character_position().x > 512 && player.get_character_position().x < 512 + 128) && (player.get_character_position().y > 2560 && player.get_character_position().y < 2560 + 32)) {    // вихід
                 transition_player.teleport_player_pos({ player.get_character_position().x,2200 }, player, window, camera, 1250);
@@ -123,13 +123,13 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             if ((player.get_character_position().x > 950 && player.get_character_position().x < 1020) && (player.get_character_position().y < 2950 && player.get_character_position().y > 2915)) {   //вхід
                 transition_player.teleport_player_pos({ 448,4400 }, player, window, camera, 1250);
             }
-            if ((player.get_character_position().x > 380 && player.get_character_position().x < 520) && (player.get_character_position().y < 4500 && player.get_character_position().y > 4438)) {   //вхід
+            if ((player.get_character_position().x > 380 && player.get_character_position().x < 520) && (player.get_character_position().y < 4500 && player.get_character_position().y > 4438)) {   //вихід
                 transition_player.teleport_player_pos({ 960,2960 }, player, window, camera, 1250);
             }
 
             //перевірка підбирання бутилки гравцем в магазині
             if ((player.get_character_position().x > 500 && player.get_character_position().x < 580) && (player.get_character_position().y < 4225 && player.get_character_position().y > 4110)) {   //вхід
-                //дописати
+                
             }
 
 
