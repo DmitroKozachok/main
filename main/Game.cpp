@@ -215,7 +215,7 @@ void Game::enemy_spawn(std::vector<Enemy>& enemies, Map& map)
     std::vector<sf::Sprite> enemy_spawn_sprite_arr = map.get_enemy_spawn_sprite_arr();
     for (int i = 0; i < enemy_spawn_sprite_arr.size(); i++)
     {
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 1; j++)
         {
             sf::Sprite spawn_sprite = enemy_spawn_sprite_arr[i];
             sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
