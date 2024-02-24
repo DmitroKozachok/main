@@ -16,6 +16,7 @@
 #include "PauseMenu.h"
 #include "SettingMenu.h"
 #include "Transition.h"
+#include "SlimeFactory.h"
 #define ANIMATION_TIME 0.25f
 
 class Game

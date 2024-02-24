@@ -220,10 +220,12 @@ void Game::enemy_spawn(std::vector<Enemy>& enemies, Map& map)
             sf::Sprite spawn_sprite = enemy_spawn_sprite_arr[i];
             sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
 
-            Enemy* enemy = new Enemy(32, 32, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/slime.png", spawn_position, sf::Vector2f(3.f, 3.f), "enemy" + std::to_string(i));
+            // Використання фабрики для створення ворогів
+            SlimeFactory slimeFactory;
+            Enemy* enemy = slimeFactory.create_enemy(spawn_position, "enemy" + std::to_string(i));
             enemies.push_back(*enemy);
         }
-        
+
     }
 }
 
