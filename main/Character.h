@@ -5,6 +5,7 @@
 #include <cmath>
 #include "Map.h"
 #include "HealthBar.h"
+#include "PlayerCamera.h"
 
 
 // структура координат анімації
@@ -91,7 +92,7 @@ public:
 
 	void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка колізії
 
-	void show(sf::RenderWindow& window); // промальовка персонажа
+	virtual void show(sf::RenderWindow& window); // промальовка персонажа
 
 	virtual void move(float delta_time); // рух персонажа
 

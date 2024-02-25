@@ -185,7 +185,7 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
         {
             npc.show(window, camera);
         }
-        player.show(window);
+        player.show_p(window, camera);
 
         // якщо ворог помирає, то вектор змінюється
         for (auto& enemy : enemies)

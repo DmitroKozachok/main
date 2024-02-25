@@ -84,7 +84,14 @@ void Player::attack_animation_right(float delta_time)
     }
 }
 
-Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name) : Character(size_x, size_y, image_way, position, scale, 10, 100, 7, name) {}
+Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name) : Character(size_x, size_y, image_way, position, scale, 10, 100, 7, name)
+{
+    character_health.set_health_bar_x(200.f);
+    character_health.set_health_bar_y(16.f);
+    character_health.set_health_bar();
+    character_health.set_c_for_damage(4.f);
+    character_health.set_health_bar_position({ character_sprite.getPosition().x - 320.f, character_sprite.getPosition().y - 170.f });
+}
 
 void Player::move(float delta_time, Game_Music& my_music)
 {
@@ -110,4 +117,12 @@ void Player::attack(sf::Event event , float delta_time)
     if (move_status == DOWN) attack_animation_down(delta_time);
     if (move_status == STAND) attack_animation_down(delta_time);
 
+}
+
+void Player::show_p(sf::RenderWindow& window, PlayerCamera camera) {
+    // вивід спрайту на екран
+    window.draw(character_sprite);
+
+    character_health.set_health_bar_position({ camera.get_position().x - 290.f, camera.get_position().y - 180.f });
+    window.draw(character_health.get_health_bar());
 }
