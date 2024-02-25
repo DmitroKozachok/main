@@ -89,7 +89,7 @@ Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f posit
     character_health.set_health_bar_x(200.f);
     character_health.set_health_bar_y(16.f);
     character_health.set_health_bar();
-    character_health.set_c_for_damage(4.f);
+    character_health.set_c_for_damage(2.f);
     character_health.set_health_bar_position({ character_sprite.getPosition().x - 320.f, character_sprite.getPosition().y - 170.f });
 }
 
@@ -123,6 +123,7 @@ void Player::show_p(sf::RenderWindow& window, PlayerCamera camera) {
     // вивід спрайту на екран
     window.draw(character_sprite);
 
-    character_health.set_health_bar_position({ camera.get_position().x - 290.f, camera.get_position().y - 180.f });
+    character_health.set_health_origin(sf::Vector2f(-(character_health.get_health_bar_x() / 2), 0.f));
+    character_health.set_health_bar_position({ camera.get_position().x - 390.f, camera.get_position().y - 180.f });
     window.draw(character_health.get_health_bar());
 }

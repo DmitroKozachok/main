@@ -24,6 +24,7 @@ public:
 	void set_health_bar_y(float y);
 	void set_health_bar();
 	void set_c_for_damage(float x);
+	void set_health_origin(sf::Vector2f pos);
 
 	sf::RectangleShape get_health_bar(); // гетер для "health_bar"
 	float get_health_bar_x();

@@ -44,6 +44,11 @@ void HealthBar::set_c_for_damage(float x)
 	c_for_damage = x;
 }
 
+void HealthBar::set_health_origin(sf::Vector2f x)
+{
+	health_bar.setOrigin(x);
+}
+
 float HealthBar::get_health_bar_x()
 {
 	return health_bar_x;

@@ -66,7 +66,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
 
                 enemy.set_position(spawn_position);
-                enemy.set_health(100);
+                enemy.set_health(50);
                 enemy.set_live_status(true);
 
                 num_of_killed_lvl_enemy++;
