@@ -215,7 +215,7 @@ void Game::enemy_spawn(std::vector<Enemy>& enemies, Map& map)
     std::vector<sf::Sprite> enemy_spawn_sprite_arr = map.get_enemy_spawn_sprite_arr();
     for (int i = 0; i < enemy_spawn_sprite_arr.size(); i++)
     {
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < 2; j++)
         {
             sf::Sprite spawn_sprite = enemy_spawn_sprite_arr[i];
             sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
@@ -247,9 +247,13 @@ void Game::play_game()
     std::vector<NPC> npcs;
     NPC warlock(32, 32, "Resources/TailSet/Male/Male 12-2.png", sf::Vector2f(1100.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Warlock/Dialog1.txt", "warlock dialog 1 lvl1", "Warlock");
     NPC brother(32, 32, "Resources/TailSet/Male/Male 02-2.png", sf::Vector2f(800.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Brother/Dialog1.txt", "brother dialog 1 lvl1", "Brother");
+    NPC guider(32, 32, "Resources/TailSet/Male/Male 04-2.png", sf::Vector2f(570.f, 410.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Guider/Dialog1.txt", "guider dialog 1 lvl1", "Guider");
+    NPC inhabitant(32, 32, "Resources/TailSet/Male/Male 17-1.png", sf::Vector2f(670.f, 1800.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Inhabitant/Dialog1.txt", "inhabitant dialog 1 lvl1", "Inhabitant");
 
     npcs.push_back(warlock);
     npcs.push_back(brother);
+    npcs.push_back(guider);
+    npcs.push_back(inhabitant);
 
     // створення вікна на весь екран
     sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen); //, sf::Style::Fullscreen

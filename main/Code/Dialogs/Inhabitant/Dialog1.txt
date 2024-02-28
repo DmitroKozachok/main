@@ -1,0 +1,4 @@
+INHABITANT: Help!!!
+PLAYER: What happened?
+INHABITANT: Enemies attacked the city
+PLAYER: I will repel the enemy's attack on the city

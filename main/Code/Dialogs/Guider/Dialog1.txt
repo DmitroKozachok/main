@@ -1,0 +1,6 @@
+PLAYER: Good afternoon. Don't tell me where 
+PLAYER: to find a mage to buy a healing potion
+GUIDER: Good afternoon. The mage is in town.
+PLAYER: And how do I get to the city?
+GUIDER: Go straight down the road
+PLAYER: Thank you!
