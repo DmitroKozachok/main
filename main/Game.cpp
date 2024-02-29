@@ -127,7 +127,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             // рух персонажа
             player.move(delta_time, my_music);
             
-            //std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
+            std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
             // ѕерех≥д через двер≥ в сел≥ 
             if ((player.get_character_position().x > 512 && player.get_character_position().x < 512 + 128) && (player.get_character_position().y > 2560 && player.get_character_position().y < 2560 + 32)) {    // вих≥д
                 transition_player.teleport_player_pos({ player.get_character_position().x,2200 }, player, window, camera, 1250);
@@ -135,7 +135,13 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             if ((player.get_character_position().x > 512 && player.get_character_position().x < 512 + 128) && (player.get_character_position().y < 2432  && player.get_character_position().y > 2432 - 64)) {   //вх≥д
                 transition_player.teleport_player_pos({ player.get_character_position().x,2700 }, player, window, camera, 1250);
             }
-
+            //телепорт uгравц€ додому/вх≥д ≥ вих≥д
+            if ((player.get_character_position().x > 3000 && player.get_character_position().x < 3070) && (player.get_character_position().y < 440 && player.get_character_position().y > 420)) {   //вх≥д
+                transition_player.teleport_player_pos({ 3323,1660 }, player, window, camera, 1250);
+            }
+            if ((player.get_character_position().x > 3250 && player.get_character_position().x < 3400) && (player.get_character_position().y < 1750 && player.get_character_position().y > 1690)) {   //вих≥д
+                transition_player.teleport_player_pos({ 3050,470 }, player, window, camera, 1250);
+            }
             //телепорт в магазин гравц€
             if ((player.get_character_position().x > 950 && player.get_character_position().x < 1020) && (player.get_character_position().y < 2950 && player.get_character_position().y > 2915)) {   //вх≥д
                 transition_player.teleport_player_pos({ 448,4400 }, player, window, camera, 1250);
@@ -230,7 +236,7 @@ void Game::play_game()
     Map map_lvl_1("Code/Maps/lvl_1 - map/lvl_1_config.txt", "Code/Maps/lvl_1 - map/lvl_1_map.txt", "Code/Maps/lvl_1 - map/lvl_1_Codet.txt");
 
     // створенн€ персонажа
-    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(400.f, 500.f), sf::Vector2f(2.3f, 2.3f), "Player");
+    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(2900.f, 460.f), sf::Vector2f(2.3f, 2.3f), "Player");
 
     // створенн€ злод≥њв
     num_of_killed_lvl_enemy = 0;
@@ -246,7 +252,7 @@ void Game::play_game()
     npcs.push_back(brother);
 
     // створенн€ в≥кна на весь екран
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen); //, sf::Style::Fullscreen
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!"); //, sf::Style::Fullscreen
 
     // створенн€ музики дл€ гри 
     Game_Music music;
@@ -256,7 +262,7 @@ void Game::play_game()
 
     // створенн€ меню
     MainMenu main_menu(camera);
-    main_menu.set_status(true);
+    main_menu.set_status(false);
 
     PauseMenu pause_menu(camera);
 
