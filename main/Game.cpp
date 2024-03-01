@@ -38,8 +38,11 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             }
 
         }
+
     }
+
     // рух злодія
+    int num_of_killed_enemy = 0;
     for (auto& enemy : enemies)
     {
         if (enemy.get_live_status())
@@ -52,26 +55,13 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             enemy.detect_colision_with_player(player, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 25,
                 enemy.get_character_sprite().getGlobalBounds().top + 40, enemy.get_character_sprite().getGlobalBounds().width - 45,
                 enemy.get_character_sprite().getGlobalBounds().height - 80 }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45,
-                player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, 
+                player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95,
                 player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
         }
-        //else
-        //{
-        //    if (num_of_killed_lvl_enemy < 25)
-        //    {
-        //        //переродження ворога
-        //        srand(time(NULL));
-        //        std::vector<sf::Sprite> enemy_spawn_sprite_arr = map.get_enemy_spawn_sprite_arr();
-        //        sf::Sprite spawn_sprite = enemy_spawn_sprite_arr[rand() % enemy_spawn_sprite_arr.size()];
-        //        sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
-
-        //        enemy.set_position(spawn_position);
-        //        enemy.set_health(100);
-        //        enemy.set_live_status(true);
-
-        //        num_of_killed_lvl_enemy++;
-        //    }
-        //}
+        else
+        {
+            num_of_killed_enemy++;
+        }
     }
     
     //рух NPC
@@ -89,6 +79,16 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 npc.get_character_sprite().getGlobalBounds().height }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, 
                 player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, 
                 player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+
+            // обробка діалогу, що залежить від кількості вбитих монстрів
+            if (npc.get_name() == "Inhabitant" && num_of_killed_enemy >= 8)
+            {
+                if (npc.get_dialog().get_dialog_name() == "inhabitant dialog 1 lvl1")
+                {
+                    npc.load_new_dialog("Code/Dialogs/Inhabitant/Dialog2.txt", "inhabitant dialog 2 lvl1");
+                    npc.set_position(sf::Vector2f(400.f, 2700.f));
+                }
+            }
         }
     }
 
@@ -239,7 +239,6 @@ void Game::play_game()
     Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(400.f, 500.f), sf::Vector2f(2.3f, 2.3f), "Player");
 
     // створення злодіїв
-    num_of_killed_lvl_enemy = 0;
     std::vector<Enemy> enemies;
     enemy_spawn(enemies, map_lvl_1);
 
