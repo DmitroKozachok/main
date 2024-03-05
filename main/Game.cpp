@@ -137,9 +137,9 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             }
             //телепорт uгравц€ додому/вх≥д ≥ вих≥д
             if ((player.get_character_position().x > 3000 && player.get_character_position().x < 3070) && (player.get_character_position().y < 440 && player.get_character_position().y > 420)) {   //вх≥д
-                transition_player.teleport_player_pos({ 3323,1660 }, player, window, camera, 1250);
+                transition_player.teleport_player_pos({ 3195,1660 }, player, window, camera, 1250);
             }
-            if ((player.get_character_position().x > 3250 && player.get_character_position().x < 3400) && (player.get_character_position().y < 1750 && player.get_character_position().y > 1690)) {   //вих≥д
+            if ((player.get_character_position().x > 3122 && player.get_character_position().x < 3378) && (player.get_character_position().y < 1750 && player.get_character_position().y > 1690)) {   //вих≥д
                 transition_player.teleport_player_pos({ 3050,470 }, player, window, camera, 1250);
             }
             //телепорт в магазин гравц€
