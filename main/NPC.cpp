@@ -152,3 +152,8 @@ DialogSystem NPC::get_dialog() const
 {
 	return dialog;
 }
+
+bool NPC::get_is_dialog() const
+{
+	return is_dialog;
+}

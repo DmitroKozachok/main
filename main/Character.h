@@ -66,9 +66,9 @@ protected:
 	virtual void move_animation_up(float delta_time); // анімація руху вгору
 	virtual void move_animation_down(float delta_time); // анімація руху вниз
 
-	virtual void idle_animation(float delta_time); // анімація стояння
-
 public:
+
+	virtual void idle_animation(float delta_time); // анімація стояння
 
 	Character(); // конструктор за завмовчуванням, створює звичайний квадрат
 	Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage, std::string name); // конструктор, що встановлює спрайт персонажа

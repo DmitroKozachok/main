@@ -124,8 +124,24 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         }
         else
         {
+            bool is_dialog = false; //чи запушений діалог
+            for (auto& npc : npcs)
+            {
+                if (npc.get_is_dialog())
+                {
+                    is_dialog = true;
+                    break;
+                }
+            }
             // рух персонажа
-            player.move(delta_time, my_music);
+            if (!is_dialog)
+            {
+                player.move(delta_time, my_music);
+            }
+            else
+            {
+                player.idle_animation(ANIMATION_TIME);
+            }
             
             //std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
             // Перехід через двері в селі 

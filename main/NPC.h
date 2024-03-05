@@ -26,6 +26,8 @@ public:
 
 	void show(sf::RenderWindow& window, PlayerCamera& camera); // вивід
 
-	DialogSystem get_dialog() const; //отримання діалогу
+	DialogSystem get_dialog() const; // отримання діалогу
+
+	bool get_is_dialog() const; // повертає чи є зараз діалог
 };
 
