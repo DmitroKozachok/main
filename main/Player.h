@@ -3,6 +3,7 @@
 #pragma once
 #include "Character.h"
 #include "Game_Music.h"
+#include "PlayerCamera.h"
 
 class Player : public Character
 {
@@ -20,5 +21,5 @@ public:
 
 	void attack(sf::Event event, float delta_time); // обробка атаки
 	
+	void show_p(sf::RenderWindow& window, PlayerCamera camera);
 };
-

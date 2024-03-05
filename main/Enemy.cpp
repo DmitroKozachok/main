@@ -145,7 +145,10 @@ void Enemy::attack_animation(float delta_time)
 
 Enemy::Enemy() : Character() {}
 
-Enemy::Enemy(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name) : Character(size_x, size_y, image_way, position, scale, 5, 100, 1, name) {} // делегування батьківського конструктора
+Enemy::Enemy(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name) : Character(size_x, size_y, image_way, position, scale, 5, 100, 1, name) // делегування батьківського конструктора
+{
+	character_health.set_health_bar_position(character_sprite.getPosition());
+}
 
 void Enemy::detect_colision_with_player(Character& player, sf::FloatRect enemy_rect, sf::FloatRect player_rect, float delta_time)
 {
