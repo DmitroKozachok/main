@@ -70,16 +70,29 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         if (npc.get_live_status())
         {
             npc.script_move(delta_time);
-            npc.detect_colision(map, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left + 45, 
-                npc.get_character_sprite().getGlobalBounds().top + 60, npc.get_character_sprite().getGlobalBounds().width - 95, 
+            npc.detect_colision(map, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left + 45,
+                npc.get_character_sprite().getGlobalBounds().top + 60, npc.get_character_sprite().getGlobalBounds().width - 95,
                 npc.get_character_sprite().getGlobalBounds().height - 100 });
 
-            npc.detect_colision_with_player(player, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left, 
-                npc.get_character_sprite().getGlobalBounds().top, npc.get_character_sprite().getGlobalBounds().width, 
-                npc.get_character_sprite().getGlobalBounds().height }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, 
-                player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, 
-                player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+            if (npc.get_name() == "Warlock")
+            {
+                npc.detect_colision_with_player(player, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left,
+                    npc.get_character_sprite().getGlobalBounds().top, npc.get_character_sprite().getGlobalBounds().width,
+                    npc.get_character_sprite().getGlobalBounds().height + 100.f }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45,
+                    player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95,
+                    player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
 
+            }
+            else
+            {
+                npc.detect_colision_with_player(player, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left,
+                    npc.get_character_sprite().getGlobalBounds().top, npc.get_character_sprite().getGlobalBounds().width,
+                    npc.get_character_sprite().getGlobalBounds().height }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45,
+                    player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95,
+                    player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+
+            }
+            
             // обробка діалогу, що залежить від кількості вбитих монстрів
             if (npc.get_name() == "Inhabitant" && num_of_killed_enemy >= 8)
             {
