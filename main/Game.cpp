@@ -242,7 +242,7 @@ void Game::play_game()
     Map map_lvl_1("Code/Maps/lvl_1 - map/lvl_1_config.txt", "Code/Maps/lvl_1 - map/lvl_1_map.txt", "Code/Maps/lvl_1 - map/lvl_1_Codet.txt");
 
     // створення персонажа
-    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(2900.f, 460.f), sf::Vector2f(2.3f, 2.3f), "Player");
+    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(960.f, 2960.f), sf::Vector2f(2.3f, 2.3f), "Player");
 
     // створення злодіїв
     std::vector<Enemy> enemies;
@@ -250,8 +250,8 @@ void Game::play_game()
 
     // створення NPC
     std::vector<NPC> npcs;
-    NPC warlock(32, 32, "Resources/TailSet/Male/Male 12-2.png", sf::Vector2f(1100.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Warlock/Dialog1.txt", "warlock dialog 1 lvl1", "Warlock");
-    NPC brother(32, 32, "Resources/TailSet/Male/Male 02-2.png", sf::Vector2f(800.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Brother/Dialog1.txt", "brother dialog 1 lvl1", "Brother");
+    NPC warlock(32, 32, "Resources/TailSet/Male/Male 12-2.png", sf::Vector2f(477.f, 4260.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Warlock/Dialog1.txt", "warlock dialog 1 lvl1", "Warlock");
+    NPC brother(32, 32, "Resources/TailSet/Male/Male 02-2.png", sf::Vector2f(3166.f, 1540.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Brother/Dialog1.txt", "brother dialog 1 lvl1", "Brother");
     NPC guider(32, 32, "Resources/TailSet/Male/Male 04-2.png", sf::Vector2f(570.f, 410.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Guider/Dialog1.txt", "guider dialog 1 lvl1", "Guider");
     NPC inhabitant(32, 32, "Resources/TailSet/Male/Male 17-1.png", sf::Vector2f(670.f, 1800.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Inhabitant/Dialog1.txt", "inhabitant dialog 1 lvl1", "Inhabitant");
 
@@ -293,6 +293,6 @@ void Game::play_game()
         
         // вивід
         draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu);
-
+        std::cout << player.get_old_position().x << " " << player.get_old_position().y << std::endl;
     }
 }
