@@ -17,6 +17,7 @@
 #include "SettingMenu.h"
 #include "Transition.h"
 #include "SlimeFactory.h"
+#include "OrcFactory.h"
 #define ANIMATION_TIME 0.25f
 
 class Game

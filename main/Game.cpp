@@ -243,9 +243,19 @@ void Game::enemy_spawn(std::vector<Enemy>& enemies, Map& map)
             sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
 
             // Використання фабрики для створення ворогів
-            SlimeFactory slimeFactory;
-            Enemy* enemy = slimeFactory.create_enemy(spawn_position, "enemy" + std::to_string(i));
-            enemies.push_back(*enemy);
+            SlimeFactory slime_factory;
+            OrcFactory orc_factory;
+
+            if (j == 0)
+            {
+                Enemy* enemy = slime_factory.create_enemy(spawn_position, "enemy" + std::to_string(i));
+                enemies.push_back(*enemy);
+            }
+            else
+            {
+                Enemy* enemy = orc_factory.create_enemy(spawn_position, "enemy" + std::to_string(i));
+                enemies.push_back(*enemy);
+            }
         }
 
     }
