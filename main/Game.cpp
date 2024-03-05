@@ -293,6 +293,6 @@ void Game::play_game()
         
         // вивід
         draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu);
-        std::cout << player.get_old_position().x << " " << player.get_old_position().y << std::endl;
+
     }
 }
