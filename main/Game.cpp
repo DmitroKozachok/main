@@ -164,7 +164,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     }
 }
 
-void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu)
+void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu, MiniMap& mini_map)
 {
     // вивід гри, або меню
 
@@ -203,6 +203,7 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
         
         camera.draw(player.get_character_position(), window, map_lvl.get_map_size());
         
+        mini_map.draw(window, map_lvl, player, camera);
     }
 
     window.display();
@@ -254,6 +255,9 @@ void Game::play_game()
     // створення камери
     PlayerCamera camera(player.get_character_position(), sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5), window, map_lvl_1.get_map_size());
 
+    //створення мінікарти
+    MiniMap mini_map(map_lvl_1);
+
     // створення меню
     MainMenu main_menu(camera);
     main_menu.set_status(true);
@@ -277,7 +281,7 @@ void Game::play_game()
         window.clear();
         
         // вивід
-        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu);
+        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu, mini_map);
 
     }
 }

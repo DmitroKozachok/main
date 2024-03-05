@@ -145,6 +145,7 @@
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Game_Music.h" />
+    <ClInclude Include="MiniMap.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Player.h" />
