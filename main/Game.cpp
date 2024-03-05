@@ -38,8 +38,11 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             }
 
         }
+
     }
+
     // рух злодія
+    int num_of_killed_enemy = 0;
     for (auto& enemy : enemies)
     {
         if (enemy.get_live_status())
@@ -52,25 +55,12 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             enemy.detect_colision_with_player(player, sf::FloatRect{ enemy.get_character_sprite().getGlobalBounds().left + 25,
                 enemy.get_character_sprite().getGlobalBounds().top + 40, enemy.get_character_sprite().getGlobalBounds().width - 45,
                 enemy.get_character_sprite().getGlobalBounds().height - 80 }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45,
-                player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, 
+                player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95,
                 player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
         }
         else
         {
-            if (num_of_killed_lvl_enemy < 25)
-            {
-                //переродження ворога
-                srand(time(NULL));
-                std::vector<sf::Sprite> enemy_spawn_sprite_arr = map.get_enemy_spawn_sprite_arr();
-                sf::Sprite spawn_sprite = enemy_spawn_sprite_arr[rand() % enemy_spawn_sprite_arr.size()];
-                sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
-
-                enemy.set_position(spawn_position);
-                enemy.set_health(100);
-                enemy.set_live_status(true);
-
-                num_of_killed_lvl_enemy++;
-            }
+            num_of_killed_enemy++;
         }
     }
     
@@ -89,6 +79,16 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 npc.get_character_sprite().getGlobalBounds().height }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, 
                 player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, 
                 player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+
+            // обробка діалогу, що залежить від кількості вбитих монстрів
+            if (npc.get_name() == "Inhabitant" && num_of_killed_enemy >= 8)
+            {
+                if (npc.get_dialog().get_dialog_name() == "inhabitant dialog 1 lvl1")
+                {
+                    npc.load_new_dialog("Code/Dialogs/Inhabitant/Dialog2.txt", "inhabitant dialog 2 lvl1");
+                    npc.set_position(sf::Vector2f(400.f, 2700.f));
+                }
+            }
         }
     }
 
@@ -127,7 +127,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             // рух персонажа
             player.move(delta_time, my_music);
             
-            std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
+            //std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
             // Перехід через двері в селі 
             if ((player.get_character_position().x > 512 && player.get_character_position().x < 512 + 128) && (player.get_character_position().y > 2560 && player.get_character_position().y < 2560 + 32)) {    // вихід
                 transition_player.teleport_player_pos({ player.get_character_position().x,2200 }, player, window, camera, 1250);
@@ -215,17 +215,23 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
     
 }
 
-void Game::enemy_spawn(std::vector<Enemy>& enemies, int num_of_enemies, Map& map)
+void Game::enemy_spawn(std::vector<Enemy>& enemies, Map& map)
 {
     srand(time(NULL));
     std::vector<sf::Sprite> enemy_spawn_sprite_arr = map.get_enemy_spawn_sprite_arr();
-    for (int i = 0; i < num_of_enemies; i++)
+    for (int i = 0; i < enemy_spawn_sprite_arr.size(); i++)
     {
-        sf::Sprite spawn_sprite = enemy_spawn_sprite_arr[rand() % enemy_spawn_sprite_arr.size()];
-        sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
+        for (int j = 0; j < 2; j++)
+        {
+            sf::Sprite spawn_sprite = enemy_spawn_sprite_arr[i];
+            sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
 
-        Enemy* enemy = new Enemy(32, 32, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/slime.png", spawn_position, sf::Vector2f(3.f, 3.f), "enemy" + std::to_string(i));
-        enemies.push_back(*enemy);
+            // Використання фабрики для створення ворогів
+            SlimeFactory slimeFactory;
+            Enemy* enemy = slimeFactory.create_enemy(spawn_position, "enemy" + std::to_string(i));
+            enemies.push_back(*enemy);
+        }
+
     }
 }
 
@@ -239,17 +245,20 @@ void Game::play_game()
     Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(2900.f, 460.f), sf::Vector2f(2.3f, 2.3f), "Player");
 
     // створення злодіїв
-    num_of_killed_lvl_enemy = 0;
     std::vector<Enemy> enemies;
-    enemy_spawn(enemies, 5, map_lvl_1);
+    enemy_spawn(enemies, map_lvl_1);
 
     // створення NPC
     std::vector<NPC> npcs;
     NPC warlock(32, 32, "Resources/TailSet/Male/Male 12-2.png", sf::Vector2f(1100.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Warlock/Dialog1.txt", "warlock dialog 1 lvl1", "Warlock");
     NPC brother(32, 32, "Resources/TailSet/Male/Male 02-2.png", sf::Vector2f(800.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Brother/Dialog1.txt", "brother dialog 1 lvl1", "Brother");
+    NPC guider(32, 32, "Resources/TailSet/Male/Male 04-2.png", sf::Vector2f(570.f, 410.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Guider/Dialog1.txt", "guider dialog 1 lvl1", "Guider");
+    NPC inhabitant(32, 32, "Resources/TailSet/Male/Male 17-1.png", sf::Vector2f(670.f, 1800.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Inhabitant/Dialog1.txt", "inhabitant dialog 1 lvl1", "Inhabitant");
 
     npcs.push_back(warlock);
     npcs.push_back(brother);
+    npcs.push_back(guider);
+    npcs.push_back(inhabitant);
 
     // створення вікна на весь екран
     sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!"); //, sf::Style::Fullscreen
