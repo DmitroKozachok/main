@@ -78,7 +78,7 @@
     <ClCompile Include="SlimeFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OrcFactory.cpp">
+    <ClCompile Include="SpiritFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,7 +140,7 @@
     <ClInclude Include="SlimeFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OrcFactory.h">
+    <ClInclude Include="SpiritFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

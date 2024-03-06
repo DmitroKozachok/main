@@ -244,7 +244,7 @@ void Game::enemy_spawn(std::vector<Enemy>& enemies, Map& map)
 
             // Використання фабрики для створення ворогів
             SlimeFactory slime_factory;
-            OrcFactory orc_factory;
+            SpiritFactory orc_factory;
 
             if (j == 0)
             {
