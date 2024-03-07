@@ -310,7 +310,7 @@ void Game::play_game()
 
     GameSaver game_saver;
 
-    game_saver.load_game(player, npcs, enemies);
+    //game_saver.load_game(player, npcs, enemies);
 
     while (window.isOpen())
     {

@@ -6,6 +6,8 @@
 #include "Enemy.h"
 #include <vector>
 #include <fstream>
+#include "CharacterToSave.h"
+#include "Character.h"
 
 #define PLAYER_PATH "Code/Save/Player/player.bin"
 #define ENEMIES_PATH "Code/Save/Enemies/enemies.bin"

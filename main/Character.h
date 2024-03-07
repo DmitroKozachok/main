@@ -6,7 +6,7 @@
 #include "Map.h"
 #include "HealthBar.h"
 #include "PlayerCamera.h"
-
+#include "CharacterToSave.h"
 
 // структура координат ан≥мац≥њ
 struct CordAnimation
@@ -73,6 +73,7 @@ public:
 	Character(); // конструктор за завмовчуванн€м, створюЇ звичайний квадрат
 	Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage, std::string name); // конструктор, що встановлюЇ спрайт персонажа
 
+	void load_character_to_save(CharacterToSave c_t_v);
 	void set_health(float new_health); // встановленн€ житт€
 	void set_damage(float new_damage); // встановленн€ урону
 	void set_live_status(bool status); // встановленн€ чи герой живий, true - живий, false - мертвий
@@ -85,6 +86,8 @@ public:
 	bool get_live_status() const; // повертаЇ статус житт€ геро€, true - живий, false - мертвий
 	sf::Vector2f get_character_position() const; // повертаЇ позиц≥ю гравц€
 	sf::Sprite get_character_sprite() const; // повертаЇ спрайт гравц€
+	sf::Image get_character_image() const; // повертаЇ картинку гравц€
+	sf::Texture get_character_texture() const; // повертаЇ текстуру гравц€
 	float get_frame() const; // повертаЇ тепер≥шн≥й кадр ан≥мац≥њ
 	sf::Vector2f get_old_position() const; // повертаЇ колишню позиц≥ю гравц€
 	std::string get_name() const; // повертаЇ ≥м'€

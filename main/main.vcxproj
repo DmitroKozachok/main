@@ -137,6 +137,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterToSave.cpp" />
     <ClCompile Include="DialogSystem.cpp" />
     <ClCompile Include="EditTxt.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterToSave.h" />
     <ClInclude Include="DialogSystem.h" />
     <ClInclude Include="EditTxt.h" />
     <ClInclude Include="Enemy.h" />
