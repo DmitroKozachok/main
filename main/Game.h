@@ -18,6 +18,7 @@
 #include "Transition.h"
 #include "SlimeFactory.h"
 #include "SpiritFactory.h"
+#include "GameSaver.h"
 #define ANIMATION_TIME 0.25f
 
 class Game

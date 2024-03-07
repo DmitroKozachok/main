@@ -306,8 +306,11 @@ void Game::play_game()
     // запуск стартової бг музики
     // music.background_Music_in_Menu.start_play_this_music();                  /////////////
 
-    //
     Transition transition_player;
+
+    GameSaver game_saver;
+
+    game_saver.load_game(player, npcs, enemies);
 
     while (window.isOpen())
     {
@@ -321,4 +324,6 @@ void Game::play_game()
         draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu);
 
     }
+
+    game_saver.save_game(player, npcs, enemies);
 }
