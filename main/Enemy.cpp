@@ -198,14 +198,17 @@ bool Enemy::check_collision(Map& map_lvl, sf::Vector2f position)
 	std::vector<sf::Sprite> colision_sprite_arr = map_lvl.get_colision_sprite_arr();
 	sf::FloatRect enemy_bounds = character_sprite.getGlobalBounds();
 
-	for (int i = 0; i < colision_sprite_arr.size(); i++)
+	if (can_move)
 	{
-		sf::FloatRect obj_bounds = colision_sprite_arr[i].getGlobalBounds();
-
-		// Перевірка на колізію
-		if (enemy_bounds.intersects(obj_bounds))
+		for (int i = 0; i < colision_sprite_arr.size(); i++)
 		{
-			return true; // Колізія виявлена
+			sf::FloatRect obj_bounds = colision_sprite_arr[i].getGlobalBounds();
+
+			// Перевірка на колізію
+			if (enemy_bounds.intersects(obj_bounds))
+			{
+				return true; // Колізія виявлена
+			}
 		}
 	}
 
@@ -271,6 +274,7 @@ void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
     
 	if (check_collision(map, enemy_position)) {		
 		if (move_status == LEFT) {
+			can_move = true;
 			if (enemy_position.y > player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300) {
 				move_up(game_timer);
 			}
@@ -279,6 +283,7 @@ void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
 			}
 		}
 		else if (move_status == RIGHT) {
+			can_move = true;
 			if (enemy_position.y > player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300) {
 				move_up(game_timer);
 			}
@@ -287,6 +292,7 @@ void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
 			}
 		}
 		else if (move_status == UP) {
+			can_move = true;
 			if (enemy_position.x > player_position.x + 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
 				move_left(game_timer);
 			}
@@ -295,6 +301,7 @@ void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
 			}
 		}
 		else if (move_status == DOWN) {
+			can_move = true;
 			if (enemy_position.x > player_position.x + 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
 				move_left(game_timer);
 			}
@@ -304,30 +311,37 @@ void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
 		}
 		else
 		{
+			can_move = false;
 			idle_animation(game_timer);
 		}
 	}
 	else {
 		if (enemy_position.x > player_position.x + 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170) {
+			can_move = true;
 			move_left(game_timer);
 		}
 		else if (enemy_position.x < player_position.x - 22 && abs(enemy_position.x - player_position.x) < 300 && abs(enemy_position.y - player_position.y) < 170)
 		{
+			can_move = true;
 			move_right(game_timer);
 		}
 		else
 		{
+			can_move = false;
 			idle_animation(game_timer);
 		}
 		if (enemy_position.y > player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300) {
+			can_move = true;
 			move_up(game_timer);
 		}
 		else if (enemy_position.y < player_position.y + 22 && abs(enemy_position.y - player_position.y) < 170 && abs(enemy_position.x - player_position.x) < 300)
 		{
+			can_move = true;
 			move_down(game_timer);
 		}
 		else
 		{
+			can_move = false;
 			idle_animation(game_timer);
 		}
 	}

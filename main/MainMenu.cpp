@@ -1,7 +1,7 @@
 #include "MainMenu.h"
 #include <iostream>
 
-MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("Resources/menu/Main_Menu_BG.jpg", 1, 3)
+MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("Resources/menu/Main_Menu_BG.jpg", 1, 5)
 {
 	// створення тексту
 	text_arr[0].set_size(60);
@@ -15,7 +15,13 @@ MainMenu::MainMenu(PlayerCamera& camera) : StandartMenu("Resources/menu/Main_Men
 	gyper_text_arr[1].set_string("Settings");
 
 	gyper_text_arr[2].set_size(30);
-	gyper_text_arr[2].set_string("Exit");
+	gyper_text_arr[2].set_string("Load");
+
+	gyper_text_arr[3].set_size(30);
+	gyper_text_arr[3].set_string("Save");
+
+	gyper_text_arr[4].set_size(30);
+	gyper_text_arr[4].set_string("Exit");
 
 }
 
@@ -25,10 +31,12 @@ void MainMenu::set_position(PlayerCamera& camera, sf::Vector2f border_size, sf::
 	camera.set_position(sf::Vector2f{ 0.f, 0.f }, sf::Vector2f{ window.getSize() });
 	camera.set_size(sf::Vector2f{ (float)window.getSize().x, (float)window.getSize().y });
 
-	text_arr[0].set_position({ camera.get_size().x * 0.5f, camera.get_size().y * 0.35f });
-	gyper_text_arr[0].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.6f });
-	gyper_text_arr[1].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.7f });
-	gyper_text_arr[2].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.8f });
+	text_arr[0].set_position({ camera.get_size().x * 0.5f, camera.get_size().y * 0.15f });
+	gyper_text_arr[0].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.4f });
+	gyper_text_arr[1].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.5f });
+	gyper_text_arr[2].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.6f });
+	gyper_text_arr[3].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.7f });
+	gyper_text_arr[4].set_position({ camera.get_size().x * 0.15f, camera.get_size().y * 0.8f });
 
 	// редагування зображення
 	background_sprite.setPosition(camera.get_size().x * 0.5f, camera.get_size().y * 0.5f);
@@ -69,6 +77,16 @@ void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_
 		set_status(false);
 	}
 	else if (gyper_text_arr[2].is_button_pressed(event))
+	{
+		//кнопка Load
+		std::cout << "Load" << std::endl;
+	}
+	else if (gyper_text_arr[3].is_button_pressed(event))
+	{
+		//кнопка Save
+		std::cout << "Save" << std::endl;
+	}
+	else if (gyper_text_arr[4].is_button_pressed(event))
 	{
 		window.close(); // кнопка виходу
 	}
