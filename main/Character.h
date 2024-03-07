@@ -6,7 +6,6 @@
 #include "Map.h"
 #include "HealthBar.h"
 #include "PlayerCamera.h"
-#include "CharacterToSave.h"
 
 // структура координат анімації
 struct CordAnimation
@@ -73,7 +72,6 @@ public:
 	Character(); // конструктор за завмовчуванням, створює звичайний квадрат
 	Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage, std::string name); // конструктор, що встановлює спрайт персонажа
 
-	void load_character_to_save(CharacterToSave c_t_v);
 	void set_health(float new_health); // встановлення життя
 	void set_damage(float new_damage); // встановлення урону
 	void set_live_status(bool status); // встановлення чи герой живий, true - живий, false - мертвий

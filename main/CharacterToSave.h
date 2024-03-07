@@ -12,8 +12,9 @@ public:
 	float x_pos; // позиція по x
 	float y_pos; // позиція по y
 
-	CharacterToSave();
 	CharacterToSave(Character& character);
+
+	void load_character_to_save(Character& character);
 
 };
 

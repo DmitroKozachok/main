@@ -202,13 +202,6 @@ void Character::idle_animation(float delta_time)
 	character_sprite.setTextureRect(sf::IntRect(size_texture_x * int(frame), size_texture_y * 0, size_texture_x, size_texture_y));
 }
 
-void Character::load_character_to_save(CharacterToSave c_t_v)
-{
-	set_health(c_t_v.health);
-	set_live_status(c_t_v.is_alive);
-	set_position(sf::Vector2f(c_t_v.x_pos, c_t_v.y_pos));
-}
-
 void Character::set_health(float new_health) {
 	// смерть в разі відє'много значення
 	if (new_health > 0)

@@ -11,7 +11,7 @@ void GameSaver::save_game(Player& player, std::vector<NPC>& npcs, std::vector<En
 
     // «береженн€ ворог≥в
     std::ofstream enemies_file(ENEMIES_PATH, std::ios::binary);
-    for (auto& enemy : enemies) {
+    for (auto enemy : enemies) {
         CharacterToSave enemy_c_t_v(enemy);
         enemies_file.write(reinterpret_cast<char*>(&enemy_c_t_v), sizeof(CharacterToSave));
     }
@@ -20,7 +20,7 @@ void GameSaver::save_game(Player& player, std::vector<NPC>& npcs, std::vector<En
 
     // «береженн€ NPC
     std::ofstream npc_file(NPC_PATH, std::ios::binary);
-    for (auto& n : npcs) {
+    for (auto n : npcs) {
         CharacterToSave npc_c_t_v(n);
         npc_file.write(reinterpret_cast<char*>(&npc_c_t_v), sizeof(CharacterToSave));
     }
@@ -33,27 +33,27 @@ void GameSaver::load_game(Player& player, std::vector<NPC>& npcs, std::vector<En
 {
 	//завантаженн€ гравц€
     std::ifstream player_file(PLAYER_PATH, std::ios::binary);
-    CharacterToSave player_c_t_v;
+    CharacterToSave player_c_t_v(player);
     
     player_file.read(reinterpret_cast<char*>(&player_c_t_v), sizeof(CharacterToSave));
-    player.load_character_to_save(player_c_t_v);
+    player_c_t_v.load_character_to_save(player);
     player_file.close();
 
 	//завантаженн€ ворог≥в
     std::ifstream enemies_file(ENEMIES_PATH, std::ios::binary);
-    for (auto& enemy : enemies) {
-        CharacterToSave enemy_c_t_v;
+    for (auto enemy : enemies) {
+        CharacterToSave enemy_c_t_v(player);
         enemies_file.read(reinterpret_cast<char*>(&enemy_c_t_v), sizeof(CharacterToSave));
-        enemy.load_character_to_save(enemy_c_t_v);
+        enemy_c_t_v.load_character_to_save(enemy);
     }
     enemies_file.close();
 
 	//завантаженн€ NPC
     std::ifstream npc_file(NPC_PATH, std::ios::binary);
-    for (auto& n : npcs) {
-        CharacterToSave npc_c_t_v;
+    for (auto n : npcs) {
+        CharacterToSave npc_c_t_v(player);
         npc_file.read(reinterpret_cast<char*>(&npc_c_t_v), sizeof(CharacterToSave));
-        n.load_character_to_save(npc_c_t_v);
+        npc_c_t_v.load_character_to_save(n);
     }
 
     npc_file.close();
