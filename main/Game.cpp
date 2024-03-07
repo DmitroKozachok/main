@@ -203,6 +203,7 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
         
         camera.draw(player.get_character_position(), window, map_lvl.get_map_size());
         
+        mini_map.change_level_rectangle_color(player.get_character_position());
         mini_map.draw(window, map_lvl, player, camera);
     }
 

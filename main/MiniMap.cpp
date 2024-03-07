@@ -17,8 +17,20 @@ MiniMap::MiniMap(Map map) : miniMap_background_size{map.get_map_size().x / 40 / 
 	{
 		link_rectangles[i].setSize({ level_rectangles_size.x / 3, level_rectangles_size.y / 1.5f });
 		link_rectangles[i].setFillColor(sf::Color::White);
-		//link_rectangles[i].setOutlineThickness(0.75f);
-		//link_rectangles[i].setOutlineColor(sf::Color(0, 0, 0, 180));
+	}
+}
+
+void MiniMap::change_level_rectangle_color(sf::Vector2f player_position)
+{
+	if (player_position.y > 75 * 32)
+	{
+		level_rectangles[1].setFillColor(sf::Color::Green);
+		level_rectangles[0].setFillColor(sf::Color::Red);
+	}
+	else
+	{
+		level_rectangles[0].setFillColor(sf::Color::Green);
+		level_rectangles[1].setFillColor(sf::Color::Red);
 	}
 }
 
@@ -28,7 +40,7 @@ void MiniMap::draw(sf::RenderWindow& window, Map& map, Player& player, PlayerCam
 	miniMap_background_position = miniMap_background.getPosition();
 
 	level_rectangles[0].setPosition({ miniMap_background_position.x + (miniMap_background_size.x / 2) - (level_rectangles_size.x / 2), (miniMap_background_position.y + (miniMap_background_size.y / 2) - (level_rectangles_size.y / 2)) - (level_rectangles_size.y * 0.75f) });
-	level_rectangles[1].setPosition({ level_rectangles[0].getPosition().x, (level_rectangles[0].getPosition().y + (level_rectangles_size.y * 1.5f)) });
+	level_rectangles[1].setPosition({ level_rectangles[0].getPosition().x, (level_rectangles[0].getPosition().y + (level_rectangles_size.y * 1.67f)) });
 
 	link_rectangles[0].setPosition({ level_rectangles[0].getPosition().x + (level_rectangles_size.x / 3), (level_rectangles[0].getPosition().y + level_rectangles_size.y) });
 	

@@ -24,5 +24,7 @@ class MiniMap
 public:
 	MiniMap(Map map);
 
+	void change_level_rectangle_color(sf::Vector2f player_position);
+
 	void draw(sf::RenderWindow& window, Map& map, Player& player, PlayerCamera& camera);
 };
