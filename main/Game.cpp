@@ -81,7 +81,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
 
             // обробка діалогу, що залежить від кількості вбитих монстрів
-            if (npc.get_name() == "Inhabitant" && num_of_killed_enemy >= 8)
+            if (npc.get_name() == "Inhabitant" && num_of_killed_enemy >= 10)
             {
                 if (npc.get_dialog().get_dialog_name() == "inhabitant dialog 1 lvl1")
                 {
@@ -310,7 +310,7 @@ void Game::play_game()
 
     GameSaver game_saver;
 
-    game_saver.load_game(player, npcs, enemies);
+    game_saver.load_game(player, npcs, enemies, DialogSystem::all_complate_dialog);
 
     while (window.isOpen())
     {
@@ -325,5 +325,5 @@ void Game::play_game()
 
     }
 
-    game_saver.save_game(player, npcs, enemies);
+    game_saver.save_game(player, npcs, enemies, DialogSystem::all_complate_dialog);
 }
