@@ -297,6 +297,16 @@ sf::Sprite Character::get_character_sprite() const
 	return character_sprite;
 }
 
+sf::Image Character::get_character_image() const
+{
+	return character_image;
+}
+
+sf::Texture Character::get_character_texture() const
+{
+	return character_texture;
+}
+
 float Character::get_frame() const
 {
 	return frame;

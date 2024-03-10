@@ -19,6 +19,8 @@
 #include "SettingMenu.h"
 #include "Transition.h"
 #include "SlimeFactory.h"
+#include "SpiritFactory.h"
+#include "GameSaver.h"
 #include "MiniMap.h"
 #include "GameOverMenu.h"
 #define ANIMATION_TIME 0.25f
