@@ -81,6 +81,9 @@
     <ClCompile Include="SlimeFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -141,6 +144,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MiniMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

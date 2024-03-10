@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player, GameOverMenu& game_over_menu)
 {
     sf::Event event;
 
@@ -135,6 +135,12 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             // позиц≥€ меню
             pause_menu.set_position(camera, map.get_map_size(), window);
         }
+        else if (game_over_menu.get_status())
+        {
+            game_over_menu.click_processing(window, event, main_menu, setting_menu, player);
+
+            game_over_menu.set_position(camera, map.get_map_size(), window);
+        }
         else
         {
             // рух персонажа
@@ -168,6 +174,9 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 
             }
 
+            if (!player.get_live_status()) {
+                game_over_menu.set_status(true);
+            }
 
             // атака гравц€
             player.attack(event, delta_time);
@@ -183,14 +192,14 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     }
 }
 
-void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu, MiniMap& mini_map)
+void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu, MiniMap& mini_map, GameOverMenu& game_over_menu)
 {
     // вив≥д гри, або меню
 
     if (main_menu.get_status())
     {
         main_menu.show(window, camera);
-        camera.draw(sf::Vector2f{0.f, 0.f}, window, map_lvl.get_map_size());
+        camera.draw(sf::Vector2f{ 0.f, 0.f }, window, map_lvl.get_map_size());
     }
     else if (setting_menu.get_status())
     {
@@ -219,7 +228,12 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
         {
             pause_menu.show(window, camera);
         }
-        
+        else if (game_over_menu.get_status())
+        {
+            game_over_menu.show(window, camera);
+            camera.draw(sf::Vector2f{ 0.f, 0.f }, window, map_lvl.get_map_size());
+        }
+
         camera.draw(player.get_character_position(), window, map_lvl.get_map_size());
         
         mini_map.change_level_rectangle_color(player.get_character_position());
@@ -295,6 +309,8 @@ void Game::play_game()
 
     SettingMenu setting_menu(camera);
 
+    GameOverMenu game_over_menu(camera);
+
     // запуск стартовоњ бг музики
     // music.background_Music_in_Menu.start_play_this_music();                  /////////////
 
@@ -305,12 +321,12 @@ void Game::play_game()
     {
 
         // обробка под≥й
-        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player);
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player, game_over_menu);
 
         window.clear();
         
         // вив≥д
-        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu, mini_map);
+        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu, mini_map, game_over_menu);
 
     }
 }

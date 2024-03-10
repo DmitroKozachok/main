@@ -8,7 +8,7 @@ SettingMenu::SettingMenu(PlayerCamera& camera) : StandartMenu("Resources/menu/Ma
 	text_arr[0].set_string("Setting Menu");
 
 	text_arr[1].set_size(30);
-	text_arr[1].set_string("Vindow mode:");
+	text_arr[1].set_string("Window mode:");
 
 	// створення кнопок
 	gyper_text_arr[0].set_size(30);

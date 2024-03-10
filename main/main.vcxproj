@@ -142,6 +142,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOverMenu.cpp" />
     <ClCompile Include="GyperText.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="main.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOverMenu.h" />
     <ClInclude Include="GyperText.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="Map.h" />
