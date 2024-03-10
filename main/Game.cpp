@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player, GameSaver gamae_saver)
 {
     sf::Event event;
 
@@ -96,7 +96,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     if (main_menu.get_status()) {
 
         // обробка натискання кнопок меню
-        main_menu.click_processing(window, event, my_music, setting_menu);
+        main_menu.click_processing(window, event, my_music, setting_menu, player, npcs, enemies, DialogSystem::all_complate_dialog, gamae_saver);
 
         // позиція меню
         main_menu.set_position(camera, map.get_map_size(), window);
@@ -261,7 +261,6 @@ void Game::enemy_spawn(std::vector<Enemy>& enemies, Map& map)
     }
 }
 
-
 void Game::play_game()
 {
     // створення мапи
@@ -310,13 +309,11 @@ void Game::play_game()
 
     GameSaver game_saver;
 
-    game_saver.load_game(player, npcs, enemies, DialogSystem::all_complate_dialog);
-
     while (window.isOpen())
     {
 
         // обробка подій
-        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player);
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player, game_saver);
 
         window.clear();
         

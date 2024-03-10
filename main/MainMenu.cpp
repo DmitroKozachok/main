@@ -62,13 +62,29 @@ void MainMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
-void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_Music &music, SettingMenu& setting_menu)
+void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_Music &music, SettingMenu& setting_menu, Player& player, std::vector<NPC>& npcs, std::vector<Enemy>& enemies, std::vector<std::string>& dialogs, GameSaver game_saver)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
 		is_open = false; // кнопка старту
 		music.background_Music_in_Menu.stop_play_this_music();
 		music.background_music_in_world.start_play_this_music();
+
+		game_saver.delete_all_file();
+		player.set_position(sf::Vector2f(2900.f, 460.f));
+		player.set_health(100.f);
+
+		for (auto& enemy : enemies)
+		{
+			enemy.set_live_status(true);
+			enemy.set_health(100.f);
+		}
+
+		for (auto& dialog : dialogs)
+		{
+			dialog = "";
+		}
+
 	}
 	else if (gyper_text_arr[1].is_button_pressed(event))
 	{
@@ -79,12 +95,13 @@ void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_
 	else if (gyper_text_arr[2].is_button_pressed(event))
 	{
 		//кнопка Load
-		std::cout << "Load" << std::endl;
+		game_saver.load_game(player, npcs, enemies, DialogSystem::all_complate_dialog);
+		set_status(false);
 	}
 	else if (gyper_text_arr[3].is_button_pressed(event))
 	{
 		//кнопка Save
-		std::cout << "Save" << std::endl;
+		game_saver.save_game(player, npcs, enemies, DialogSystem::all_complate_dialog);
 	}
 	else if (gyper_text_arr[4].is_button_pressed(event))
 	{
