@@ -91,7 +91,7 @@ public:
 	std::string get_name() const; // повертає ім'я
 	MoveStatus get_move_status() const;
 
-	void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка колізії
+	virtual void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка колізії
 
 	virtual void show(sf::RenderWindow& window); // промальовка персонажа
 
