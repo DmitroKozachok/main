@@ -137,7 +137,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         }
         else if (game_over_menu.get_status())
         {
-            game_over_menu.click_processing(window, event, main_menu, setting_menu, player);
+            game_over_menu.click_processing(window, event, main_menu, setting_menu, player, npcs, enemies, DialogSystem::all_complate_dialog, gamae_saver, my_music);
 
             game_over_menu.set_position(camera, map.get_map_size(), window);
         }
