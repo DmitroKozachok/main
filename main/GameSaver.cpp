@@ -49,10 +49,6 @@ void GameSaver::save_game(Player& player, std::vector<NPC>& npcs, std::vector<En
         dialogs_file.write(str.data(), strSize);
     }
 
-    /*for (auto& d : dialogs) {
-        dialogs_file.write(reinterpret_cast<char*>(&d), sizeof(std::string));
-    }*/
-
     dialogs_file.close();
 
 }
@@ -121,10 +117,6 @@ void GameSaver::load_game(Player& player, std::vector<NPC>& npcs, std::vector<En
         dialogs.push_back(str);
     }
 
-    // Завантаження діалогів
-    /*for (auto& d : dialogs) {
-        dialogs_file.read(reinterpret_cast<char*>(&d), sizeof(std::string));
-    }*/
     dialogs_file.close();
 
 }

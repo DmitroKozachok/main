@@ -70,16 +70,20 @@ void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_
 		music.background_Music_in_Menu.stop_play_this_music();
 		music.background_music_in_world.start_play_this_music();
 
+		// створення персонажу заново
 		game_saver.delete_all_file();
 		player.set_position(sf::Vector2f(2900.f, 460.f));
 		player.set_health(100.f);
 
+		// створення ворогів заново
 		for (auto& enemy : enemies)
 		{
 			enemy.set_live_status(true);
 			enemy.set_health(100.f);
+			enemy.set_position(enemy.get_start_position());
 		}
 
+		// скидання діалогів
 		for (auto& dialog : dialogs)
 		{
 			dialog = "";
