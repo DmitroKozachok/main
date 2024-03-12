@@ -52,7 +52,7 @@ void PauseMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
-void PauseMenu::click_processing(sf::Event event, MainMenu& main_menu, SettingMenu& setting_menu)
+void PauseMenu::click_processing(sf::Event event, MainMenu& main_menu, SettingMenu& setting_menu, std::vector<Game_Music>& music)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
@@ -72,6 +72,21 @@ void PauseMenu::click_processing(sf::Event event, MainMenu& main_menu, SettingMe
 	else if (gyper_text_arr[3].is_button_pressed(event))
 	{
 		// кнопка виходу в головне меню
+		bool bg_menu_chek = false;
+		bool bg_world_1_chek = false;
+		for (auto& it : music) {
+			if (it.get_path_this_music() == "Resources/Music/bg_menu.wav") {
+				it.start_play_this_music();
+				bg_menu_chek = true;
+			}
+			if (it.get_path_this_music() == "Resources/Music/bg_world_1.wav") {
+				it.stop_play_this_music();
+				bg_world_1_chek = true;
+			}
+			if (bg_world_1_chek && bg_menu_chek) {
+				break;
+			}
+		}
 		main_menu.set_status(true);
 		set_status(false);
 	}

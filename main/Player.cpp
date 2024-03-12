@@ -93,20 +93,21 @@ Player::Player(int size_x, int size_y, std::string image_way, sf::Vector2f posit
     character_health.set_health_bar_position({ character_sprite.getPosition().x - 320.f, character_sprite.getPosition().y - 170.f });
 }
 
-void Player::move(float delta_time, Game_Music& my_music)
+void Player::move(float delta_time, Game_Music& sound_walk)
 {
     Character::move(delta_time);    // працює рух
     if (move_status == UP || move_status == LEFT || move_status == RIGHT || move_status == DOWN) { // перевірка руху
-        my_music.song_walking_playear.start_play_this_sound();   // запуск руху по траві (звуку)
+        sound_walk.start_play_this_music();  // запуск руху по траві (звуку)
         
     }
 }
 
-void Player::attack(sf::Event event , float delta_time)
+void Player::attack(sf::Event event , float delta_time, Game_Music& sound_player_attack)
 {
     // перевірка на атаку
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 		is_attacking = true;
+        sound_player_attack.start_play_this_music();
 	}
 
     // визначення анімації

@@ -1,5 +1,8 @@
 #include "Game.h"
 
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu,
+    PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, std::vector<Game_Music>& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu,
+    Transition transition_player , Game_Music& sound_walk ,Game_Music& sound_player_attack, Game_Music& sound_player_get_damage)
 void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player, GameOverMenu& game_over_menu, GameSaver gamae_saver)
 {
     sf::Event event;
@@ -56,7 +59,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 enemy.get_character_sprite().getGlobalBounds().top + 40, enemy.get_character_sprite().getGlobalBounds().width - 45,
                 enemy.get_character_sprite().getGlobalBounds().height - 80 }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45,
                 player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95,
-                player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+                player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time ,sound_player_get_damage);
         }
         else
         {
@@ -130,7 +133,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         if (pause_menu.get_status())
         {
             // обробка натискання кнопок меню
-            pause_menu.click_processing(event, main_menu, setting_menu);
+            pause_menu.click_processing(event, main_menu, setting_menu, my_music);
 
             // позиція меню
             pause_menu.set_position(camera, map.get_map_size(), window);
@@ -161,6 +164,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             {
                 player.idle_animation(ANIMATION_TIME);
             }
+            player.move(delta_time, sound_walk);
             
             //std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
             // Перехід через двері в селі 
@@ -195,7 +199,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             }
 
             // атака гравця
-            player.attack(event, delta_time);
+            player.attack(event, delta_time, sound_player_attack);   ///////
 
             // обробка колізії
             player.detect_colision(map, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, 
@@ -315,10 +319,34 @@ void Game::play_game()
     npcs.push_back(inhabitant);
 
     // створення вікна на весь екран
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen); //, sf::Style::Fullscreen
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!"); //, sf::Style::Fullscreen
 
     // створення музики для гри 
-    Game_Music music;
+
+    Game_Music sound_walk_player(7, "Resources/Music/StepOnTheGrass.wav", false);
+    Game_Music sound_player_attack(15, "Resources/Music/player_attack.wav", false, 88);
+    Game_Music sound_player_get_damage(13, "Resources/Music/player_get_damage.wav", false , 88);
+    std::vector<Game_Music> vect_music;
+    Game_Music music_bg_wordl_1(5, "Resources/Music/bg_world_1.wav", true);
+    Game_Music music_bg_wordl_2(5, "Resources/Music/bg_world_2.wav", true);
+    Game_Music music_bg_wordl_3(5, "Resources/Music/bg_world_3.wav", true);
+    Game_Music music_bg_menu(5, "Resources/Music/bg_menu.wav", true);
+
+    vect_music.push_back(music_bg_wordl_1);
+    vect_music.push_back(music_bg_wordl_2);
+    vect_music.push_back(music_bg_wordl_3);
+    vect_music.push_back(music_bg_menu);
+
+
+    // запуск стартової бг музики
+    std::vector<Game_Music>::iterator iter = std::find_if(
+            vect_music.begin(), vect_music.end(),
+            [music_bg_menu](const Game_Music& music) { return music.path_to_music_song == music_bg_menu.path_to_music_song; }
+    );
+
+    if (iter != vect_music.end()) {
+        iter->start_play_this_music();
+    }
 
     // створення камери
     PlayerCamera camera(player.get_character_position(), sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5), window, map_lvl_1.get_map_size());
@@ -331,7 +359,6 @@ void Game::play_game()
     main_menu.set_status(true);
 
     PauseMenu pause_menu(camera);
-
     SettingMenu setting_menu(camera);
 
     GameOverMenu game_over_menu(camera);
@@ -339,6 +366,7 @@ void Game::play_game()
     // запуск стартової бг музики
     // music.background_Music_in_Menu.start_play_this_music();                  /////////////
 
+   
     Transition transition_player;
 
     GameSaver game_saver;
@@ -347,6 +375,7 @@ void Game::play_game()
     {
 
         // обробка подій
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, vect_music, pause_menu, setting_menu, transition_player, sound_walk_player, sound_player_attack , sound_player_get_damage);
         event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player, game_over_menu, game_saver);
 
         window.clear();
