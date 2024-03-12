@@ -118,16 +118,10 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     else if (setting_menu.get_status())
     {
         // обробка натискання кнопок меню
-        //setting_menu.click_processing(window, event);
+        setting_menu.click_processing(window, event);
 
         // позиція меню
         setting_menu.set_position(camera, map.get_map_size(), window);
-
-        if (setting_menu.is_continue_pressed(window, event))
-        {
-            main_menu.set_status(true);
-            setting_menu.set_status(false);
-        }
     }
     else
     {

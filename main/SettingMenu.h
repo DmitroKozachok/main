@@ -13,8 +13,6 @@ public:
 
 	void show(sf::RenderWindow& window, PlayerCamera& camera) override; // вивід карти
 
-	bool is_continue_pressed(sf::RenderWindow& window, sf::Event event);
-
 	void click_processing(sf::RenderWindow& window, sf::Event event); // обробка натискання кнопок меню
 
 };

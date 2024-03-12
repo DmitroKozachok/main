@@ -63,16 +63,6 @@ void SettingMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
-bool SettingMenu::is_continue_pressed(sf::RenderWindow& window, sf::Event event)
-{
-	if (gyper_text_arr[3].is_button_pressed(event))
-	{
-		return true;
-	}
-
-	return false;
-}
-
 void SettingMenu::click_processing(sf::RenderWindow& window, sf::Event event)
 {
 	//if (gyper_text_arr[0].is_button_pressed(event))
