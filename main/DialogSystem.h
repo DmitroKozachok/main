@@ -31,7 +31,7 @@ public:
 
     std::string get_dialog_name() const; // повертає ім'я діалогу
     std::string get_font_path() const; // повертає шрифт
-    bool get_waiting_for_input() const; // повертає чи діалог в процесі
+    bool get_waiting_for_input() const; // повертає чи діалог чекає на ввід
 };
 
 

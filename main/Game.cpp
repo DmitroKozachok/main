@@ -1,8 +1,6 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu,
-    PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, std::vector<Game_Music>& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu,
-    Transition transition_player , Game_Music& sound_walk ,Game_Music& sound_player_attack, Game_Music& sound_player_get_damage)
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player)
 {
     sf::Event event;
 
@@ -83,7 +81,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
 
             // обробка діалогу, що залежить від кількості вбитих монстрів
-            if (npc.get_name() == "Inhabitant" && num_of_killed_enemy >= 8)
+            if (npc.get_name() == "Inhabitant" && num_of_killed_enemy >= 10)
             {
                 if (npc.get_dialog().get_dialog_name() == "inhabitant dialog 1 lvl1")
                 {
@@ -98,7 +96,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     if (main_menu.get_status()) {
 
         // обробка натискання кнопок меню
-        main_menu.click_processing(window, event, my_music, setting_menu);
+        main_menu.click_processing(window, event, my_music, setting_menu, player, npcs, enemies, DialogSystem::all_complate_dialog, gamae_saver);
 
         // позиція меню
         main_menu.set_position(camera, map.get_map_size(), window);
@@ -126,8 +124,25 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         }
         else
         {
+            bool is_dialog = false; //чи запушений діалог
+            for (auto& npc : npcs)
+            {
+                if (npc.get_is_dialog())
+                {
+                    is_dialog = true;
+                    break;
+                }
+            }
             // рух персонажа
             player.move(delta_time, sound_walk);
+            if (!is_dialog)
+            {
+                player.move(delta_time, my_music);
+            }
+            else
+            {
+                player.idle_animation(ANIMATION_TIME);
+            }
             
             //std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
             // Перехід через двері в селі 
@@ -229,14 +244,23 @@ void Game::enemy_spawn(std::vector<Enemy>& enemies, Map& map)
             sf::Vector2f spawn_position{ (spawn_sprite.getPosition().x + 32) + (rand() % 65 - 32), spawn_sprite.getPosition().y + 46 };
 
             // Використання фабрики для створення ворогів
-            SlimeFactory slimeFactory;
-            Enemy* enemy = slimeFactory.create_enemy(spawn_position, "enemy" + std::to_string(i));
-            enemies.push_back(*enemy);
+            SlimeFactory slime_factory;
+            SpiritFactory orc_factory;
+
+            if (j == 0)
+            {
+                Enemy* enemy = slime_factory.create_enemy(spawn_position, "enemy" + std::to_string(i));
+                enemies.push_back(*enemy);
+            }
+            else
+            {
+                Enemy* enemy = orc_factory.create_enemy(spawn_position, "enemy" + std::to_string(i));
+                enemies.push_back(*enemy);
+            }
         }
 
     }
 }
-
 
 void Game::play_game()
 {
@@ -301,14 +325,22 @@ void Game::play_game()
 
     PauseMenu pause_menu(camera);
     SettingMenu setting_menu(camera);
-   
+
+    // запуск стартової бг музики
+    // music.background_Music_in_Menu.start_play_this_music();                  /////////////
+
+    //
+    //
     Transition transition_player;
+
+    GameSaver game_saver;
 
     while (window.isOpen())
     {
-
-        // обробка подій
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player, game_saver);
         event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, vect_music, pause_menu, setting_menu, transition_player, sound_walk_player, sound_player_attack , sound_player_get_damage);
+        // обробка подій
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player);
 
         window.clear();
         
@@ -316,4 +348,6 @@ void Game::play_game()
         draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu);
 
     }
+
+    game_saver.save_game(player, npcs, enemies, DialogSystem::all_complate_dialog);
 }

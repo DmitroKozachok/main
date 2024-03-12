@@ -7,7 +7,6 @@
 #include "HealthBar.h"
 #include "PlayerCamera.h"
 
-
 // структура координат ан≥мац≥њ
 struct CordAnimation
 {
@@ -66,9 +65,9 @@ protected:
 	virtual void move_animation_up(float delta_time); // ан≥мац≥€ руху вгору
 	virtual void move_animation_down(float delta_time); // ан≥мац≥€ руху вниз
 
-	virtual void idle_animation(float delta_time); // ан≥мац≥€ сто€нн€
-
 public:
+
+	virtual void idle_animation(float delta_time); // ан≥мац≥€ сто€нн€
 
 	Character(); // конструктор за завмовчуванн€м, створюЇ звичайний квадрат
 	Character(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, float speed, float health, float damage, std::string name); // конструктор, що встановлюЇ спрайт персонажа
@@ -85,12 +84,14 @@ public:
 	bool get_live_status() const; // повертаЇ статус житт€ геро€, true - живий, false - мертвий
 	sf::Vector2f get_character_position() const; // повертаЇ позиц≥ю гравц€
 	sf::Sprite get_character_sprite() const; // повертаЇ спрайт гравц€
+	sf::Image get_character_image() const; // повертаЇ картинку гравц€
+	sf::Texture get_character_texture() const; // повертаЇ текстуру гравц€
 	float get_frame() const; // повертаЇ тепер≥шн≥й кадр ан≥мац≥њ
 	sf::Vector2f get_old_position() const; // повертаЇ колишню позиц≥ю гравц€
 	std::string get_name() const; // повертаЇ ≥м'€
 	MoveStatus get_move_status() const;
 
-	void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка кол≥з≥њ
+	virtual void detect_colision(Map& map_lvl, sf::FloatRect rect); // обробка кол≥з≥њ
 
 	virtual void show(sf::RenderWindow& window); // промальовка персонажа
 

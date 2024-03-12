@@ -12,6 +12,8 @@ class Enemy : public Character
 	void idle_animation(float delta_time) override;
 	void attack_animation(float delta_time); // атака ворога
 
+	sf::Vector2f start_position; // стартова позиція
+
 public:
 	Enemy(); // конструктор по замовчуванню
 	Enemy(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name); // конструктор з параметрами
@@ -27,4 +29,6 @@ public:
 	bool can_move_down(sf::Vector2f position, Map& map_lvl);
 
 	void move(sf::Vector2f player_position, float game_timer, Map& map); // постійний рух ворога на персонажа
+
+	sf::Vector2f get_start_position(); // отримання стартової позиції
 };
