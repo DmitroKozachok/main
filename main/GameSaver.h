@@ -8,6 +8,7 @@
 #include <fstream>
 #include "CharacterToSave.h"
 #include "Character.h"
+#include "DialogSystem.h"
 
 #define PLAYER_PATH "Code/Save/Player/player.bin"
 #define ENEMIES_PATH "Code/Save/Enemies/enemies.bin"
@@ -19,6 +20,7 @@ class GameSaver
 public:
 	//GameSaver(Player& player, std::vector<NPC>& npc, std::vector<Enemy>& enemies);
 	
+	void delete_all_file();
 	void save_game(Player& player, std::vector<NPC>& npcs, std::vector<Enemy>& enemies, std::vector<std::string>& dialogs);
 	void load_game(Player& player, std::vector<NPC>& npcs, std::vector<Enemy>& enemies, std::vector<std::string>& dialogs);
 

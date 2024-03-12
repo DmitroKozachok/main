@@ -148,6 +148,7 @@ Enemy::Enemy() : Character() {}
 Enemy::Enemy(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name) : Character(size_x, size_y, image_way, position, scale, 5, 100, 1, name) // делегування батьківського конструктора
 {
 	character_health.set_health_bar_position(character_sprite.getPosition());
+	start_position = position;
 }
 
 void Enemy::detect_colision_with_player(Character& player, sf::FloatRect enemy_rect, sf::FloatRect player_rect, float delta_time)
@@ -345,4 +346,9 @@ void Enemy::move(sf::Vector2f player_position, float game_timer, Map& map)
 			idle_animation(game_timer);
 		}
 	}
+}
+
+sf::Vector2f Enemy::get_start_position()
+{
+	return start_position;
 }
