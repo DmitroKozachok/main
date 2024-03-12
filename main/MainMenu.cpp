@@ -66,7 +66,7 @@ void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, std::
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
-		//is_open = false; // кнопка старту
+		is_open = false; // кнопка старту
 
 		// створення персонажу заново
 		game_saver.delete_all_file();
@@ -118,7 +118,7 @@ void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, std::
 	else if (gyper_text_arr[3].is_button_pressed(event))
 	{
 		//кнопка Save
-		game_saver.save_game(player, npcs, enemies, DialogSystem::all_complate_dialog);
+		//game_saver.save_game(player, npcs, enemies, DialogSystem::all_complate_dialog);
 	}
 	else if (gyper_text_arr[4].is_button_pressed(event))
 	{

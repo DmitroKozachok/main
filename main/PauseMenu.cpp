@@ -52,7 +52,7 @@ void PauseMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
-void PauseMenu::click_processing(sf::Event event, MainMenu& main_menu, SettingMenu& setting_menu, std::vector<Game_Music>& music)
+void PauseMenu::click_processing(sf::RenderWindow& window, sf::Event event, MainMenu& main_menu, SettingMenu& setting_menu, Player& player, std::vector<NPC>& npcs, std::vector<Enemy>& enemies, std::vector<std::string>& dialogs, GameSaver game_saver, std::vector<Game_Music>& music)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
@@ -62,6 +62,8 @@ void PauseMenu::click_processing(sf::Event event, MainMenu& main_menu, SettingMe
 	{
 		//кнопка Save
 		std::cout << "Save" << std::endl;
+
+		game_saver.save_game(player, npcs, enemies, DialogSystem::all_complate_dialog);
 	}
 	else if (gyper_text_arr[2].is_button_pressed(event))
 	{

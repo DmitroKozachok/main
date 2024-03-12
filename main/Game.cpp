@@ -131,7 +131,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         if (pause_menu.get_status())
         {
             // обробка натискання кнопок меню
-            pause_menu.click_processing(event, main_menu, setting_menu, my_music);
+            pause_menu.click_processing(window, event, main_menu, setting_menu, player, npcs, enemies, DialogSystem::all_complate_dialog, gаme_saver, my_music);
 
             // позиція меню
             pause_menu.set_position(camera, map.get_map_size(), window);
@@ -226,10 +226,6 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
     else
     {
         map_lvl.draw(window);
-        for (auto& npc : npcs)
-        {
-            npc.show(window, camera);
-        }
         player.show_p(window, camera);
 
         // якщо ворог помирає, то вектор змінюється
@@ -239,6 +235,11 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
             {
                 enemy.show(window);
             }
+        }
+
+        for (auto& npc : npcs)
+        {
+            npc.show(window, camera);
         }
 
         if (pause_menu.get_status())
@@ -316,7 +317,7 @@ void Game::play_game()
     npcs.push_back(inhabitant);
 
     // створення вікна на весь екран
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!"); //, sf::Style::Fullscreen
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!", sf::Style::Fullscreen); //, sf::Style::Fullscreen
 
     // створення музики для гри 
 

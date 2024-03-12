@@ -2,10 +2,21 @@
 
 void GameSaver::delete_all_file()
 {
-    std::remove(PLAYER_PATH);
-    std::remove(ENEMIES_PATH);
-    std::remove(NPC_PATH);
-    std::remove(DIALOGS_PATH);
+    std::ifstream player_file(PLAYER_PATH, std::ios::binary);
+    if (!player_file.is_open())
+        std::remove(PLAYER_PATH);
+    
+    std::ifstream enemy_file(ENEMIES_PATH, std::ios::binary);
+    if (!enemy_file.is_open())
+        std::remove(ENEMIES_PATH);
+    
+    std::ifstream npc_file(NPC_PATH, std::ios::binary);
+    if (!npc_file.is_open())
+        std::remove(NPC_PATH);
+    
+    std::ifstream dialog_file(DIALOGS_PATH, std::ios::binary);
+    if (!dialog_file.is_open())
+        std::remove(DIALOGS_PATH);
 }
 
 void GameSaver::save_game(Player& player, std::vector<NPC>& npcs, std::vector<Enemy>& enemies, std::vector<std::string>& dialogs)
