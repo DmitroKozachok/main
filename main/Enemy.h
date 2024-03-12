@@ -1,6 +1,6 @@
 #pragma once
 #include "Character.h"
-
+#include "Game_Music.h"
 #define SECONDS 
 
 class Enemy : public Character
@@ -16,8 +16,8 @@ public:
 	Enemy(); // конструктор по замовчуванню
 	Enemy(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name); // конструктор з параметрами
 
-	void detect_colision_with_player(Character& player, sf::FloatRect enemy_rect, sf::FloatRect player_rect, float delta_time); // колізія з гравцем
-	void attack(float delta_time, Character& player); // атака ворога
+	void detect_colision_with_player(Character& player, sf::FloatRect enemy_rect, sf::FloatRect player_rect, float delta_time, Game_Music& sound_player_get_damage); // колізія з гравцем
+	void attack(float delta_time, Character& player, Game_Music& sound_player_get_damage); // атака ворога
 
 	bool check_collision(Map& map_lvl, sf::Vector2f position);
 

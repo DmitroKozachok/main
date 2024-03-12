@@ -14,6 +14,6 @@ public:
 
 	void show(sf::RenderWindow& window, PlayerCamera& camera) override; // вивід карти
 
-	void click_processing(sf::RenderWindow& window, sf::Event event, Game_Music &music, SettingMenu& setting_menu); // обробка натискання кнопок меню
+	void click_processing(sf::RenderWindow& window, sf::Event event, std::vector<Game_Music>&music, SettingMenu& setting_menu); // обробка натискання кнопок меню
 
 };

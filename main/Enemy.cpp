@@ -150,7 +150,7 @@ Enemy::Enemy(int size_x, int size_y, std::string image_way, sf::Vector2f positio
 	character_health.set_health_bar_position(character_sprite.getPosition());
 }
 
-void Enemy::detect_colision_with_player(Character& player, sf::FloatRect enemy_rect, sf::FloatRect player_rect, float delta_time)
+void Enemy::detect_colision_with_player(Character& player, sf::FloatRect enemy_rect, sf::FloatRect player_rect, float delta_time , Game_Music& sound_player_get_damage)
 {
 	// отриманн€ глобальних координат гравц€ та ворога
 	sf::FloatRect enemy_bounds = enemy_rect;
@@ -168,7 +168,7 @@ void Enemy::detect_colision_with_player(Character& player, sf::FloatRect enemy_r
 		if (frame < 1) // шоб не завжди зн≥малось здоров'€
 		{
 			// обробка ворога гравц€
-			attack(delta_time, player);
+			attack(delta_time, player , sound_player_get_damage);
 		}
 		
 	}
@@ -178,7 +178,7 @@ void Enemy::detect_colision_with_player(Character& player, sf::FloatRect enemy_r
 	}
 }
 
-void Enemy::attack(float delta_time, Character& player)
+void Enemy::attack(float delta_time, Character& player, Game_Music& sound_player_get_damage)
 {
 	if (is_attacking != true)
 	{
@@ -187,6 +187,7 @@ void Enemy::attack(float delta_time, Character& player)
 
 	// зменшенн€ здоров'€ гравц€
 	player.set_health(player.get_health() - damage);
+	sound_player_get_damage.start_play_this_music();
 
 	// ан≥мац≥€ атаки
 	attack_animation(delta_time);

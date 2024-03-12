@@ -17,9 +17,9 @@ public:
 
 	Player(int size_x, int size_y, std::string image_way, sf::Vector2f position, sf::Vector2f scale, std::string name); // конструктор гравц€
 
-	void move(float delta_time, Game_Music& my_music);
+	void move(float delta_time, Game_Music& sound_walk);
 
-	void attack(sf::Event event, float delta_time); // обробка атаки
+	void attack(sf::Event event, float delta_time , Game_Music& sound_player_attack); // обробка атаки
 	
 	void show_p(sf::RenderWindow& window, PlayerCamera camera);
 };

@@ -62,13 +62,26 @@ void MainMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
-void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, Game_Music &music, SettingMenu& setting_menu)
+void MainMenu::click_processing(sf::RenderWindow& window, sf::Event event, std::vector<Game_Music>&music, SettingMenu& setting_menu)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
 		is_open = false; // кнопка старту
-		music.background_Music_in_Menu.stop_play_this_music();
-		music.background_music_in_world.start_play_this_music();
+		bool bg_menu_chek = false;
+		bool bg_world_1_chek = false;
+		for (auto& it : music) {
+			if (it.get_path_this_music() == "Resources/Music/bg_menu.wav") {
+				it.stop_play_this_music();
+				bg_menu_chek = true;
+			}
+			if (it.get_path_this_music() == "Resources/Music/bg_world_1.wav") {
+				it.start_play_this_music();
+				bg_world_1_chek = true;
+			}
+			if (bg_world_1_chek && bg_menu_chek) {
+				break;
+			}
+		}
 	}
 	else if (gyper_text_arr[1].is_button_pressed(event))
 	{
