@@ -1,5 +1,6 @@
 #include "Game.h"
 
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player, GameOverMenu& game_over_menu, GameSaver gamae_saver)
 void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player)
 {
     sf::Event event;
@@ -70,16 +71,29 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         if (npc.get_live_status())
         {
             npc.script_move(delta_time);
-            npc.detect_colision(map, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left + 45, 
-                npc.get_character_sprite().getGlobalBounds().top + 60, npc.get_character_sprite().getGlobalBounds().width - 95, 
+            npc.detect_colision(map, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left + 45,
+                npc.get_character_sprite().getGlobalBounds().top + 60, npc.get_character_sprite().getGlobalBounds().width - 95,
                 npc.get_character_sprite().getGlobalBounds().height - 100 });
 
-            npc.detect_colision_with_player(player, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left, 
-                npc.get_character_sprite().getGlobalBounds().top, npc.get_character_sprite().getGlobalBounds().width, 
-                npc.get_character_sprite().getGlobalBounds().height }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45, 
-                player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95, 
-                player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+            if (npc.get_name() == "Warlock")
+            {
+                npc.detect_colision_with_player(player, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left,
+                    npc.get_character_sprite().getGlobalBounds().top, npc.get_character_sprite().getGlobalBounds().width,
+                    npc.get_character_sprite().getGlobalBounds().height + 100.f }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45,
+                    player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95,
+                    player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
 
+            }
+            else
+            {
+                npc.detect_colision_with_player(player, sf::FloatRect{ npc.get_character_sprite().getGlobalBounds().left,
+                    npc.get_character_sprite().getGlobalBounds().top, npc.get_character_sprite().getGlobalBounds().width,
+                    npc.get_character_sprite().getGlobalBounds().height }, sf::FloatRect{ player.get_character_sprite().getGlobalBounds().left + 45,
+                    player.get_character_sprite().getGlobalBounds().top + 80, player.get_character_sprite().getGlobalBounds().width - 95,
+                    player.get_character_sprite().getGlobalBounds().height - 100 }, delta_time);
+
+            }
+            
             // обробка діалогу, що залежить від кількості вбитих монстрів
             if (npc.get_name() == "Inhabitant" && num_of_killed_enemy >= 10)
             {
@@ -121,6 +135,12 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
 
             // позиція меню
             pause_menu.set_position(camera, map.get_map_size(), window);
+        }
+        else if (game_over_menu.get_status())
+        {
+            game_over_menu.click_processing(window, event, main_menu, setting_menu, player, npcs, enemies, DialogSystem::all_complate_dialog, gamae_saver, my_music);
+
+            game_over_menu.set_position(camera, map.get_map_size(), window);
         }
         else
         {
@@ -172,6 +192,9 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
                 
             }
 
+            if (!player.get_live_status()) {
+                game_over_menu.set_status(true);
+            }
 
             // атака гравця
             player.attack(event, delta_time, sound_player_attack);   ///////
@@ -187,14 +210,14 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     }
 }
 
-void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu)
+void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu, MiniMap& mini_map, GameOverMenu& game_over_menu)
 {
     // вивід гри, або меню
 
     if (main_menu.get_status())
     {
         main_menu.show(window, camera);
-        camera.draw(sf::Vector2f{0.f, 0.f}, window, map_lvl.get_map_size());
+        camera.draw(sf::Vector2f{ 0.f, 0.f }, window, map_lvl.get_map_size());
     }
     else if (setting_menu.get_status())
     {
@@ -223,9 +246,16 @@ void Game::draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCa
         {
             pause_menu.show(window, camera);
         }
-        
+        else if (game_over_menu.get_status())
+        {
+            game_over_menu.show(window, camera);
+            camera.draw(sf::Vector2f{ 0.f, 0.f }, window, map_lvl.get_map_size());
+        }
+
         camera.draw(player.get_character_position(), window, map_lvl.get_map_size());
         
+        mini_map.change_level_rectangle_color(player.get_character_position());
+        mini_map.draw(window, map_lvl, player, camera);
     }
 
     window.display();
@@ -268,7 +298,7 @@ void Game::play_game()
     Map map_lvl_1("Code/Maps/lvl_1 - map/lvl_1_config.txt", "Code/Maps/lvl_1 - map/lvl_1_map.txt", "Code/Maps/lvl_1 - map/lvl_1_Codet.txt");
 
     // створення персонажа
-    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(2900.f, 460.f), sf::Vector2f(2.3f, 2.3f), "Player");
+    Player player(48, 48, "Resources/sprite/2/mystic_woods_free_2.1/sprites/characters/player.png", sf::Vector2f(960.f, 2960.f), sf::Vector2f(2.3f, 2.3f), "Player");
 
     // створення злодіїв
     std::vector<Enemy> enemies;
@@ -276,8 +306,8 @@ void Game::play_game()
 
     // створення NPC
     std::vector<NPC> npcs;
-    NPC warlock(32, 32, "Resources/TailSet/Male/Male 12-2.png", sf::Vector2f(1100.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Warlock/Dialog1.txt", "warlock dialog 1 lvl1", "Warlock");
-    NPC brother(32, 32, "Resources/TailSet/Male/Male 02-2.png", sf::Vector2f(800.f, 2950.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Brother/Dialog1.txt", "brother dialog 1 lvl1", "Brother");
+    NPC warlock(32, 32, "Resources/TailSet/Male/Male 12-2.png", sf::Vector2f(477.f, 4260.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Warlock/Dialog1.txt", "warlock dialog 1 lvl1", "Warlock");
+    NPC brother(32, 32, "Resources/TailSet/Male/Male 02-2.png", sf::Vector2f(3166.f, 1540.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Brother/Dialog1.txt", "brother dialog 1 lvl1", "Brother");
     NPC guider(32, 32, "Resources/TailSet/Male/Male 04-2.png", sf::Vector2f(570.f, 410.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Guider/Dialog1.txt", "guider dialog 1 lvl1", "Guider");
     NPC inhabitant(32, 32, "Resources/TailSet/Male/Male 17-1.png", sf::Vector2f(670.f, 1800.f), sf::Vector2f(1.7f, 1.7f), "Resources/Fonts/NAMU-1750.ttf", "Code/Dialogs/Inhabitant/Dialog1.txt", "inhabitant dialog 1 lvl1", "Inhabitant");
 
@@ -319,12 +349,17 @@ void Game::play_game()
     // створення камери
     PlayerCamera camera(player.get_character_position(), sf::Vector2f(window.getSize().x / 1.5, window.getSize().y / 1.5), window, map_lvl_1.get_map_size());
 
+    //створення мінікарти
+    MiniMap mini_map(map_lvl_1);
+
     // створення меню
     MainMenu main_menu(camera);
     main_menu.set_status(true);
 
     PauseMenu pause_menu(camera);
     SettingMenu setting_menu(camera);
+
+    GameOverMenu game_over_menu(camera);
 
     // запуск стартової бг музики
     // music.background_Music_in_Menu.start_play_this_music();                  /////////////
@@ -340,12 +375,13 @@ void Game::play_game()
         event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player, game_saver);
         event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, vect_music, pause_menu, setting_menu, transition_player, sound_walk_player, sound_player_attack , sound_player_get_damage);
         // обробка подій
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player, game_over_menu, game_saver);
         event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player);
 
         window.clear();
         
         // вивід
-        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu);
+        draw(map_lvl_1, player, enemies, camera, window, main_menu, npcs, pause_menu, setting_menu, mini_map, game_over_menu);
 
     }
 

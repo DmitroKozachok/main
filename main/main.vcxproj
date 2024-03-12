@@ -143,11 +143,13 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOverMenu.cpp" />
     <ClCompile Include="GameSaver.cpp" />
     <ClCompile Include="GyperText.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="SpiritFactory.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
@@ -168,11 +170,13 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOverMenu.h" />
     <ClInclude Include="GameSaver.h" />
     <ClInclude Include="GyperText.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Game_Music.h" />
+    <ClInclude Include="MiniMap.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="SpiritFactory.h" />
     <ClInclude Include="PauseMenu.h" />

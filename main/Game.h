@@ -1,6 +1,8 @@
 // Клас для обробки усіх подій в процесі гри
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <chrono>
+#include <thread>
 #include <vector>
 #include <algorithm>
 #include "EditTxt.h"
@@ -19,6 +21,8 @@
 #include "SlimeFactory.h"
 #include "SpiritFactory.h"
 #include "GameSaver.h"
+#include "MiniMap.h"
+#include "GameOverMenu.h"
 #define ANIMATION_TIME 0.25f
 
 class Game
@@ -29,6 +33,8 @@ private:
 		Transition transition_player, Game_Music& sound_walk, Game_Music& sound_player_attack , Game_Music& sound_player_get_damage); // обробка подій
 	void event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player, GameSaver gmae_saver); // обробка подій
 	void draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu); // промальовка об'єктів
+	void event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player, GameOverMenu& game_over_menu, GameSaver gmae_saver); // обробка подій
+	void draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu, MiniMap& mini_map, GameOverMenu& game_over_menu); // промальовка об'єктів
 	void enemy_spawn(std::vector<Enemy>& enemies, Map& map); // спавн ворогів
 
 public:
