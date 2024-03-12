@@ -25,6 +25,7 @@ public:
 	void load_new_dialog(std::string path, std::string dialog_name);
 
 	void show(sf::RenderWindow& window, PlayerCamera& camera); // вивід
+	void detect_colision(Map& map_lvl, sf::FloatRect rect) {}; // перегружана пуста колізія
 
 	DialogSystem get_dialog() const; // отримання діалогу
 
