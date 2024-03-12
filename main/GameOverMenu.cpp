@@ -51,13 +51,13 @@ void GameOverMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
-void GameOverMenu::click_processing(sf::RenderWindow& window, sf::Event event, MainMenu& main_menu, SettingMenu& setting_menu, Player& player, std::vector<NPC>& npcs, std::vector<Enemy>& enemies, std::vector<std::string>& dialogs, GameSaver game_saver, Game_Music& music)
+void GameOverMenu::click_processing(sf::RenderWindow& window, sf::Event event, MainMenu& main_menu, SettingMenu& setting_menu, Player& player, std::vector<NPC>& npcs, std::vector<Enemy>& enemies, std::vector<std::string>& dialogs, GameSaver game_saver, std::vector<Game_Music>& music)
 {
 	if (gyper_text_arr[0].is_button_pressed(event))
 	{
-		is_open = false; // кнопка старту
-		music.background_Music_in_Menu.stop_play_this_music();
-		music.background_music_in_world.start_play_this_music();
+		//is_open = false; // кнопка старту
+		//music.background_Music_in_Menu.stop_play_this_music();
+		//music.background_music_in_world.start_play_this_music();
 
 		// створення персонажу заново
 		game_saver.delete_all_file();

@@ -1,9 +1,7 @@
 #include "Game.h"
 
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu,
-    PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, std::vector<Game_Music>& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu,
-    Transition transition_player , Game_Music& sound_walk ,Game_Music& sound_player_attack, Game_Music& sound_player_get_damage)
-void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player, GameOverMenu& game_over_menu, GameSaver gamae_saver)
+
+void Game::event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player, GameOverMenu& game_over_menu, GameSaver gаme_saver, std::vector<Game_Music>& my_music, Game_Music& sound_walk, Game_Music& sound_player_attack, Game_Music& sound_player_get_damage)
 {
     sf::Event event;
 
@@ -112,7 +110,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
     if (main_menu.get_status()) {
 
         // обробка натискання кнопок меню
-        main_menu.click_processing(window, event, my_music, setting_menu, player, npcs, enemies, DialogSystem::all_complate_dialog, gamae_saver);
+        main_menu.click_processing(window, event, my_music, setting_menu, player, npcs, enemies, DialogSystem::all_complate_dialog, gаme_saver);
 
         // позиція меню
         main_menu.set_position(camera, map.get_map_size(), window);
@@ -140,7 +138,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
         }
         else if (game_over_menu.get_status())
         {
-            game_over_menu.click_processing(window, event, main_menu, setting_menu, player, npcs, enemies, DialogSystem::all_complate_dialog, gamae_saver, my_music);
+            game_over_menu.click_processing(window, event, main_menu, setting_menu, player, npcs, enemies, DialogSystem::all_complate_dialog, gаme_saver, my_music);
 
             game_over_menu.set_position(camera, map.get_map_size(), window);
         }
@@ -158,13 +156,12 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             // рух персонажа
             if (!is_dialog)
             {
-                player.move(delta_time, my_music);
+                player.move(delta_time, sound_walk);
             }
             else
             {
                 player.idle_animation(ANIMATION_TIME);
             }
-            player.move(delta_time, sound_walk);
             
             //std::cout << "Pos x:" << player.get_character_position().x << ", Pos y:" << player.get_character_position().y << std::endl;
             // Перехід через двері в селі 
@@ -375,8 +372,7 @@ void Game::play_game()
     {
 
         // обробка подій
-        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, vect_music, pause_menu, setting_menu, transition_player, sound_walk_player, sound_player_attack , sound_player_get_damage);
-        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, music, pause_menu, setting_menu, transition_player, game_over_menu, game_saver);
+        event_processing(window, player, ANIMATION_TIME, enemies, main_menu, camera, map_lvl_1, npcs, pause_menu, setting_menu, transition_player, game_over_menu, game_saver, vect_music, sound_walk_player, sound_player_attack, sound_player_get_damage);
 
         window.clear();
         
