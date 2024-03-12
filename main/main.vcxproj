@@ -140,6 +140,7 @@
     <ClCompile Include="DialogSystem.cpp" />
     <ClCompile Include="EditTxt.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GyperText.cpp" />
     <ClCompile Include="HealthBar.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="SettingMenu.cpp" />
+    <ClCompile Include="SlimeFactory.cpp" />
     <ClCompile Include="StandartMenu.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Game_Music.cpp" />
@@ -160,6 +162,7 @@
     <ClInclude Include="DialogSystem.h" />
     <ClInclude Include="EditTxt.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GyperText.h" />
     <ClInclude Include="HealthBar.h" />
@@ -170,6 +173,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="SettingMenu.h" />
+    <ClInclude Include="SlimeFactory.h" />
     <ClInclude Include="StandartMenu.h" />
     <ClInclude Include="Transition.h" />
   </ItemGroup>

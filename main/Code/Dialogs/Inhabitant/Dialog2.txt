@@ -1,0 +1,8 @@
+INHABITANT: Thank you for repelling the attack 
+INHABITANT: of the enemies on the city, 
+INHABITANT: for this you will receive a reward 
+INHABITANT: that you need
+INHABITANT: to take from the magician
+PLAYER: how do I get to him
+INHABITANT: Look for a shop with a potion sign
+PLAYER: Thank you

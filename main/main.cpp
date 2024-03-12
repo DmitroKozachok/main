@@ -6,6 +6,7 @@ Game game;
 
 std::vector<std::string> DialogSystem::all_complate_dialog{ std::vector<std::string>() };
 
+
 int main()
 {
     game.play_game();

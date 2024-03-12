@@ -16,15 +16,17 @@
 #include "PauseMenu.h"
 #include "SettingMenu.h"
 #include "Transition.h"
+#include "SlimeFactory.h"
 #define ANIMATION_TIME 0.25f
 
 class Game
 {
 private:
-	void event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu, PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, Game_Music& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu, Transition transition_player); // обробка подій
+	void event_processing(sf::RenderWindow& window, Player& player, float delta_time, std::vector<Enemy>& enemies, MainMenu& main_menu,
+		PlayerCamera& camera, Map& map, std::vector<NPC>& npcs, std::vector<Game_Music>& my_music, PauseMenu& pause_menu, SettingMenu& setting_menu,
+		Transition transition_player, Game_Music& sound_walk, Game_Music& sound_player_attack , Game_Music& sound_player_get_damage); // обробка подій
 	void draw(Map map_lvl, Player player, std::vector<Enemy> enemies, PlayerCamera& camera, sf::RenderWindow& window, MainMenu main_menu, std::vector<NPC>& npcs, PauseMenu& pause_menu, SettingMenu& setting_menu); // промальовка об'єктів
-	void enemy_spawn(std::vector<Enemy>& enemies, int num_of_enemies, Map& map); // спавн ворогів
-	int num_of_killed_lvl_enemy; //кількість вбитих ворогів
+	void enemy_spawn(std::vector<Enemy>& enemies, Map& map); // спавн ворогів
 
 public:
 	void play_game(); // запуск гри

@@ -30,8 +30,6 @@ Character::Character(int size_x, int size_y, std::string image_way, sf::Vector2f
 
 	// встановлення позиції
 	character_sprite.setPosition(position);
-
-	character_health.set_health_bar_position(character_sprite.getPosition());
 }
 
 void Character::move_left(float delta_time)
