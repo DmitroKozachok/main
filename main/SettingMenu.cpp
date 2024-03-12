@@ -63,21 +63,31 @@ void SettingMenu::show(sf::RenderWindow& window, PlayerCamera& camera)
 	}
 }
 
+bool SettingMenu::is_continue_pressed(sf::RenderWindow& window, sf::Event event)
+{
+	if (gyper_text_arr[3].is_button_pressed(event))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void SettingMenu::click_processing(sf::RenderWindow& window, sf::Event event)
 {
-	if (gyper_text_arr[0].is_button_pressed(event))
-	{
-		window.setSize(sf::Vector2u{ 1280, 720 }); // кнопка 1280X720
-	}
-	else if (gyper_text_arr[1].is_button_pressed(event))
-	{
-		window.setSize(sf::Vector2u{ 1024, 768 }); // кнопка 1024X768
-	}
-	else if (gyper_text_arr[2].is_button_pressed(event))
-	{
-		window.setSize(sf::Vector2u{ 720, 360 }); // кнопка 720X360
-	}
-	else if (gyper_text_arr[3].is_button_pressed(event))
+	//if (gyper_text_arr[0].is_button_pressed(event))
+	//{
+	//	window.setSize(sf::Vector2u{ 1280, 720 }); // кнопка 1280X720
+	//}
+	//else if (gyper_text_arr[1].is_button_pressed(event))
+	//{
+	//	window.setSize(sf::Vector2u{ 1024, 768 }); // кнопка 1024X768
+	//}
+	//else if (gyper_text_arr[2].is_button_pressed(event))
+	//{
+	//	window.setSize(sf::Vector2u{ 720, 360 }); // кнопка 720X360
+	//}
+	if (gyper_text_arr[3].is_button_pressed(event))
 	{
 		set_status(false); // кнопка продовжити гру
 	}
