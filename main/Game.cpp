@@ -168,7 +168,7 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             if ((player.get_character_position().x > 512 && player.get_character_position().x < 512 + 128) && (player.get_character_position().y > 2560 && player.get_character_position().y < 2560 + 32)) {    // вихід
                 transition_player.teleport_player_pos({ player.get_character_position().x,2200 }, player, window, camera, 1250);
             }
-            if ((player.get_character_position().x > 512 && player.get_character_position().x < 512 + 128) && (player.get_character_position().y < 2432  && player.get_character_position().y > 2432 - 64)) {   //вхід
+            if ((player.get_character_position().x > 512 && player.get_character_position().x < 512 + 128) && (player.get_character_position().y < 2432 && player.get_character_position().y > 2432 - 64)) {   //вхід
                 transition_player.teleport_player_pos({ player.get_character_position().x,2700 }, player, window, camera, 1250);
             }
             //телепорт uгравця додому/вхід і вихід
@@ -182,13 +182,8 @@ void Game::event_processing(sf::RenderWindow& window, Player& player, float delt
             if ((player.get_character_position().x > 950 && player.get_character_position().x < 1020) && (player.get_character_position().y < 2950 && player.get_character_position().y > 2915)) {   //вхід
                 transition_player.teleport_player_pos({ 448,4400 }, player, window, camera, 1250);
             }
-            if ((player.get_character_position().x > 380 && player.get_character_position().x < 520) && (player.get_character_position().y < 4500 && player.get_character_position().y > 4438)) {   //вихід
+            if ((player.get_character_position().x > 380 && player.get_character_position().x < 520) && (player.get_character_position().y < 4450 + 128 && player.get_character_position().y > 4438 + 128)) {   //вихід
                 transition_player.teleport_player_pos({ 960,2960 }, player, window, camera, 1250);
-            }
-
-            //перевірка підбирання бутилки гравцем в магазині
-            if ((player.get_character_position().x > 500 && player.get_character_position().x < 580) && (player.get_character_position().y < 4225 && player.get_character_position().y > 4110)) {   //вхід
-                
             }
 
             if (!player.get_live_status()) {
