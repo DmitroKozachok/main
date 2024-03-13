@@ -69,6 +69,7 @@ void Game_Music::start_play_this_music()
 {
 	if (isMusic) {
 		this_music.setPlayingOffset(current_time_for_pause);
+		this_music.setLoop(true);	////
 		this_music.play();
 	}
 	else {
